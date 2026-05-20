@@ -1,0 +1,15 @@
+# Excludes non-theme files from Shopify CLI pushes (`shopify theme push`).
+# Shopify Admin manual zip uploads ignore this file — use scripts/package-theme.ps1 instead.
+
+apps-script/
+docs/
+scripts/
+
+# Repo-level files (not part of theme)
+README.md
+.env*
+.gitignore
+.shopifyignore
+
+# Generated
+theme-export-*.zip
