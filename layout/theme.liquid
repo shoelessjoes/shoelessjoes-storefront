@@ -628,6 +628,12 @@
     {%- if settings.head_code -%}
       {{- settings.head_code -}}
     {%- endif -%}
+
+    {%- comment -%} Shoeless Joe's brand layer — fonts + color tokens. Must load last. {%- endcomment -%}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    {{ 'shoeless-brand.css' | asset_url | stylesheet_tag }}
   </head>
 
   <body class="{{ request.page_type | handleize }}-template page-{{ request.path | handleize | default: 'index' }}{% if template.suffix != blank %} {{ template.suffix | handleize }}-template-suffix{% endif %} gradient button--hover-{{ settings.animations_hover_buttons }}{% if settings.drawer_inset %} side-drawers-inset{% endif %} page-is-loading page-is-not-idle">

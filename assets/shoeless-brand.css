@@ -1,0 +1,76 @@
+/* ============================================================
+   SHOELESS JOE'S — Brand Layer
+   Loaded AFTER the theme's base CSS so these overrides win.
+   Controls: display/body fonts + brand color tokens.
+   Logo font (Empera) is baked into the logo image — not used here.
+   ============================================================ */
+
+/* ---- Brand color tokens (use anywhere in custom sections) ---- */
+:root {
+  --sj-navy:        #173B4E;
+  --sj-navy-dark:   #0E2535;
+  --sj-gold:        #DDA852;
+  --sj-gold-light:  #F0C96A;
+  --sj-gold-dark:   #8B6200;
+  --sj-cream:       #F5EEDC;
+  --sj-cream-2:     #EDE0C0;
+  --sj-border:      #C8B98A;
+  --sj-light:       #FAF6EE;
+  --sj-red:         #B83225;
+  --sj-green:       #1A6B40;
+  --sj-text:        #1A2935;
+  --sj-muted:       #5A7285;
+}
+
+/* ---- Font overrides ----
+   Bebas Neue for all headings, Roboto for body.
+   !important on the custom properties guarantees these win over the
+   theme's inline :root declarations regardless of source order. */
+:root {
+  --font-heading-family: 'Bebas Neue', 'Francois One', 'Oswald', sans-serif !important;
+  --font-heading-weight: 400 !important;
+  --font-body-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+/* Bebas Neue is all-caps and condensed — needs a touch of tracking and
+   tighter line-height to read well at display sizes. */
+h1, h2, h3, h4, h5, h6,
+.h0, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--font-heading-family);
+  letter-spacing: 0.03em;
+  line-height: 1.05;
+}
+
+/* Body text stays Roboto, comfortable reading weight. */
+body {
+  font-family: var(--font-body-family);
+}
+
+/* ---- Utility classes for custom sections ---- */
+.sj-mono { font-family: 'Roboto Mono', ui-monospace, monospace; }
+
+.sj-eyebrow {
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: var(--sj-gold-dark);
+}
+
+/* Brand pattern band — repeating batter silhouette on navy.
+   Drop class="sj-pattern-band" on a section wrapper to use it.
+   (Pattern image to be added to assets/ as sj-pattern.png if/when exported.) */
+.sj-pattern-band {
+  background-color: var(--sj-navy);
+  color: var(--sj-cream);
+}
+
+/* Gold divider rule, echoes the logo's underline treatment. */
+.sj-rule {
+  height: 3px;
+  width: 64px;
+  background: var(--sj-gold);
+  border: 0;
+  margin: 0.75rem 0;
+}
