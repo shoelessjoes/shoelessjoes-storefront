@@ -1,80 +1,64 @@
 # PSA Pricing & Turnaround Times
 
-Reference for the PSA grading form and printable pricing brochure.
+Authoritative pricing for the PSA form, landing page, and printable brochure. The form's `TIERS` object in `assets/ShoelessJoes_PSA_ShopifyAsset.html` must match this doc.
 
-> ⚠️ **Turnaround times need updating.** PSA changed their published turnarounds recently. Numbers in this doc reflect the previous schedule and **must be verified against PSA's current published rates before the next form/brochure deploy.** See [psacard.com/services/](https://www.psacard.com/services/) for current values.
+## Pricing model
 
----
+- **Customer price = PSA base price + $2.00/card markup.**
+- **Add-ons (per card):** $2 Prep/Entry (sleeve + wipe + entry), $3 Review (yes/no grading recommendation). These are independent — both = $5.
+- **Shipping:** NOT charged upfront. Return shipping and any PSA upcharges are **invoiced when cards return**, based on insured/declared value. In-store pickup is free.
 
-## PSA — Standard (base + $5/card markup)
+## Submission cadence (first choice on the form)
 
-| Tier | Price | Turnaround (verify) |
+The form opens with a required **Weekly vs Monthly** choice — it's the first decision, applies to the whole form, and tags the resulting Shopify order `psa-weekly` or `psa-monthly`.
+
+- **Monthly:** held until the monthly run so Value Bulk's 50-card minimum (raised from 20 on 5/18) can be met. All tiers available.
+- **Weekly:** ships on the next weekly run no matter the count. **Value Bulk unavailable** — graded at Value tier and up.
+
+Mixed cadence = two separate submissions (two forms).
+
+## PSA Standard ($2 markup)
+
+| Tier | Customer price | Turnaround (business days) |
 |---|---|---|
-| Value Bulk | $29.99 | _verify with PSA_ |
-| Value | $37.99 | _verify with PSA_ |
-| Value Plus | $54.99 | _verify with PSA_ |
-| Value Max | $69.99 | _verify with PSA_ |
-| Regular | $84.99 | _verify with PSA_ |
-| Express | $154.00 | _verify with PSA_ |
-| Super Express | $304.00 | _verify with PSA_ |
-| Walk-Through | $604.00 | _verify with PSA_ |
+| Value Bulk | $26.99 | 140–160 (Monthly only) |
+| Value | $34.99 | 100–120 |
+| Value Plus | $51.99 | 60–80 |
+| Value Max | $66.99 | 40–50 |
+| Regular | $81.99 | 30–40 |
+| Express | $151.00 | 20–30 |
+| Super Express | $351.00 | 7–10 |
+| Walk-Through | $601.00 | 5–7 |
 
-## PSA — Dual Autograph
+## PSA Dual Autograph ($2 markup — confirmed)
 
-| Tier | Price |
-|---|---|
-| Value Bulk | $37.99 |
-| Value | $47.99 |
-| Value Plus | $69.99 |
-| Value Max | $89.99 |
-| Regular | $109.99 |
-| Express | $204.00 |
-| Super Express | $404.00 |
-| Walk-Through | $804.00 |
+PSA base + $2/card. Confirmed against psacard.com. Dual has its own (slightly longer) turnarounds and Value Bulk is Collectors Club only.
 
----
+| Tier | Customer price | Turnaround |
+|---|---|---|
+| Value Bulk | $34.99 | 150–170 (Monthly only) |
+| Value | $44.99 | 110–130 |
+| Value Plus | $66.99 | 70–90 |
+| Value Max | $86.99 | 50–60 |
+| Regular | $106.99 | 40–50 |
+| Express | $201.00 | 30–40 |
+| Super Express | $471.00 | 10–15 |
+| Walk-Through | $801.00 | 7–9 |
 
-## TAG Grading
+## BGS / SGC / TAG
 
-| Tier | Price | Turnaround | Max Insured Value |
-|---|---|---|---|
-| Bulk | $19 | 45+ business days | $200 |
-| Basic | $22 | 30 business days | $300 |
-| Standard | $39 | 15 business days | $500 |
-| Express | $59 | 5–10 business days | $1,000 |
-| Priority | $149 | 2–3 business days | $2,500 |
-| Walkthrough | $299 | Same-day | $5,000 |
+Not yet priced in the form (stubbed as "Call/Other"). The sitemap calls for separate BGS, SGC, and TAG submission forms — those get built once pricing is provided. TAG pricing exists from an earlier draft but isn't wired into this PSA form.
 
----
-
-## BGS / SGC / CGC
-
-Pricing TBD. Form has tab scaffold; currently shows "Contact us to submit [grader] cards" message until CSV pricing is provided.
-
----
-
-## Add-On Services (per card)
+## Add-On Services
 
 | Service | Price |
 |---|---|
-| $3 Prep — semi-rigid sleeve + wipe | $3.00 / card |
-| $5 Review/Prep — prep + yes/no grading recommendation | $5.00 / card |
+| Prep / Entry — sleeve + wipe + order entry | $2.00 / card |
+| Review — yes/no grading recommendation | $3.00 / card |
 | Full Review + Restore | Variable — ask in store |
-| SlabShield Coverage | From $2.50 |
-| SlabNotify Alerts | Free |
 
-The `$3 Prep` and `$5 Review/Prep` options replaced the older per-batch "Card Cleaning" and "Review" line items. Now they're per-card checkboxes in the form.
+## Notes
 
----
-
-## Shipping Rates (flat-rate selector)
-
-| Card Count | Rate |
-|---|---|
-| 1 card | $13 |
-| 2–5 cards | $15 |
-| 6–30 cards | $20 |
-| 30+ cards | $30–$40 (manual review) |
-| Insurance | +$1.50 per $100 declared value |
-
-Auto-selected based on card count; customer can override. Insurance is a toggle that reveals a declared-value input.
+- Value Bulk minimum: **50 cards** (raised from 20 on 5/18/2026), enforced via the Monthly cadence requirement.
+- Super Express base rose $299 → $349 (the one tier whose customer price increased net of the markup change).
+- All other tiers' customer prices dropped $3 vs. the old $5-markup model.

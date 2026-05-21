@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PSA Grading Submission — Shoeless Joe's</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#173B4E;--navy2:#0e2535;--gold:#DDA852;--gold2:#F0C96A;--gold3:#8B6200;
+  --cream:#F5EEDC;--cream2:#EDE0C0;--border:#C8B98A;--light:#FAF6EE;
+  --mid:#7A9BAD;--white:#FFFFFF;--text:#1a2935;--muted:#5a7285;
+  --red:#B83225;--green:#1A6B40;--radius:6px;--sh:0 2px 12px rgba(23,59,78,.10);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Roboto',sans-serif;background:#D8CEB4;color:var(--text);min-height:100vh;padding-bottom:60px;}
+.hdr{background:var(--navy2);border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:100;box-shadow:0 3px 16px rgba(0,0,0,.35);}
+.hdr-inner{max-width:1000px;margin:0 auto;padding:0 20px;height:64px;display:flex;align-items:center;gap:14px;}
+.logo-shield{width:46px;height:46px;background:var(--gold);border-radius:3px 3px 50% 50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--navy2);flex-shrink:0;position:relative;}
+.logo-shield::after{content:'';position:absolute;inset:4px;background:var(--navy2);border-radius:2px 2px 46% 46%;z-index:0;}
+.logo-shield span{position:relative;z-index:1;color:var(--gold);}
+.hdr-div{width:1px;height:30px;background:rgba(221,168,82,.3);}
+.hdr-txt{flex:1;}
+.hdr-txt h1{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:2px;color:var(--gold);line-height:1;}
+.hdr-txt p{font-size:9px;color:var(--cream2);letter-spacing:2.5px;text-transform:uppercase;margin-top:2px;}
+.badge{background:rgba(221,168,82,.12);border:1px solid rgba(221,168,82,.35);border-radius:20px;padding:4px 13px;font-size:10px;color:var(--cream2);font-weight:600;letter-spacing:.8px;text-transform:uppercase;}
+.hero{background:var(--navy);padding:24px 20px 20px;text-align:center;border-bottom:2px solid var(--gold);}
+.hero h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:var(--white);}
+.hero p{font-size:12.5px;color:var(--cream2);margin-top:4px;}
+.pills{display:flex;justify-content:center;gap:7px;margin-top:11px;flex-wrap:wrap;}
+.pill{background:rgba(245,238,220,.07);border:1px solid rgba(221,168,82,.28);border-radius:20px;padding:3px 12px;font-size:10px;color:var(--cream2);font-weight:600;}
+.wrap{max-width:1000px;margin:22px auto 0;padding:0 14px;}
+.card{background:var(--white);border-radius:9px;box-shadow:var(--sh);margin-bottom:14px;overflow:hidden;border:.5px solid var(--border);}
+.card-hdr{background:var(--navy);padding:10px 18px;display:flex;align-items:center;gap:10px;}
+.sn{width:23px;height:23px;border-radius:50%;background:var(--gold);color:var(--navy2);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.card-hdr h3{font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--white);flex:1;}
+.card-hdr .sub{font-size:13px;color:var(--cream2);}
+.card-body{padding:16px 18px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.s2{grid-column:span 2;}
+.f{display:flex;flex-direction:column;gap:4px;}
+.f label{font-size:13px;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.8px;}
+.f label .r{color:var(--red);}
+.f label .o{color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0;font-size:12px;margin-left:3px;}
+input:not([type=checkbox]),select,textarea{width:100%;padding:8px 11px;border:1.5px solid var(--border);border-radius:var(--radius);font-family:'Roboto',sans-serif;font-size:15px;color:var(--text);background:var(--light);transition:border-color .15s,box-shadow .15s;outline:none;-webkit-appearance:none;appearance:none;}
+input:not([type=checkbox]):focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(221,168,82,.14);background:var(--white);}
+input:not([type=checkbox]).err,select.err{border-color:var(--red);}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%237A9BAD' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:30px;cursor:pointer;}
+.tbl-wrap{overflow-x:auto;margin:0 -18px;}
+table.ct{width:100%;border-collapse:collapse;font-size:13px;min-width:900px;}
+table.ct thead tr{background:var(--navy);}
+table.ct thead th{padding:9px 6px;color:var(--cream2);font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;text-align:center;white-space:nowrap;border-right:1px solid rgba(255,255,255,.06);}
+table.ct thead th:first-child{padding-left:14px;text-align:left;}
+table.ct thead th.gold{background:rgba(221,168,82,.18);color:var(--gold2);}
+table.ct tbody tr{border-bottom:1px solid #e8dfc8;}
+table.ct tbody tr:nth-child(even){background:var(--light);}
+table.ct td{padding:5px 4px;vertical-align:middle;text-align:center;}
+table.ct td input[type=checkbox]{pointer-events:all;cursor:pointer;width:16px;height:16px;accent-color:var(--navy);}
+input[type=checkbox]{
+  -webkit-appearance:checkbox !important;
+  appearance:checkbox !important;
+  accent-color:var(--navy);
+  cursor:pointer;
+  width:16px;height:16px;
+  min-width:16px;
+  background:none;border:none;padding:0;border-radius:0;
+  flex-shrink:0;
+}
+table.ct td:first-child{padding-left:12px;text-align:left;}
+.rn{width:19px;height:19px;border-radius:50%;background:var(--light);border:1.5px solid var(--border);display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--muted);}
+table.ct input,table.ct select{padding:5px 6px;font-size:13px;border-radius:4px;}
+.w-yr{width:50px;}.w-sm{width:52px;}.w-md{width:68px;}.w-lg{width:130px;}.w-val{width:60px;}.w-qty{width:40px;}
+/* Override global input width:100% inside the card table — needs higher specificity (0,2,1) */
+table.ct .w-yr{width:50px;max-width:50px;}
+table.ct .w-sm{width:52px;max-width:52px;}
+table.ct .w-md{width:68px;max-width:68px;}
+table.ct .w-lg{width:130px;max-width:130px;}
+table.ct .w-val{width:60px;max-width:60px;}
+table.ct .w-qty{width:40px;max-width:40px;text-align:center;-moz-appearance:textfield;}
+table.ct .w-qty::-webkit-inner-spin-button,
+table.ct .w-qty::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
+.tier-sel{width:82px;font-size:12px;font-weight:600;padding:5px 22px 5px 6px;}
+.grdr-sel{width:82px;font-size:12px;padding:5px 22px 5px 6px;}
+.del-btn{background:none;border:none;color:#ccc;cursor:pointer;font-size:14px;padding:2px 6px;transition:color .15s;}
+.del-btn:hover{color:var(--red);}
+.btn-add{display:flex;align-items:center;gap:6px;background:none;border:1.5px dashed var(--border);border-radius:6px;padding:8px 14px;color:var(--mid);font-size:14px;font-weight:600;cursor:pointer;width:100%;margin-top:8px;transition:all .18s;font-family:'Roboto',sans-serif;}
+.btn-add:hover{border-color:var(--gold);color:var(--gold3);background:rgba(221,168,82,.05);}
+.grp-preview{margin-top:14px;display:flex;flex-direction:column;gap:7px;}
+.no-grps{font-size:14px;color:var(--muted);padding:10px;text-align:center;border:1.5px dashed var(--border);border-radius:6px;}
+.grp{border-radius:7px;overflow:hidden;border:.5px solid var(--border);}
+.grp-hdr{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;}
+.grp-name{font-size:13px;font-weight:700;color:var(--white);}
+.grp-right{text-align:right;}
+.grp-cnt{font-size:12px;color:rgba(255,255,255,.65);}
+.grp-est{font-family:'Roboto Mono',monospace;font-size:15px;color:rgba(255,255,255,.92);}
+.grp-body{padding:7px 12px;display:flex;flex-wrap:wrap;gap:4px;background:var(--white);}
+.grp-tag{background:var(--light);border:.5px solid var(--border);border-radius:3px;padding:2px 7px;font-size:12px;color:var(--text);}
+.tot-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border-radius:8px;overflow:hidden;margin-top:14px;}
+.tc{background:var(--white);padding:10px 13px;display:flex;flex-direction:column;gap:2px;}
+.tc:last-child{background:var(--navy);}
+.tc label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);}
+.tc:last-child label{color:var(--cream2);}
+.tc .amt{font-family:'Roboto Mono',monospace;font-size:20px;font-weight:500;color:var(--navy);}
+.tc:last-child .amt{color:var(--gold);font-size:22px;}
+.deposit-notice{background:rgba(26,107,64,.07);border:1.5px solid rgba(26,107,64,.25);border-left:4px solid var(--green);padding:11px 14px;font-size:14px;margin-top:14px;border-radius:0 4px 4px 0;}
+.deposit-notice strong{color:var(--green);}
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.svc-tog{border:1.5px solid var(--border);border-radius:7px;padding:10px 12px;cursor:pointer;transition:all .15s;display:flex;align-items:flex-start;gap:10px;user-select:none;}
+.svc-tog:hover{border-color:var(--gold);background:rgba(221,168,82,.04);}
+.svc-tog.on{border-color:var(--navy);background:rgba(23,59,78,.05);}
+.svc-tog input[type=checkbox]{
+  width:18px !important;height:18px !important;
+  margin-top:2px;
+}
+.svc-chk{display:none;}
+.svc-name{font-size:15px;font-weight:600;color:var(--navy);}
+.svc-price{font-size:13px;color:var(--gold3);font-weight:700;margin-top:1px;}
+.svc-desc{font-size:13px;color:var(--muted);margin-top:2px;}.svc-status{font-size:13px;color:var(--muted);margin-top:6px;font-style:italic;transition:color .15s;}.svc-tog.on .svc-status{color:var(--navy);font-style:normal;font-weight:600;}
+.info{background:rgba(221,168,82,.09);border-left:3px solid var(--gold);padding:9px 13px;font-size:13px;margin-bottom:14px;}
+.info strong{color:var(--gold3);}
+.tc-list{list-style:none;display:flex;flex-direction:column;gap:4px;}
+.tc-list li{display:flex;gap:8px;padding:7px 10px;border-radius:5px;font-size:13px;line-height:1.5;}
+.tc-list li:nth-child(odd){background:var(--light);}
+.tc-num{width:19px;height:19px;flex-shrink:0;background:var(--navy);color:var(--gold2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;margin-top:1px;}
+.sig-wrap{border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+#sigCanvas{display:block;width:100%;height:88px;background:var(--light);cursor:crosshair;touch-action:none;}
+.sig-bar{background:var(--light);border-top:1px solid var(--border);padding:5px 9px;display:flex;align-items:center;font-size:13px;color:var(--muted);gap:9px;}
+.sig-bar button{background:none;border:1px solid var(--border);border-radius:4px;padding:2px 9px;font-size:13px;cursor:pointer;color:var(--muted);font-family:'DM Sans',sans-serif;}
+.sig-bar button:hover{border-color:var(--red);color:var(--red);}
+.submit-area{background:var(--white);border-radius:9px;padding:20px;box-shadow:var(--sh);text-align:center;border:.5px solid var(--border);}
+.btn-sub{background:var(--navy);color:var(--cream);border:none;border-radius:8px;padding:14px 38px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(23,59,78,.3);display:inline-flex;align-items:center;gap:9px;}
+.btn-sub:hover{background:var(--navy2);transform:translateY(-2px);}
+.btn-sub:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.spinner{display:none;width:16px;height:16px;border:2px solid rgba(245,238,220,.3);border-top-color:var(--cream);border-radius:50%;}
+.btn-sub.loading .spinner{display:block;animation:spin .7s linear infinite;}
+.btn-sub.loading .btn-txt{opacity:.6;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.status-msg{display:none;padding:11px 15px;border-radius:6px;font-size:12.5px;margin-top:12px;font-weight:500;}
+.status-msg.ok{display:block;background:rgba(26,107,64,.09);border:1.5px solid rgba(26,107,64,.28);color:#0f4d2a;}
+.status-msg.err{display:block;background:rgba(184,50,37,.08);border:1.5px solid rgba(184,50,37,.22);color:#7a1a10;}
+.status-msg.working{display:block;background:rgba(23,59,78,.06);border:1.5px solid rgba(23,59,78,.18);color:var(--navy);}
+.overlay{display:none;position:fixed;inset:0;background:rgba(14,37,53,.9);z-index:999;align-items:center;justify-content:center;padding:20px;}
+.overlay.show{display:flex;}
+.sbox{background:var(--white);border-radius:14px;padding:32px 40px;text-align:center;max-width:540px;width:100%;border:2px solid var(--gold);}
+.s-icon{width:60px;height:60px;border-radius:50%;background:rgba(26,107,64,.1);border:2.5px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px;}
+.sbox h2{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:var(--navy);}
+.sbox p{font-size:13px;color:var(--muted);margin-top:6px;}
+.s-id{background:var(--light);border-radius:7px;padding:9px 16px;margin:12px 0;font-family:'Roboto Mono',monospace;font-size:15px;color:var(--navy);}
+.s-grps{text-align:left;margin:12px 0;display:flex;flex-direction:column;gap:5px;}
+.s-grp{border-radius:5px;padding:7px 11px;display:flex;justify-content:space-between;align-items:center;}
+.sg-name{font-size:11px;font-weight:600;color:var(--white);}
+.sg-info{font-size:10.5px;color:rgba(255,255,255,.7);}
+.s-actions{display:flex;flex-direction:column;gap:8px;margin-top:18px;}
+.btn-dl{background:var(--green);color:white;border:none;border-radius:7px;padding:11px 24px;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;width:100%;}
+.btn-dl-navy{background:var(--navy);}
+.btn-ghost{background:none;border:1.5px solid var(--border);border-radius:7px;padding:9px;cursor:pointer;font-family:'Roboto',sans-serif;font-size:12px;color:var(--muted);width:100%;}
+.shopify-lnk{font-size:11px;color:var(--mid);margin-top:8px;display:block;}
+.shopify-lnk a{color:var(--navy);font-weight:600;}
+.fulfill-note{background:rgba(23,59,78,.05);border:1px solid rgba(23,59,78,.15);border-radius:6px;padding:10px 14px;font-size:11px;color:var(--navy);margin-top:10px;text-align:left;line-height:1.6;}
+.fulfill-note strong{color:var(--gold3);}
+
+/* ── TABLET (max 860px) ── */
+@media(max-width:860px){
+  .wrap{padding:0 10px;}
+  .hdr-badge{display:none;}
+  .hero h2{font-size:22px;}
+  .hero-pills{gap:5px;}
+  .pill{font-size:9px;padding:3px 9px;}
+  .tot-strip{grid-template-columns:repeat(3,1fr) !important;}
+}
+
+/* ── MOBILE (max 600px) ── */
+@media(max-width:600px){
+  .hdr-inner{padding:0 12px;height:56px;gap:10px;}
+  .logo-shield{width:36px;height:36px;font-size:15px;}
+  .hdr-div{display:none;}
+  .hdr-txt h1{font-size:16px;}
+  .hdr-txt p{font-size:8px;}
+  .hero{padding:18px 14px 16px;}
+  .hero h2{font-size:20px;letter-spacing:2px;}
+  .hero p{font-size:11px;}
+  .hero-pills{display:none;}
+  .wrap{padding:0 8px;margin-top:14px;}
+  .card-hdr{padding:9px 14px;}
+  .card-hdr h3{font-size:11px;letter-spacing:1px;}
+  .card-hdr .sub{display:none;}
+  .card-body{padding:12px 14px;}
+  .g2,.g3{grid-template-columns:1fr;}
+  .s2{grid-column:span 1;}
+  .svc-grid{grid-template-columns:1fr;}
+  .tot-strip{grid-template-columns:1fr 1fr !important;}
+  .tc .amt{font-size:15px;}
+  .tc:last-child .amt{font-size:17px;}
+
+  /* Card table — horizontal scroll with sticky first cols */
+  .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -14px;}
+  .tbl-wrap::after{
+    content:'← scroll →';
+    display:block;
+    text-align:center;
+    font-size:10px;
+    color:var(--muted);
+    padding:4px;
+    background:var(--light);
+  }
+  table.ct{min-width:700px;}
+  table.ct input,table.ct select{font-size:12px;}
+
+  /* Groups preview */
+  .grp-hdr{flex-direction:column;align-items:flex-start;gap:2px;}
+  .grp-right{text-align:left;}
+
+  /* Submit area */
+  .submit-area{padding:16px 14px;}
+  .btn-sub{font-size:17px;padding:13px 28px;width:100%;justify-content:center;}
+
+  /* Success overlay */
+  .sbox{padding:24px 20px;}
+  .sbox h2{font-size:20px;}
+
+  /* Offer section */
+  #offerNotesRow textarea{font-size:14px;}
+
+  /* Signature canvas — bigger on mobile */
+  #sigCanvas{height:110px;}
+
+  /* Terms checkmark */
+  #agreeCheck{width:20px !important;height:20px !important;}
+}
+
+/* ── SMALL PHONE (max 400px) ── */
+@media(max-width:400px){
+  .hdr-txt h1{font-size:14px;}
+  .hero h2{font-size:18px;}
+  .btn-sub{font-size:15px;letter-spacing:2px;}
+}
+</style>
+</head>
+<body>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════════════
+   CREDENTIALS — Fill these in before deploying
+   See setup instructions in your Gmail drafts
+   ═══════════════════════════════════════════════════════════════════════════ */
+const CONFIG = {
+  SHOPIFY_STORE:   'qebynk-b0.myshopify.com',  // not secret — used only for the admin link
+  LOCATION_ID:     '72115847233',
+  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzDxboCgyqR2WmB21VYQ2w8DKI3JY-Mp_6NZph8QFP3EyLbwjJ1SkrBcSQzd8H7yfjuDg/exec',       // paste your /exec deployment URL
+  SCRIPT_SECRET:   'SJ-PSA-2024',                       // must match SECRET_KEY in Apps Script
+  // SHOPIFY_TOKEN is intentionally NOT here — it lives only in the Apps Script (Script Properties),
+  // so it is never exposed in this public theme asset.
+};
+</script>
+
+<!-- ── HEADER ───────────────────────────────────────────────────────────── -->
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="logo-shield"><span>SJ</span></div>
+    <div class="hdr-div"></div>
+    <div class="hdr-txt">
+      <h1>PSA Grading Submission</h1>
+      <p>Shoeless Joe's Cards &amp; Collectibles &nbsp;·&nbsp; Est. 1992 &nbsp;·&nbsp; Cincinnati, OH</p>
+    </div>
+    <div class="badge hdr-badge">PSA Authorized Agent</div>
+  </div>
+</div>
+
+<!-- ── HERO ─────────────────────────────────────────────────────────────── -->
+<div class="hero">
+  <h2>Card Grading Submission Form</h2>
+  <p>Fill out the form below — cards are automatically grouped into separate PSA submission batches</p>
+  <div class="pills">
+    <span class="pill">✓ PSA Authorized Grading Agent</span>
+    <span class="pill">✓ Upfront Pricing — No Surprises</span>
+    <span class="pill">✓ Weekly &amp; Monthly Submissions</span>
+    <span class="pill">✓ Est. 1992</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<style>
+  .cad-gate{background:var(--navy);border:2px solid var(--gold);border-radius:11px;padding:20px 22px;margin-bottom:18px;}
+  .cad-gate .cg-title{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:.04em;color:var(--gold);margin-bottom:3px;}
+  .cad-gate .cg-sub{font-size:12.5px;color:var(--cream2);margin-bottom:14px;}
+  .cad-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .cad-tog{text-align:left;padding:15px 16px;border:2px solid rgba(245,238,220,.25);border-radius:9px;background:rgba(245,238,220,.04);color:var(--cream2);cursor:pointer;transition:.16s;}
+  .cad-tog:hover{border-color:var(--gold);}
+  .cad-tog.active{background:var(--cream);border-color:var(--gold);}
+  .cad-tog .ct-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.04em;color:var(--cream);}
+  .cad-tog.active .ct-name{color:var(--navy);}
+  .cad-tog .ct-desc{font-size:11.5px;line-height:1.45;margin-top:3px;color:rgba(245,238,220,.7);}
+  .cad-tog.active .ct-desc{color:var(--muted);}
+  @media(max-width:560px){.cad-opts{grid-template-columns:1fr;}}
+</style>
+
+<div class="cad-gate">
+  <div class="cg-title">First, choose your submission run</div>
+  <div class="cg-sub">PSA's bulk minimum is now 50+ cards per era &mdash; so Value Bulk pricing is only available on the next <strong>Monthly</strong> run. Weekly submissions go out no matter what, graded at the Value tier.</div>
+  <div class="cad-opts">
+    <button type="button" id="cad_weekly" class="cad-tog" onclick="setCadence('weekly')">
+      <div class="ct-name">Weekly PSA</div>
+      <div class="ct-desc">Ships on the next weekly run no matter the count. Value tier and up &mdash; Value Bulk not available.</div>
+    </button>
+    <button type="button" id="cad_monthly" class="cad-tog active" onclick="setCadence('monthly')">
+      <div class="ct-name">Monthly PSA</div>
+      <div class="ct-desc">Held for the monthly run so the 50-card Value Bulk minimum can be met for the lowest per-card price.</div>
+    </button>
+  </div>
+  <div id="cadNote" style="display:none;"></div>
+</div>
+
+<form id="mainForm" novalidate>
+
+<!-- 1. CUSTOMER -->
+<div class="card">
+  <div class="card-hdr"><div class="sn">1</div><h3>Customer Information</h3></div>
+  <div class="card-body">
+    <div class="g2">
+      <div class="f"><label>First Name <span class="r">*</span></label><input type="text" id="first" placeholder="John" required></div>
+      <div class="f"><label>Last Name <span class="r">*</span></label><input type="text" id="last" placeholder="Smith" required></div>
+      <div class="f"><label>Email <span class="r">*</span></label><input type="email" id="email" placeholder="john@example.com" required></div>
+      <div class="f"><label>Phone <span class="o">(optional)</span></label><input type="tel" id="phone" placeholder="(555) 555-5555"></div>
+      <div class="f"><label>PSA Customer # <span class="o">(if known)</span></label><input type="text" id="psaNum" placeholder="PSA-XXXXXXXX"></div>
+      <div class="f"><label>Drop-Off Date <span class="r">*</span></label><input type="date" id="order_date" required></div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. CARDS -->
+<div class="card">
+  <div class="card-hdr">
+    <div class="sn">2</div><h3>Card Submission List</h3>
+    <span class="sub" id="cardCountLabel">0 cards · 0 submissions</span>
+  </div>
+  <div class="card-body" style="padding-bottom:0;">
+    <div class="info">
+      <strong>How it works:</strong> Set the Grader and Tier per card row. Cards sharing the same grader + tier are grouped into one PSA submission and become one line item on your Shopify order. Mark that line item fulfilled in Shopify when that batch returns and the customer picks it up.
+    </div>
+    <div class="tbl-wrap">
+      <table class="ct">
+        <thead><tr>
+          <th style="width:30px">#</th>
+          <th style="width:50px">Year</th>
+          <th>Brand</th>
+          <th>Set</th>
+          <th style="width:52px">Card #</th>
+          <th>Player / Card Name</th>
+          <th style="width:62px">Value $</th>
+          <th style="width:38px">Qty</th>
+          <th class="gold" style="width:84px">Grader</th>
+          <th class="gold" style="width:88px">Tier</th>
+          <th class="gold" style="width:40px">Prep<br><span style="font-size:8px;font-weight:400;">$3</span></th>
+          <th class="gold" style="width:44px">Review<br><span style="font-size:8px;font-weight:400;">$5</span></th>
+          <th style="width:28px"></th>
+        </tr></thead>
+        <tbody id="cardRows"></tbody>
+      </table>
+    </div>
+    <div style="padding:8px 18px 14px;">
+      <button type="button" class="btn-add" onclick="addRow()"><span style="font-size:16px;line-height:1">+</span> Add Card</button>
+    </div>
+  </div>
+  <div style="background:var(--light);border-top:1px solid var(--border);padding:14px 18px;">
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--navy);margin-bottom:8px;">Submission Groups — Auto-Detected</div>
+    <div id="grpPreview"><div class="no-grps">Add cards above to see how they'll group into separate PSA submissions</div></div>
+    <div class="tot-strip" style="grid-template-columns:repeat(5,1fr);">
+      <div class="tc"><label>Cards</label><div class="amt" id="tot_cards">0</div></div>
+      <div class="tc"><label>Groups</label><div class="amt" id="tot_groups">0</div></div>
+      <div class="tc"><label>PSA Fees</label><div class="amt" id="tot_psa">$0</div></div>
+      <div class="tc"><label>Add-Ons</label><div class="amt" id="tot_addons">$0</div></div>
+      <div class="tc"><label>Due Upfront</label><div class="amt" id="tot_grand">$0</div></div>
+    </div>
+    <div style="font-size:10px;color:var(--muted);margin-top:4px;text-align:right;">
+      Total declared value: <span id="tot_declared" style="font-weight:600;color:var(--navy);">$0</span> &nbsp;·&nbsp; Return shipping &amp; any PSA upcharges are invoiced when your cards come back
+    </div>
+    <div class="deposit-notice">
+      <strong>Payment is collected upfront at drop-off.</strong> Each submission group becomes one line item on your Shopify order. When a batch returns from PSA, mark that line item <em>fulfilled</em> in Shopify — employees can then see what's ready for pickup just by looking up the customer.
+    </div>
+  </div>
+</div>
+
+<!-- 3. SERVICES -->
+<div class="card">
+  <div class="card-hdr"><div class="sn">3</div><h3>Optional Add-On Services</h3><span class="sub">Click a service to apply to all cards</span></div>
+  <div class="card-body">
+    <div class="svc-grid" style="grid-template-columns:1fr 1fr 1fr;">
+
+      <!-- $2 Prep toggle -->
+      <div class="svc-tog" id="tog_prep" onclick="applyToAll('prep',this)">
+        <div style="width:100%;">
+          <div class="svc-name">$2 Prep / Entry</div>
+          <div class="svc-price">$2.00 / card</div>
+          <div class="svc-desc">Semi-rigid sleeve + one wipe-down. Standard handling prep and order entry before submission.</div>
+          <div class="svc-status" id="status_prep">Click to apply to all cards</div>
+        </div>
+      </div>
+
+      <!-- $3 Review toggle -->
+      <div class="svc-tog" id="tog_rev" onclick="applyToAll('rev',this)">
+        <div style="width:100%;">
+          <div class="svc-name">$3 Review</div>
+          <div class="svc-price">$3.00 / card</div>
+          <div class="svc-desc">A yes/no grading recommendation before submission. Add Prep separately if you'd also like a sleeve.</div>
+          <div class="svc-status" id="status_rev">Click to apply to all cards</div>
+        </div>
+      </div>
+
+      <!-- Full Review + Restore checkbox -->
+      <div class="svc-tog" id="tog_restore" style="flex-direction:column;align-items:stretch;">
+        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;width:100%;">
+          <input type="checkbox" name="svc_restore" id="svc_restore"
+                 style="width:18px;height:18px;margin-top:3px;accent-color:var(--navy);flex-shrink:0;"
+                 onchange="toggleSvc(this.closest('.svc-tog'));">
+          <div>
+            <div class="svc-name">Full Review + Restore</div>
+            <div class="svc-price">Variable — ask in store</div>
+            <div class="svc-desc">Full condition review and restoration assessment. Pricing depends on card condition and scope of work.</div>
+          </div>
+        </label>
+        <div id="restoreNote" style="display:none;margin-top:10px;">
+          <label style="font-size:13px;font-weight:600;color:var(--navy);display:block;margin-bottom:4px;">Notes for restore request</label>
+          <textarea id="restoreNotes" name="restoreNotes" rows="2"
+                    placeholder="Describe the card(s) and what restoration you are looking for..."
+                    style="width:100%;box-sizing:border-box;font-size:13px;padding:7px 10px;border:1.5px solid var(--border);border-radius:5px;resize:vertical;"></textarea>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- 4. BUY OFFER -->
+<div class="card">
+  <div class="card-hdr">
+    <div class="sn">4</div>
+    <h3>Shoeless Joe's Buy Offer</h3>
+    <span class="sub">Optional — no obligation</span>
+  </div>
+  <div class="card-body">
+    <div class="info" style="margin-bottom:14px;">
+      <strong>Interested in selling your graded cards?</strong> Once your cards return from PSA we can make you a purchase offer on any or all of them. Just let us know below and we'll reach out when the grades are in. Completely optional, zero obligation.
+    </div>
+    <div class="svc-grid">
+      <label class="svc-tog">
+        <input type="checkbox" name="svc_offer" id="offerCheck" onchange="toggleSvc(this.closest('.svc-tog'));">
+        <div class="svc-chk"></div>
+        <div>
+          <div class="svc-name">Yes &#8212; offer on all my graded cards</div>
+          <div class="svc-price">No obligation</div>
+          <div class="svc-desc">We'll contact you with a purchase offer once all grades return</div>
+        </div>
+      </label>
+      <label class="svc-tog">
+        <input type="checkbox" name="svc_offer_partial" id="offerPartial" onchange="toggleSvc(this.closest('.svc-tog'));">
+        <div class="svc-chk"></div>
+        <div>
+          <div class="svc-name">Yes &#8212; offer on specific cards only</div>
+          <div class="svc-price">No obligation</div>
+          <div class="svc-desc">I'll specify which cards below</div>
+        </div>
+      </label>
+    </div>
+    <div id="offerNotesRow" style="display:none;margin-top:12px;">
+      <div class="f">
+        <label>Which cards are you open to selling? <span class="o">(optional)</span></label>
+        <textarea id="offerNotes" rows="2" placeholder="e.g. The Charizard if it grades PSA 10, all the football autos, etc."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. PAYMENT -->
+<div class="card">
+  <div class="card-hdr"><div class="sn">5</div><h3>Payment &amp; Shipping</h3></div>
+  <div class="card-body">
+    <div class="g2">
+      <div class="f">
+        <label>Payment Method <span class="r">*</span></label>
+        <select id="payment" required>
+          <option value="">&#8212; Select &#8212;</option>
+          <option value="Cash">Cash</option>
+          <option value="Credit Card">Credit Card</option>
+          <option value="Visa">Visa</option>
+          <option value="MasterCard">MasterCard</option>
+          <option value="Amex">Amex</option>
+          <option value="PayPal">PayPal</option>
+          <option value="Venmo">Venmo</option>
+          <option value="Zelle">Zelle</option>
+          <option value="Cash App">Cash App</option>
+          <option value="Invoiced">Invoiced (Pay Later)</option>
+          <option value="Unpaid">Unpaid</option>
+        </select>
+      </div>
+      <div class="f">
+        <label>Return Shipping</label>
+        <div style="font-size:13px;color:var(--muted);padding:9px 11px;border:1.5px dashed var(--border);border-radius:var(--radius);background:var(--light);line-height:1.5;">
+          Return shipping &amp; any PSA upcharges are <strong style="color:var(--navy);">invoiced when your cards return</strong>, based on insured/declared value. In-store pickup is always free.
+        </div>
+        <input type="hidden" id="shipping_pref" value="Invoiced on return">
+      </div>
+      <div class="f s2">
+        <label>Comments / Special Instructions <span class="o">(optional)</span></label>
+        <textarea id="comments" rows="2" placeholder="Special handling, condition notes, etc."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. TERMS -->
+<div class="card">
+  <div class="card-hdr"><div class="sn">6</div><h3>Terms &amp; Signature</h3></div>
+  <div class="card-body">
+    <ul class="tc-list">
+      <li><div class="tc-num">1</div><div>PSA fees and selected add-ons are collected upfront at drop-off. Return shipping and any PSA upcharges are invoiced when your cards come back.</div></li>
+      <li><div class="tc-num">2</div><div>Return shipping cost depends on the number of cards returning and their insured/declared value. In-store pickup is free.</div></li>
+      <li><div class="tc-num">3</div><div>Shoeless Joe's is not liable for loss or damage beyond the insurance carried on return shipment. Insurance is a service, not an admission of liability.</div></li>
+      <li><div class="tc-num">4</div><div>Shoeless Joe's is not responsible for grades received. PSA grading is subjective; no specific grade is guaranteed.</div></li>
+      <li><div class="tc-num">5</div><div>Grades and cards will not be released until all fees are paid in full.</div></li>
+      <li><div class="tc-num">6</div><div>Orders not collected within 6 months of return will be considered forfeited. We'll contact you when items arrive and at 3 months.</div></li>
+      <li><div class="tc-num">7</div><div>Cards spanning multiple service tiers will be split into separate PSA submissions — each with its own ID and return timeline.</div></li>
+      <li><div class="tc-num">8</div><div>PSA's Terms &amp; Conditions also govern this submission. Visit PSAcard.com for the full agreement.</div></li>
+    </ul>
+    <div class="g2" style="margin-top:14px;">
+      <div class="f">
+        <label>Print Full Name <span class="r">*</span></label>
+        <input type="text" id="printName" placeholder="Your full legal name" required>
+      </div>
+      <div class="f" style="justify-content:flex-end;">
+        <label style="display:flex;align-items:flex-start;gap:10px;text-transform:none;letter-spacing:0;font-size:13px;font-weight:500;cursor:pointer;color:var(--text);line-height:1.4;">
+          <input type="checkbox" id="agreeCheck" style="width:16px;height:16px;accent-color:var(--navy);cursor:pointer;flex-shrink:0;margin-top:2px;" required>
+          I have read and agree to all terms above and PSA's Terms &amp; Conditions
+        </label>
+      </div>
+      <div class="f s2">
+        <label>Signature <span class="r">*</span></label>
+        <div class="sig-wrap">
+          <canvas id="sigCanvas" width="900" height="88"></canvas>
+          <div class="sig-bar">
+            <span>Draw your signature using mouse or finger</span>
+            <button type="button" onclick="clearSig()">Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUBMIT -->
+<div class="submit-area">
+  <button type="submit" class="btn-sub" id="submitBtn">
+    <div class="spinner"></div>
+    <span class="btn-txt">Submit Form</span>
+  </button>
+  
+  <div class="status-msg" id="statusMsg"></div>
+</div>
+
+</form>
+</div>
+
+<!-- SUCCESS OVERLAY -->
+<div class="overlay" id="overlay">
+  <div class="sbox">
+    <div class="s-icon">&#10003;</div>
+    <h2>Order Submitted!</h2>
+    <p>Shopify order created &middot; <strong id="sSubCnt">0</strong> PSA group(s) &middot; Collect payment at counter</p>
+    <div class="s-id" id="sMasterId">SJ-000000</div>
+    <div class="s-grps" id="sGrpsList"></div>
+    <div class="fulfill-note">
+      <strong>For employees:</strong> When a batch returns from PSA, find this order in Shopify POS by customer name and mark that submission group's line item as <em>Fulfilled</em>. The customer can then pick up those cards. Remaining unfulfilled line items stay on the order until their batches return.
+    </div>
+    <div class="shopify-lnk"><a id="shopifyLink" href="#" target="_blank">View order in Shopify Admin &#8594;</a></div>
+    <div class="s-actions">
+      <button class="btn-dl" onclick="downloadCSV()">&#8595; Download SlabTracker CSV</button>
+      <button class="btn-dl btn-dl-navy" onclick="downloadSummary()">&#8595; Download Order Summary</button>
+      <button class="btn-ghost" onclick="resetForm()">Submit Another Order</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── TIER DATA ─────────────────────────────────────────────────────────────────
+// Prices = PSA base + $2/card Shoeless Joe's markup. tt = PSA turnaround (business days). bulk = requires Monthly cadence (50-card min).
+const TIERS = {
+  "PSA":[
+    {v:"Bulk",       label:"Value Bulk",      p:26.99, sl:"Value Bulk (1980-Present)", tt:"140-160 days", bulk:true},
+    {v:"Bulk-TCG",   label:"Bulk TCG",        p:26.99, sl:"Bulk - TCG",                tt:"140-160 days", bulk:true},
+    {v:"Value",      label:"Value",           p:34.99, sl:"Value",                     tt:"100-120 days"},
+    {v:"Value+",     label:"Value Plus",      p:51.99, sl:"Value Plus",                tt:"60-80 days"},
+    {v:"Value Max",  label:"Value Max",       p:66.99, sl:"Value Max",                 tt:"40-50 days"},
+    {v:"Regular",    label:"Regular",         p:81.99, sl:"Regular",                   tt:"30-40 days"},
+    {v:"Express",    label:"Express",         p:151.00,sl:"Express",                   tt:"20-30 days"},
+    {v:"Super Exp",  label:"Super Express",   p:351.00,sl:"Super Express",             tt:"7-10 days"},
+    {v:"Walk-Thru",  label:"Walk-Through",    p:601.00,sl:"Walk-Through",              tt:"5-7 days"},
+    {v:"Review",     label:"Review",          p:0,     sl:"Review"},
+    {v:"Crossover",  label:"Crossover",       p:0,     sl:"Crossover"},
+    {v:"Reholder",   label:"Reholder",        p:0,     sl:"Reholder"},
+    {v:"Other",      label:"Other/Call",      p:0,     sl:"Other"},
+  ],
+  // PSA Dual Autograph: PSA base + $2 markup. Confirmed against psacard.com.
+  "PSA Dual":[
+    {v:"Bulk",       label:"Value Bulk",      p:34.99, sl:"Bulk",          tt:"150-170 days", bulk:true},
+    {v:"Value",      label:"Value",           p:44.99, sl:"Value",         tt:"110-130 days"},
+    {v:"Value+",     label:"Value Plus",      p:66.99, sl:"Value Plus",    tt:"70-90 days"},
+    {v:"Value Max",  label:"Value Max",       p:86.99, sl:"Value Max",     tt:"50-60 days"},
+    {v:"Regular",    label:"Regular",         p:106.99,sl:"Regular",       tt:"40-50 days"},
+    {v:"Express",    label:"Express",         p:201.00,sl:"Express",       tt:"30-40 days"},
+    {v:"Super Exp",  label:"Super Express",   p:471.00,sl:"Super Express", tt:"10-15 days"},
+    {v:"Walk-Thru",  label:"Walk-Through",    p:801.00,sl:"Walk-Through",  tt:"7-9 days"},
+    {v:"Other",      label:"Other/Call",      p:0,     sl:"Other"},
+  ],
+  "BGS":[{v:"Base",p:0,sl:"Base"},{v:"Standard",p:0,sl:"Standard"},{v:"Express",p:0,sl:"Express"},{v:"Priority",p:0,sl:"Priority"},{v:"Other",p:0,sl:"Other"}],
+  "SGC":[{v:"Bulk",p:0,sl:"Bulk"},{v:"TCG",p:0,sl:"Pokemon/TCG"},{v:"Other",p:0,sl:"Other"}],
+  "Examine":[{v:"Examine",p:0,sl:"Other"}],
+};
+const GRADER_FULL={"PSA":"PSA","PSA Dual":"PSA Dual (Autograph)","BGS":"BGS","SGC":"SGC","Examine":"Examine First"};
+const GRP_COL={"PSA":"#173B4E","PSA Dual":"#1A6B40","BGS":"#633806","SGC":"#4B1528","Examine":"#444441"};
+
+let rowCount=0,sigData=null,submittedData=null,masterSubId="",shopifyOrderId="";
+let submissionCadence='monthly';  // 'weekly' | 'monthly' — whole-form. Weekly hides Value Bulk (50-card min won't be met).
+
+function tierP(g,t){return(TIERS[g]||[]).find(x=>x.v===t)?.p||0;}
+function tierSL(g,t){return(TIERS[g]||[]).find(x=>x.v===t)?.sl||t;}
+function tierTT(g,t){return(TIERS[g]||[]).find(x=>x.v===t)?.tt||'';}
+
+// Tiers available for a grader given the current cadence. Weekly excludes Bulk tiers.
+function tiersFor(g){
+  return (TIERS[g]||TIERS["PSA"]).filter(t=>!(t.bulk && submissionCadence==='weekly'));
+}
+function tierOptionsHTML(g){
+  return tiersFor(g).map(t=>`<option value="${t.v}">${t.label||t.v}${t.p>0?' \u2014 $'+t.p:''}${t.tt?' \u00b7 '+t.tt:''}</option>`).join('');
+}
+
+function setCadence(c){
+  submissionCadence=c;
+  document.getElementById('cad_weekly').classList.toggle('active',c==='weekly');
+  document.getElementById('cad_monthly').classList.toggle('active',c==='monthly');
+  document.getElementById('cadNote').textContent = c==='weekly'
+    ? 'Weekly batch — ships to PSA on the next weekly run. Value Bulk is unavailable (it needs PSA\u2019s 50-card minimum, which weekly batches rarely reach).'
+    : 'Monthly batch — held until the monthly run so Value Bulk\u2019s 50-card minimum can be met for the best per-card price.';
+  // Rebuild every existing row's tier dropdown for the new cadence
+  document.querySelectorAll('[name$=_grdr]').forEach(sel=>{
+    const id=sel.name.match(/r(\d+)_grdr/)[1];
+    const ts=document.querySelector(`[name=r${id}_tier]`);
+    const cur=ts.value;
+    ts.innerHTML=tierOptionsHTML(sel.value);
+    if([...ts.options].some(o=>o.value===cur)) ts.value=cur;
+  });
+  updateTotals();
+}
+
+function addRow(){
+  rowCount++;const id=rowCount;
+  const tr=document.createElement('tr');tr.id=`row_${id}`;
+  const opts=tierOptionsHTML("PSA");
+  tr.innerHTML=`
+    <td><span class="rn">${id}</span></td>
+    <td><input type="text" class="w-yr" placeholder="2023" name="r${id}_yr"></td>
+    <td><input type="text" class="w-lg" placeholder="Topps, Panini..." name="r${id}_brand"></td>
+    <td><input type="text" class="w-md" placeholder="Chrome" name="r${id}_set"></td>
+    <td><input type="text" class="w-sm" placeholder="#213" name="r${id}_cnum"></td>
+    <td><input type="text" style="width:100%;min-width:110px" placeholder="Player / Card Name" name="r${id}_player"></td>
+    <td><input type="number" class="w-val" placeholder="150" min="0" name="r${id}_val" oninput="updateTotals()"></td>
+    <td><input type="number" class="w-qty" value="1" min="1" max="99" name="r${id}_qty" oninput="updateTotals()"></td>
+    <td><select class="grdr-sel" name="r${id}_grdr" onchange="syncTier(${id});updateTotals();"><option>PSA</option><option>PSA Dual</option><option>BGS</option><option>SGC</option><option>Examine</option></select></td>
+    <td><select class="tier-sel" name="r${id}_tier" onchange="updateTotals();">${opts}</select></td>
+    <td style="text-align:center;"><input type="checkbox" name="r${id}_prep" style="width:16px;height:16px;accent-color:var(--navy);cursor:pointer;display:block;margin:0 auto;" onchange="updateTotals()"></td>
+    <td style="text-align:center;"><input type="checkbox" name="r${id}_rev" style="width:16px;height:16px;accent-color:var(--navy);cursor:pointer;display:block;margin:0 auto;" onchange="updateTotals()"></td>
+    <td><button type="button" class="del-btn" onclick="removeRow(${id})">&#10005;</button></td>`;
+  document.getElementById('cardRows').appendChild(tr);updateTotals();updateServiceCounts();
+}
+
+function syncTier(id){
+  const g=document.querySelector(`[name=r${id}_grdr]`).value;
+  const ts=document.querySelector(`[name=r${id}_tier]`);
+  ts.innerHTML=tierOptionsHTML(g);
+}
+
+function removeRow(id){document.getElementById(`row_${id}`)?.remove();updateTotals();updateServiceCounts();}
+
+function getRows(){
+  return Array.from(document.querySelectorAll('#cardRows tr')).map(tr=>{
+    const ins=tr.querySelectorAll('input');const sels=tr.querySelectorAll('select');const cbs=tr.querySelectorAll('input[type=checkbox]');
+    return{year:ins[0]?.value||'',brand:ins[1]?.value||'',set:ins[2]?.value||'',cnum:ins[3]?.value||'',player:ins[4]?.value||'',
+           value:parseFloat(ins[5]?.value)||0,qty:parseInt(ins[6]?.value)||1,
+           grader:sels[0]?.value||'PSA',tier:sels[1]?.value||'Regular',
+           prep:cbs[0]?.checked||false,rev:cbs[1]?.checked||false};
+  });
+}
+
+function groupCards(rows){
+  const g={};
+  rows.forEach(r=>{const k=`${r.grader}__${r.tier}`;if(!g[k])g[k]={grader:r.grader,tier:r.tier,cards:[]};g[k].cards.push(r);});
+  return Object.values(g);
+}
+
+function calcShipping(){ return 0; } // Shipping invoiced on return — no upfront calculation.
+
+function updateTotals(){
+  const rows=getRows(),groups=groupCards(rows);
+  const total=rows.reduce((s,r)=>s+r.qty,0);
+  const totalDeclared=rows.reduce((s,r)=>s+(parseFloat(r.value)||0)*r.qty,0);
+  let psa=0;groups.forEach(g=>{psa+=tierP(g.grader,g.tier)*g.cards.reduce((s,c)=>s+c.qty,0);});
+  let add=0;
+  // Per-card services
+  const prepCount=rows.filter(r=>r.prep).reduce((s,r)=>s+r.qty,0);
+  const revCount =rows.filter(r=>r.rev).reduce((s,r)=>s+r.qty,0);
+  add+=prepCount*2; add+=revCount*3;
+  // Shipping & PSA upcharges are invoiced on return — not calculated here.
+  const fmt=n=>n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+  document.getElementById('tot_cards').textContent=total;
+  document.getElementById('tot_groups').textContent=groups.length;
+  document.getElementById('tot_psa').textContent='$'+fmt(psa);
+  document.getElementById('tot_addons').textContent='$'+fmt(add);
+  document.getElementById('tot_grand').textContent='$'+fmt(psa+add);
+  document.getElementById('tot_declared').textContent='$'+totalDeclared.toLocaleString();
+  document.getElementById('cardCountLabel').textContent=`${total} card${total!==1?'s':''} \u00b7 ${groups.length} submission${groups.length!==1?'s':''}`;
+  renderGroups(groups);
+}
+
+function renderGroups(groups){
+  const el=document.getElementById('grpPreview');
+  if(!groups.length){el.innerHTML='<div class="no-grps">Add cards above to see how they\'ll group into PSA submissions</div>';return;}
+  el.innerHTML='';
+  groups.forEach((g,i)=>{
+    const col=GRP_COL[g.grader]||'#173B4E';
+    const qty=g.cards.reduce((s,c)=>s+c.qty,0);
+    const p=tierP(g.grader,g.tier);
+    const tt=tierTT(g.grader,g.tier);
+    const est=p>0?'$'+(p*qty).toLocaleString()+' est.':'Call for price';
+    const d=document.createElement('div');d.className='grp';
+    d.innerHTML=`<div class="grp-hdr" style="background:${col};"><div class="grp-name">Sub #${i+1} \u2014 ${GRADER_FULL[g.grader]||g.grader} / ${tierSL(g.grader,g.tier)}${tt?' \u00b7 <span style="opacity:.75;font-weight:400;">'+tt+'</span>':''}</div><div class="grp-right"><div class="grp-cnt">${qty} card${qty!==1?'s':''}</div><div class="grp-est">${est}</div></div></div><div class="grp-body">${g.cards.map(c=>`<span class="grp-tag">${[c.year,c.brand,c.cnum,c.player].filter(Boolean).join(' ')||'(card)'}${c.qty>1?' \u00d7'+c.qty:''}</span>`).join('')}</div>`;
+    el.appendChild(d);
+  });
+}
+
+// SIGNATURE
+const canvas=document.getElementById('sigCanvas'),ctx=canvas.getContext('2d');let drawing=false;
+function gpos(e){const r=canvas.getBoundingClientRect(),sx=canvas.width/r.width,sy=canvas.height/r.height,s=e.touches?e.touches[0]:e;return{x:(s.clientX-r.left)*sx,y:(s.clientY-r.top)*sy};}
+canvas.addEventListener('mousedown',e=>{drawing=true;const p=gpos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);});
+canvas.addEventListener('mousemove',e=>{if(!drawing)return;const p=gpos(e);ctx.lineTo(p.x,p.y);ctx.strokeStyle='#173B4E';ctx.lineWidth=1.8;ctx.lineCap='round';ctx.stroke();});
+canvas.addEventListener('mouseup',()=>{drawing=false;sigData=canvas.toDataURL();});
+canvas.addEventListener('mouseleave',()=>{drawing=false;});
+canvas.addEventListener('touchstart',e=>{e.preventDefault();drawing=true;const p=gpos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);},{passive:false});
+canvas.addEventListener('touchmove',e=>{e.preventDefault();if(!drawing)return;const p=gpos(e);ctx.lineTo(p.x,p.y);ctx.strokeStyle='#173B4E';ctx.lineWidth=1.8;ctx.lineCap='round';ctx.stroke();},{passive:false});
+canvas.addEventListener('touchend',()=>{drawing=false;sigData=canvas.toDataURL();});
+function clearSig(){ctx.clearRect(0,0,canvas.width,canvas.height);sigData=null;}
+
+
+function updateServiceCounts(){
+  const rows = Array.from(document.querySelectorAll('#cardRows tr'));
+  const total = rows.length;
+  ['prep','rev'].forEach(type => {
+    const checked = rows.filter(tr => {
+      const cb = tr.querySelector('input[name$="_' + type + '"]');
+      return cb && cb.checked;
+    }).length;
+    const tog = document.getElementById('tog_' + type);
+    const statusEl = document.getElementById('status_' + type);
+    if (!tog || !statusEl) return;
+    if (total === 0) {
+      tog.classList.remove('on');
+      statusEl.textContent = 'Click to apply to all cards';
+    } else if (checked === 0) {
+      tog.classList.remove('on');
+      statusEl.textContent = 'Click to apply to all cards';
+    } else if (checked === total) {
+      tog.classList.add('on');
+      statusEl.textContent = 'Applied to all ' + total + ' card' + (total===1?'':'s') + ' — click to remove';
+    } else {
+      tog.classList.add('on');
+      statusEl.textContent = 'Applied to ' + checked + ' of ' + total + ' card' + (total===1?'':'s') + ' — click to toggle all';
+    }
+  });
+}
+
+function applyToAll(type, el){
+  const rows = Array.from(document.querySelectorAll('#cardRows tr'));
+  if (rows.length === 0) return;
+  const cbs = rows.map(tr => tr.querySelector('input[name$="_' + type + '"]')).filter(Boolean);
+  const allChecked = cbs.every(cb => cb.checked);
+  cbs.forEach(cb => { cb.checked = !allChecked; });
+  updateTotals();
+  updateServiceCounts();
+}
+function toggleSvc(el){
+  const label=el.classList.contains('svc-tog')?el:el.closest('.svc-tog');
+  if(label) label.classList.toggle('on',label.querySelector('input').checked);
+  // Show/hide restore notes
+  const rst=document.querySelector('[name=svc_restore]')?.checked;
+  const rnEl=document.getElementById('restoreNote');
+  if(rnEl) rnEl.style.display=rst?'block':'none';
+  // Show/hide offer notes
+  const offerPartial=document.querySelector('[name=svc_offer_partial]')?.checked;
+  const offerRow=document.getElementById('offerNotesRow');
+  if(offerRow) offerRow.style.display=offerPartial?'block':'none';
+}
+
+function gatherData(){
+  const g=id=>document.getElementById(id)?.value||'';
+  return{first:g('first'),last:g('last'),email:g('email'),phone:g('phone'),psaNum:g('psaNum'),
+         cadence:submissionCadence,
+         order_date:g('order_date'),payment:g('payment'),shipping:g('shipping_pref'),comments:g('comments'),printName:g('printName'),
+         restore:document.querySelector('[name=svc_restore]')?.checked||false,
+         restoreNotes:document.getElementById('restoreNotes')?.value||'',
+         rows:getRows(),sigData,totalDeclared:getRows().reduce((s,r)=>s+(parseFloat(r.value)||0)*r.qty,0),
+         offerInterest: document.querySelector('[name=svc_offer]')?.checked ? 'All cards' :
+                        document.querySelector('[name=svc_offer_partial]')?.checked ? 'Specific cards' : 'No',
+         offerNotes: document.getElementById('offerNotes')?.value||''}; 
+}
+
+function buildCSV(data){
+  const esc=v=>{const s=String(v??'');return(s.includes(',')||s.includes('"')||s.includes('\n'))?`"${s.replace(/"/g,'""')}"`  :s;};
+  const groups=groupCards(data.rows);
+  const hdr='email,first,last,phone,address1,address2,city,state,zip,order_date,grader,service_level,cards,submissionID,payment,exam,SlabShield,SlabNotify,Comment';
+  const rows=[hdr];
+  groups.forEach((g,i)=>{
+    const qty=g.cards.reduce((s,c)=>s+c.qty,0);
+    const comment='~'+g.cards.map(c=>{let d=[c.year,c.brand,c.set,c.cnum,c.player].filter(Boolean).join(' ');if(c.prep)d+=' [PREP]';if(c.rev)d+=' [REV]';return d;}).join(' ~');
+    rows.push([esc(data.email),esc(data.first),esc(data.last),esc(data.phone),'','','','','',esc(data.order_date),
+               esc(GRADER_FULL[g.grader]||g.grader),esc(tierSL(g.grader,g.tier)),esc(qty),esc(`${masterSubId}-${i+1}`),
+               esc(data.payment),esc('FALSE'),esc(data.slabshield),esc(data.slabnotify),esc(comment)].join(','));
+  });
+  return rows.join('\n');
+}
+
+function downloadCSV(){if(!submittedData)return;const b=new Blob([buildCSV(submittedData)],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`SlabTracker_${masterSubId}.csv`;a.click();}
+
+function downloadSummary(){
+  if(!submittedData)return;const d=submittedData,groups=groupCards(d.rows);
+  const total=d.rows.reduce((s,r)=>s+r.qty,0);let psaEst=0;
+  groups.forEach(g=>{psaEst+=tierP(g.grader,g.tier)*g.cards.reduce((s,c)=>s+c.qty,0);});
+  const lines=["SHOELESS JOE'S CARDS & COLLECTIBLES — PSA SUBMISSION",
+    `Master Order ID: ${masterSubId}${shopifyOrderId?' | Shopify Order: #'+shopifyOrderId:''}`,
+    `Date: ${d.order_date} | Customer: ${d.first} ${d.last} | Email: ${d.email} | Phone: ${d.phone||'--'}`,
+    `Payment: ${d.payment} | Shipping: ${d.shipping}`,
+    `Total Cards: ${total} | Groups: ${groups.length} | PSA Est: $${psaEst.toLocaleString()}`,''  ,
+    ...groups.flatMap((g,i)=>{const qty=g.cards.reduce((s,c)=>s+c.qty,0),p=tierP(g.grader,g.tier);
+      return[`--- GROUP ${i+1}: ${GRADER_FULL[g.grader]} / ${tierSL(g.grader,g.tier)} (${qty} cards${p>0?', est. $'+(p*qty):''}) ---`,
+             ...g.cards.map((c,ci)=>`  ${ci+1}. ${[c.year,c.brand,c.set,c.cnum,c.player].filter(Boolean).join(' ')} | $${c.value||0} | Qty:${c.qty}${c.prep?' [PREP]':''}${c.semi?' [SEMI]':''}`)];}),'',
+    d.comments?`Notes: ${d.comments}`:'',`Signed: ${d.printName}`,'',
+    "Shoeless Joe's Cards & Collectibles | PSA Authorized Agent | CSGrading.com"];
+  const b=new Blob([lines.filter(l=>l!==undefined).join('\n')],{type:'text/plain'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`SJC_Order_${masterSubId}.txt`;a.click();
+}
+
+// Shopify order is built entirely server-side in the Apps Script (so the token
+// never touches the browser). The form only sends submission data to Apps Script.
+
+async function logToSheet(data){
+  if(CONFIG.APPS_SCRIPT_URL==='YOUR_GOOGLE_APPS_SCRIPT_URL'){
+    console.warn('Apps Script URL not set');return{order_number:'NOT-CONFIGURED'};
+  }
+  const groups=groupCards(data.rows);
+  const prepCount=data.rows.filter(r=>r.prep).reduce((s,r)=>s+r.qty,0);
+  const revCount =data.rows.filter(r=>r.rev).reduce((s,r)=>s+r.qty,0);
+  // Single call — Apps Script builds the Shopify order (with its own token) AND logs the sheet.
+  const payload={
+    secret: CONFIG.SCRIPT_SECRET,
+    masterSubId,
+    date: data.order_date,
+    first: data.first, last: data.last,
+    email: data.email, phone: data.phone,
+    payment: data.payment, shipping: data.shipping||'',
+    cadence: data.cadence||'monthly',
+    prepCount, revCount, restore: data.restore||false,
+    totalCards: data.rows.reduce((s,r)=>s+r.qty,0),
+    groups: groups.length,
+    grandTotal: document.getElementById('tot_grand').textContent,
+    comments: data.comments,
+    slabshield: data.slabshield, slabnotify: data.slabnotify,
+    csv: buildCSV(data),
+    groupDetails: groups.map((g,i)=>({
+      subId:`${masterSubId}-${i+1}`,
+      grader:GRADER_FULL[g.grader]||g.grader,
+      tier:tierSL(g.grader,g.tier),
+      cards:g.cards.reduce((s,c)=>s+c.qty,0),
+      est:tierP(g.grader,g.tier)*g.cards.reduce((s,c)=>s+c.qty,0)
+    }))
+  };
+  try{
+    const res = await fetch(CONFIG.APPS_SCRIPT_URL,{
+      method:'POST',
+      headers:{'Content-Type':'text/plain'}, // text/plain avoids CORS preflight
+      body:JSON.stringify(payload)
+    });
+    const result = await res.json();
+    return result;
+  }catch(e){
+    console.warn('Apps Script call failed:',e);
+    return{order_number:'SCRIPT-ERROR'};
+  }
+}
+
+function validate(){
+  let ok=true;
+  ['first','last','email','order_date','payment','printName'].forEach(id=>{
+    const el=document.getElementById(id);el.classList.remove('err');
+    if(!el.value.trim()){el.classList.add('err');ok=false;}
+  });
+  if(!document.getElementById('agreeCheck').checked){alert('Please agree to the terms to continue.');return false;}
+  if(!sigData){alert('Please draw your signature to continue.');return false;}
+  if(!document.querySelectorAll('#cardRows tr').length){alert('Please add at least one card.');return false;}
+  return ok;
+}
+
+function setStatus(msg,type){const el=document.getElementById('statusMsg');el.textContent=msg;el.className='status-msg'+(type?' '+type:'');}
+
+document.getElementById('mainForm').addEventListener('submit',async e=>{
+  e.preventDefault();if(!validate())return;
+  const btn=document.getElementById('submitBtn');btn.classList.add('loading');btn.disabled=true;
+  submittedData=gatherData();
+  masterSubId='SJ-'+Date.now().toString(36).toUpperCase().slice(-6);
+  try{
+    setStatus('Building order & logging to sheet...','working');
+    const result = await logToSheet(submittedData);
+    shopifyOrderId = result.shopifyOrderNumber || result.order_number || masterSubId;
+    const groups=groupCards(submittedData.rows);
+    document.getElementById('sMasterId').textContent=masterSubId;
+    document.getElementById('sSubCnt').textContent=groups.length;
+    const isDemo=!shopifyOrderId || shopifyOrderId===masterSubId || String(shopifyOrderId).startsWith('SHOPIFY-ERROR');
+    document.getElementById('shopifyLink').textContent=isDemo?'(Configure Shopify credentials to link)':'View Order #'+shopifyOrderId+' in Shopify Admin \u2192';
+    if(!isDemo)document.getElementById('shopifyLink').href=`https://${CONFIG.SHOPIFY_STORE}/admin/orders`;
+    const gl=document.getElementById('sGrpsList');gl.innerHTML='';
+    groups.forEach((g,i)=>{
+      const col=GRP_COL[g.grader]||'#173B4E',qty=g.cards.reduce((s,c)=>s+c.qty,0),p=tierP(g.grader,g.tier);
+      const d=document.createElement('div');d.className='s-grp';d.style.background=col;
+      d.innerHTML=`<div class="sg-name">Sub #${i+1}: ${GRADER_FULL[g.grader]||g.grader} / ${tierSL(g.grader,g.tier)}</div><div class="sg-info">${qty} card${qty!==1?'s':''} ${p>0?'\u00b7 $'+(p*qty):''}  </div>`;
+      gl.appendChild(d);
+    });
+    document.getElementById('overlay').classList.add('show');setStatus('','');
+  }catch(err){
+    console.error(err);setStatus('Error: '+err.message+' \u2014 Check CONFIG credentials at top of file.','err');
+  }finally{btn.classList.remove('loading');btn.disabled=false;}
+});
+
+function resetForm(){
+  document.getElementById('overlay').classList.remove('show');
+  document.getElementById('mainForm').reset();
+  document.getElementById('cardRows').innerHTML='';
+  rowCount=0;clearSig();submittedData=null;
+  document.querySelectorAll('.svc-tog').forEach(l=>l.classList.remove('on'));
+  updateTotals();addRow();
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('order_date').value=new Date().toISOString().split('T')[0];
+  addRow();updateTotals();
+});
+</script>
+
+<script>
+function notifyHeight(){
+  window.parent.postMessage({type:'resize',height:document.body.scrollHeight},'*');
+}
+window.addEventListener('load', notifyHeight);
+window.addEventListener('resize', notifyHeight);
+new MutationObserver(notifyHeight).observe(document.body,{subtree:true,childList:true,attributes:true});
+</script>
+</body>
+</html>

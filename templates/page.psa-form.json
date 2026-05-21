@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "psa_form": {
+      "type": "psa-grading-form"
+    }
+  },
+  "order": ["psa_form"]
+}

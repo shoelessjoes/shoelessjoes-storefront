@@ -1,0 +1,60 @@
+{% comment %}
+  PSA Grading Form — loads the self-contained form asset in an iframe.
+  The form's JS uses ${...} template literals that conflict with Liquid parsing,
+  so it's served as a static asset rather than inlined.
+  Asset: assets/ShoelessJoes_PSA_ShopifyAsset.html
+{% endcomment %}
+
+<style>
+  #psa-form-frame {
+    width: 100%;
+    max-width: 100%;
+    border: 0;
+    min-height: 80vh;
+    display: block;
+  }
+</style>
+
+<iframe
+  id="psa-form-frame"
+  title="PSA grading submission form"
+  src="{{ 'ShoelessJoes_PSA_ShopifyAsset.html' | asset_url }}"
+  loading="lazy"
+></iframe>
+
+<script>
+  (function () {
+    var frame = document.getElementById('psa-form-frame');
+    if (!frame) return;
+    function applyHeight(px) {
+      if (px && px > 200) frame.style.height = px + 'px';
+    }
+    // The form posts its document height; fall back to a periodic measure.
+    window.addEventListener('message', function (e) {
+      if (e.data && e.data.psaFormHeight) applyHeight(e.data.psaFormHeight);
+    });
+    frame.addEventListener('load', function () {
+      try {
+        applyHeight(frame.contentWindow.document.body.scrollHeight + 40);
+        setInterval(function () {
+          try { applyHeight(frame.contentWindow.document.body.scrollHeight + 40); } catch (err) {}
+        }, 1200);
+      } catch (err) {}
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "PSA Grading Form",
+  "tag": "section",
+  "class": "section-psa-form",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Loads the PSA submission form from assets/ShoelessJoes_PSA_ShopifyAsset.html. Edit that asset to change the form."
+    }
+  ],
+  "presets": [{ "name": "PSA Grading Form" }]
+}
+{% endschema %}
