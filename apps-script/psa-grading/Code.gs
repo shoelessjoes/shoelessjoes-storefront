@@ -16,7 +16,7 @@
 var SHEET_ID      = '1iscPzIuOFCgRQckDH6qERrBsQD4VTpooEbVVy-KPMVw';
 var STORE_EMAIL   = 'contact@shoelessjoescards.com';
 var SECRET_KEY    = 'SJ-PSA-2024';
-var SHOPIFY_STORE = 'shoelessjoescards.myshopify.com';
+var SHOPIFY_STORE = 'qebynk-b0.myshopify.com';
 var SHOPIFY_TOKEN = PropertiesService.getScriptProperties().getProperty('SHOPIFY_TOKEN');
 
 // ── Main entry point ──────────────────────────────────────────────────────────
