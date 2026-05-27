@@ -1,0 +1,163 @@
+{
+  "sections": {
+    "page_title": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Graded Card Inventory",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Browse our professionally graded cards, sorted by sport and trading card game. Prices and inventory are current. Contact us at contact@shoelessjoescards.com to inquire about purchasing or grading services.</p>"
+          }
+        }
+      },
+      "block_order": ["heading", "text"],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_max_width": "m",
+        "desktop_content_alignment": "center"
+      }
+    },
+
+    "filter_section": {
+      "type": "rich-text",
+      "blocks": {
+        "filter_text": {
+          "type": "heading",
+          "settings": {
+            "heading": "Filter by Category",
+            "heading_size": "h3"
+          }
+        }
+      },
+      "block_order": ["filter_text"],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_max_width": "m"
+      }
+    },
+
+    "baseball_cards": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "graded-baseball",
+        "products_to_show": 12,
+        "desktop_layout": "grid",
+        "columns_desktop": 4,
+        "columns_mobile": 2,
+        "title": "Baseball Cards",
+        "heading_size": "h2"
+      }
+    },
+
+    "football_cards": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "graded-football",
+        "products_to_show": 12,
+        "desktop_layout": "grid",
+        "columns_desktop": 4,
+        "columns_mobile": 2,
+        "title": "Football Cards",
+        "heading_size": "h2"
+      }
+    },
+
+    "hockey_cards": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "graded-hockey",
+        "products_to_show": 12,
+        "desktop_layout": "grid",
+        "columns_desktop": 4,
+        "columns_mobile": 2,
+        "title": "Hockey Cards",
+        "heading_size": "h2"
+      }
+    },
+
+    "basketball_cards": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "graded-basketball",
+        "products_to_show": 12,
+        "desktop_layout": "grid",
+        "columns_desktop": 4,
+        "columns_mobile": 2,
+        "title": "Basketball Cards",
+        "heading_size": "h2"
+      }
+    },
+
+    "pokemon_cards": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "graded-pokemon",
+        "products_to_show": 12,
+        "desktop_layout": "grid",
+        "columns_desktop": 4,
+        "columns_mobile": 2,
+        "title": "Pokémon Cards",
+        "heading_size": "h2"
+      }
+    },
+
+    "magic_cards": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "graded-magic",
+        "products_to_show": 12,
+        "desktop_layout": "grid",
+        "columns_desktop": 4,
+        "columns_mobile": 2,
+        "title": "Magic: The Gathering",
+        "heading_size": "h2"
+      }
+    },
+
+    "contact_cta": {
+      "type": "image-banner",
+      "blocks": {
+        "contact_heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Ready to Buy or Grade?",
+            "heading_size": "h2"
+          }
+        },
+        "contact_text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Contact us to arrange a purchase or submit your cards for professional grading.</p>"
+          }
+        },
+        "contact_buttons": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Contact Us",
+            "button_link_1": "/pages/contact",
+            "button_style_1": "secondary",
+            "button_style_1_show_arrow": true,
+            "button_label_2": "Grading Services",
+            "button_link_2": "/pages/psa-form",
+            "button_style_2": "primary"
+          }
+        }
+      },
+      "block_order": ["contact_heading", "contact_text", "contact_buttons"],
+      "settings": {
+        "desktop_section_height": 380,
+        "mobile_section_height": 320,
+        "desktop_content_position": "md:justify-center md:items-center",
+        "color_scheme": "scheme-2"
+      }
+    }
+  },
+  "order": ["page_title", "filter_section", "baseball_cards", "football_cards", "hockey_cards", "basketball_cards", "pokemon_cards", "magic_cards", "contact_cta"]
+}
