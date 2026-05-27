@@ -13,7 +13,7 @@ This is the master context for the storefront repo. Companion docs:
 
 ## Shop Overview
 
-**Shoeless Joe's Cards & Collectibles** — Lima, Ohio. Est. 1992. PSA Authorized Grading Agent. Family-owned brick-and-mortar with growing online presence.
+**Shoeless Joe's Cards & Collectibles** — Cincinnati, OH. Est. 1992. PSA Authorized Grading Agent. Family-owned brick-and-mortar with growing online presence.
 
 | Item | Value |
 |---|---|

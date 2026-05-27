@@ -1,80 +1,74 @@
 # scripts/package-theme.ps1
-# Bundles the Shopify theme files into a clean zip for upload via Shopify Admin.
-# Excludes non-theme folders (apps-script/, docs/, scripts/) and dev files (.env, .gitignore, etc.)
+# Bundles the Shopify theme files into a clean, Shopify-valid zip.
+# Forces forward-slash path separators (Shopify rejects backslash zip entries
+# produced by Compress-Archive), excludes non-theme folders, and writes the
+# zip with theme folders at the archive root.
 #
-# Usage (from repo root):
-#   .\scripts\package-theme.ps1
-#
-# Output:
-#   theme-export-YYYYMMDD-HHMM.zip in the repo root
-#
-# Then upload via:
-#   Shopify Admin → Online Store → Themes → Add theme → Upload zip
+# Usage (from repo root):   .\scripts\package-theme.ps1
+# Output:                   theme-export-YYYYMMDD-HHMM.zip in the repo root
 
 $ErrorActionPreference = "Stop"
 
-# Resolve repo root (parent of /scripts)
 $repoRoot = Split-Path -Parent $PSScriptRoot
 
-# These are the only top-level folders that belong in a Shopify theme zip
-$themeDirs = @(
-    'assets',
-    'blocks',
-    'config',
-    'layout',
-    'locales',
-    'sections',
-    'snippets',
-    'templates'
-)
+# Only these top-level folders belong in a Shopify theme zip.
+$themeDirs = @('assets','blocks','config','layout','locales','sections','snippets','templates')
 
-# Timestamped output zip
 $timestamp = Get-Date -Format 'yyyyMMdd-HHmm'
 $outputZip = Join-Path $repoRoot "theme-export-$timestamp.zip"
 
-# Stage in a temp folder so we get a clean zip without our dev files
+# Stage a clean copy so dev files never leak in.
 $staging = Join-Path $env:TEMP "sj-theme-stage-$(Get-Random)"
 New-Item -ItemType Directory -Path $staging -Force | Out-Null
 
 try {
     Write-Host ""
     Write-Host "Packaging theme..." -ForegroundColor Cyan
-
     foreach ($dir in $themeDirs) {
         $src = Join-Path $repoRoot $dir
         if (Test-Path $src) {
-            $dest = Join-Path $staging $dir
-            Copy-Item -Recurse -Path $src -Destination $dest
-            $fileCount = (Get-ChildItem -Recurse -File $dest).Count
-            Write-Host ("  + {0,-12} ({1} files)" -f $dir, $fileCount) -ForegroundColor Gray
+            Copy-Item -Recurse -Path $src -Destination (Join-Path $staging $dir)
+            $n = (Get-ChildItem -Recurse -File (Join-Path $staging $dir)).Count
+            Write-Host ("  + {0,-12} ({1} files)" -f $dir, $n) -ForegroundColor Gray
         } else {
-            Write-Host ("  - {0,-12} (skipped: not found)" -f $dir) -ForegroundColor DarkGray
+            Write-Host ("  - {0,-12} (not found, skipped)" -f $dir) -ForegroundColor DarkGray
         }
     }
 
-    # Remove any stray dev artifacts that may have slipped in
-    Get-ChildItem -Recurse -File $staging -Include '*.bak','*.tmp','.DS_Store','Thumbs.db' -Force |
-        Remove-Item -Force -ErrorAction SilentlyContinue
+    # Strip stray OS/editor cruft.
+    Get-ChildItem -Recurse -File $staging -Include '*.bak','*.tmp','.DS_Store','Thumbs.db' -Force `
+        | Remove-Item -Force -ErrorAction SilentlyContinue
+
+    if (Test-Path $outputZip) { Remove-Item $outputZip -Force }
 
     Write-Host ""
-    Write-Host "Compressing..." -ForegroundColor Cyan
-    Compress-Archive -Path (Join-Path $staging '*') -DestinationPath $outputZip -Force
+    Write-Host "Compressing (forward-slash entries)..." -ForegroundColor Cyan
+
+    # Build the zip manually so every entry name uses '/' — Shopify requires this.
+    Add-Type -AssemblyName System.IO.Compression
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+
+    $zip = [System.IO.Compression.ZipFile]::Open($outputZip, [System.IO.Compression.ZipArchiveMode]::Create)
+    try {
+        $base = (Resolve-Path $staging).Path.TrimEnd('\') + '\'
+        Get-ChildItem -Recurse -File $staging | ForEach-Object {
+            $entry = $_.FullName.Substring($base.Length).Replace('\','/')
+            [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile(
+                $zip, $_.FullName, $entry,
+                [System.IO.Compression.CompressionLevel]::Optimal) | Out-Null
+        }
+    } finally {
+        $zip.Dispose()
+    }
 
     $sizeMB = [math]::Round((Get-Item $outputZip).Length / 1MB, 2)
-
     Write-Host ""
-    Write-Host ("[OK] Theme packaged: theme-export-$timestamp.zip ({0} MB)" -f $sizeMB) -ForegroundColor Green
+    Write-Host ("[OK] theme-export-$timestamp.zip ({0} MB)" -f $sizeMB) -ForegroundColor Green
     Write-Host ""
-    Write-Host "Next steps:" -ForegroundColor Yellow
-    Write-Host "  1. Open Shopify Admin -> Online Store -> Themes"
-    Write-Host "  2. Click 'Add theme' -> 'Upload zip file'"
-    Write-Host "  3. Select: $outputZip"
-    Write-Host "  4. Preview before publishing"
+    Write-Host "Upload: Shopify Admin -> Online Store -> Themes -> Add theme -> Upload zip file" -ForegroundColor Yellow
+    Write-Host "File:   $outputZip"
     Write-Host ""
 }
 finally {
-    # Clean up staging folder
-    if (Test-Path $staging) {
-        Remove-Item -Recurse -Force $staging -ErrorAction SilentlyContinue
-    }
+    if (Test-Path $staging) { Remove-Item -Recurse -Force $staging -ErrorAction SilentlyContinue }
 }
