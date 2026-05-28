@@ -86,15 +86,15 @@ Top of `assets/ShoelessJoes_PSA_ShopifyAsset.html`:
 
 ```javascript
 const CONFIG = {
-  SHOPIFY_STORE:   'shoelessjoescards.myshopify.com',
-  SHOPIFY_TOKEN:   'shpat_xxx',           // ⚠️ rotate before go-live
+  SHOPIFY_STORE:   'qebynk-b0.myshopify.com',  // admin link only — not secret
   LOCATION_ID:     '72115847233',
   APPS_SCRIPT_URL: 'https://script.google.com/macros/s/.../exec',
   SCRIPT_SECRET:   'SJ-PSA-2024',
+  // SHOPIFY_TOKEN is intentionally NOT here — Apps Script Script Properties only
 };
 ```
 
-> The form should **never call Shopify directly** — `SHOPIFY_TOKEN` should be unused once Apps Script handles all server-to-server calls. It's kept here only for legacy/fallback code paths. The real auth secret that matters is `SCRIPT_SECRET`, which must match the Apps Script `SECRET_KEY` constant.
+> The form **never calls Shopify directly**. `SCRIPT_SECRET` must match the Apps Script `SECRET_KEY` constant. The Shopify Admin API token lives only in Apps Script Script Properties (`SHOPIFY_TOKEN`).
 
 ---
 

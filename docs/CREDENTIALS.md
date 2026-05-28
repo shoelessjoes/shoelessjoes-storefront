@@ -54,7 +54,7 @@ When rotating any credential:
 
 ## What is NOT a credential (and is safe to commit)
 
-- Shopify store domain (`shoelessjoescards.myshopify.com`)
+- Shopify myshopify domain (`qebynk-b0.myshopify.com`) — public site is `shoelessjoescards.com`
 - Shopify location ID (`72115847233`) — public-facing
 - Shopify API version string (`2024-10`)
 - Apps Script project IDs (not the deployment URL or secret)

@@ -3,6 +3,7 @@
 > **Read this file at the start of every session before touching any code.**
 
 This is the master context for the storefront repo. Companion docs:
+- [`HANDOFF.md`](HANDOFF.md) — Current done/pending status and gotchas (read after this file)
 - [`BRAND.md`](BRAND.md) — Colors, fonts, voice, logo
 - [`PSA_FORM.md`](PSA_FORM.md) — Form architecture and workflows
 - [`PSA_PRICING.md`](PSA_PRICING.md) — PSA tier prices and turnaround times
@@ -17,7 +18,7 @@ This is the master context for the storefront repo. Companion docs:
 
 | Item | Value |
 |---|---|
-| Shopify store domain | `shoelessjoescards.myshopify.com` |
+| Shopify myshopify domain | `qebynk-b0.myshopify.com` (internal handle — not derived from public domain) |
 | Public site | `shoelessjoescards.com` |
 | Shopify location ID | `72115847233` |
 | Shopify Admin API version | `2024-10` |

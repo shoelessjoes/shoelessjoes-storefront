@@ -27,8 +27,8 @@ Apps Script Script Properties (set via Project Settings → Script properties):
 
 | Key | Value source |
 |---|---|
-| `SHOPIFY_STORE` | `shoelessjoescards.myshopify.com` (literal) |
-| `SHOPIFY_API_TOKEN` | 1Password — rotate quarterly |
+| `SHOPIFY_STORE` | `qebynk-b0.myshopify.com` (literal — not `shoelessjoescards.myshopify.com`) |
+| `SHOPIFY_TOKEN` | 1Password — rotate quarterly (Script Property, not in form asset) |
 | `SHOPIFY_LOCATION_ID` | `72115847233` (literal) |
 | `SHOPIFY_API_VERSION` | `2024-10` |
 | `SECRET_KEY` | Shared secret with the form's CONFIG `SCRIPT_SECRET` |
