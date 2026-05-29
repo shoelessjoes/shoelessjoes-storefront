@@ -6,27 +6,27 @@
         "slide_hero": {
           "type": "slide",
           "settings": {
-            "image_overlay_opacity": 25,
-            "desktop_content_position": "md:justify-center md:items-center",
+            "image_overlay_opacity": 35,
+            "desktop_content_position": "md:justify-start md:items-center",
             "mobile_content_position": "justify-center items-center",
             "content_max_width": "m",
-            "desktop_content_alignment": "center",
+            "desktop_content_alignment": "left",
             "mobile_content_alignment": "center",
             "show_text_box": "always",
-            "heading": "Sports Cards & Collectibles",
+            "heading": "Your Local Card Shop Since 1992",
             "heading_size": "custom",
-            "heading_size_custom": 4.2,
+            "heading_size_custom": 4.4,
             "heading_tag": "h1",
-            "text": "<p>Est. 1992 • Trusted Grader • Premium Selection</p>",
+            "text": "<p>We're collectors too. Vintage stars, modern rookies, Pok&eacute;mon hits, sealed wax, and a grading desk &mdash; right here in Cincinnati.</p>",
             "text_size": "t2",
-            "button_label_1": "Browse Sealed Wax",
-            "button_link_1": "/collections/sealed-wax",
-            "button_style_1": "secondary",
+            "button_label_1": "Visit the Shop",
+            "button_link_1": "/pages/about-us",
+            "button_style_1": "primary",
             "button_style_1_show_arrow": true,
             "button_label_2": "Grading Services",
             "button_link_2": "/pages/psa-form",
-            "button_style_2": "primary",
-            "color_scheme": "scheme-1"
+            "button_style_2": "secondary",
+            "color_scheme": "scheme-sj-navy"
           }
         }
       },
@@ -34,178 +34,78 @@
       "settings": {
         "autoplay": "autoplay_with_pause",
         "change_slides_speed": 10,
-        "desktop_section_height": 520,
-        "mobile_section_height": 380,
-        "color_scheme": "scheme-1"
+        "desktop_section_height": 560,
+        "mobile_section_height": 420,
+        "color_scheme": "scheme-1203590d-2999-412a-986f-d063dd6d00f1"
       }
     },
-
-    "brand_marquee": {
+    "trust_badges": {
       "type": "icons-with-text",
       "blocks": {
-        "psa_agent": {
-          "type": "icon_with_text",
-          "settings": {
-            "icon": "shield_checkmark",
-            "title": "<strong>PSA Authorized</strong>",
-            "text": "Official Grading Agent"
-          }
-        },
-        "topps_dealer": {
-          "type": "icon_with_text",
-          "settings": {
-            "icon": "star",
-            "title": "<strong>Official Dealer</strong>",
-            "text": "Topps & Panini"
-          }
-        },
-        "expert_staff": {
-          "type": "icon_with_text",
-          "settings": {
-            "icon": "chat_bubbles",
-            "title": "<strong>Expert Staff</strong>",
-            "text": "Passionate Collectors"
-          }
-        },
-        "brick_mortar": {
-          "type": "icon_with_text",
-          "settings": {
-            "icon": "location",
-            "title": "<strong>Visit Us</strong>",
-            "text": "Cincinnati, Ohio"
-          }
-        }
+        "psa_agent": { "type": "icon_with_text", "settings": { "icon": "shield_checkmark", "title": "<strong>PSA Authorized</strong>", "text": "Official Grading Agent" } },
+        "topps_dealer": { "type": "icon_with_text", "settings": { "icon": "star", "title": "<strong>Official Dealer</strong>", "text": "Topps & Panini" } },
+        "expert_staff": { "type": "icon_with_text", "settings": { "icon": "chat_bubbles", "title": "<strong>Collector-Owned</strong>", "text": "Family-Run Since 1992" } },
+        "brick_mortar": { "type": "icon_with_text", "settings": { "icon": "location", "title": "<strong>Visit Us</strong>", "text": "Cincinnati, Ohio" } }
       },
       "block_order": ["psa_agent", "topps_dealer", "expert_staff", "brick_mortar"],
-      "settings": {
-        "placement": "beside",
-        "vertical_padding": 2,
-        "icon_size": 3,
-        "heading_size": "t5",
-        "text_size": "t6"
-      }
+      "settings": { "placement": "beside", "vertical_padding": 2, "icon_size": 3, "heading_size": "t5", "text_size": "t6", "section_color_scheme": "scheme-sj-navy" }
     },
-
-    "sealed_wax_section": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "sealed-wax",
-        "products_to_show": 8,
-        "desktop_layout": "carousel",
-        "mobile_layout": "carousel",
-        "columns_desktop": 4,
-        "title": "Sealed Wax Products",
-        "text": "<p>New product boxes, packs, and cases in original packaging</p>",
-        "heading_size": "h2",
-        "color_scheme": "scheme-1"
-      }
-    },
-
-    "graded_cards_cta": {
-      "type": "image-banner",
+    "store_gallery": {
+      "type": "gallery",
       "blocks": {
-        "graded_heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Graded Cards in Stock",
-            "heading_size": "h2"
-          }
-        },
-        "graded_text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Browse our collection of professionally graded cards, sorted by sport and TCG</p>"
-          }
-        },
-        "graded_button": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "View Graded Cards",
-            "button_link_1": "/pages/graded-inventory",
-            "button_style_1": "secondary",
-            "button_style_1_show_arrow": true
-          }
-        }
+        "g_cases": { "type": "gallery_item", "settings": { "tall": true, "wide": true, "title": "Display Cases", "heading_size": "h4", "card_color_scheme": "scheme-sj-navy" } },
+        "g_singles": { "type": "gallery_item", "settings": { "tall": false, "wide": false, "title": "Singles Boxes", "heading_size": "h5", "card_color_scheme": "scheme-sj-navy" } },
+        "g_wax": { "type": "gallery_item", "settings": { "tall": false, "wide": false, "title": "Wax Wall", "heading_size": "h5", "card_color_scheme": "scheme-sj-navy" } },
+        "g_dig": { "type": "gallery_item", "settings": { "tall": false, "wide": false, "title": "Dig Boxes", "heading_size": "h5", "card_color_scheme": "scheme-sj-navy" } },
+        "g_desk": { "type": "gallery_item", "settings": { "tall": false, "wide": false, "title": "Grading Desk", "heading_size": "h5", "card_color_scheme": "scheme-sj-navy" } },
+        "g_storefront": { "type": "gallery_item", "settings": { "tall": false, "wide": true, "title": "The Storefront", "heading_size": "h4", "card_color_scheme": "scheme-sj-navy" } }
       },
-      "block_order": ["graded_heading", "graded_text", "graded_button"],
+      "block_order": ["g_cases", "g_singles", "g_wax", "g_dig", "g_desk", "g_storefront"],
       "settings": {
-        "desktop_section_height": 380,
-        "mobile_section_height": 320,
-        "desktop_content_position": "md:justify-center md:items-center",
-        "mobile_content_position": "justify-center items-center",
-        "color_scheme": "scheme-2"
+        "columns_desktop": 3, "spacing_grid": 16, "spacing_grid_mobile": 12,
+        "desktop_section_height": 300, "mobile_section_height": 240, "mobile_layout": "carousel",
+        "title": "Come See Us In Person", "heading_size": "h1",
+        "text": "<p>Vintage stars, modern rookies, Pok&eacute;mon hits, sealed wax, and a grading desk &mdash; all under one roof.</p>",
+        "text_size": "t2", "desktop_heading_alignment": "center", "mobile_heading_alignment": "center",
+        "section_color_scheme": "scheme-1203590d-2999-412a-986f-d063dd6d00f1", "top_padding": 56, "bottom_padding": 56
       }
     },
-
-    "grading_services_cta": {
+    "grading_cta": {
       "type": "rich-text",
       "blocks": {
-        "grading_heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Professional Grading Services",
-            "heading_size": "h2"
-          }
-        },
-        "grading_text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Shoeless Joe's is a PSA Authorized Grading Agent. We offer weekly and monthly submission runs with upfront pricing, no surprises. Bring your cards in, and we'll handle the rest.</p>"
-          }
-        },
-        "grading_button": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Submit Cards for Grading",
-            "button_link_1": "/pages/psa-form",
-            "button_style_1": "secondary",
-            "button_style_1_show_arrow": true
-          }
-        }
+        "grading_heading": { "type": "heading", "settings": { "heading": "Get Your Cards Graded", "heading_size": "h2" } },
+        "grading_text": { "type": "text", "settings": { "text": "<p>PSA Authorized Grading Agent. Drop off in store or ship to us &mdash; PSA, BGS, SGC &amp; TAG submissions handled in-house. Fill out the form online and we'll take it from there.</p>" } },
+        "grading_button": { "type": "buttons", "settings": { "button_label_1": "Start a Submission", "button_link_1": "/pages/psa-form", "button_style_1": "primary", "button_style_1_show_arrow": true } }
       },
       "block_order": ["grading_heading", "grading_text", "grading_button"],
+      "settings": { "desktop_content_position": "center", "content_max_width": "m", "section_color_scheme": "scheme-sj-gold" }
+    },
+    "before_after": {
+      "type": "gallery",
+      "blocks": {
+        "ba_before": { "type": "gallery_item", "settings": { "tall": false, "wide": true, "title": "Before", "heading_size": "h3", "text": "<p>The shop before our 2025 renovation.</p>", "card_color_scheme": "scheme-1203590d-2999-412a-986f-d063dd6d00f1" } },
+        "ba_after": { "type": "gallery_item", "settings": { "tall": false, "wide": true, "title": "After", "heading_size": "h3", "text": "<p>Refreshed, expanded, and ready for you.</p>", "card_color_scheme": "scheme-sj-gold" } }
+      },
+      "block_order": ["ba_before", "ba_after"],
       "settings": {
-        "desktop_content_position": "center",
-        "content_max_width": "m",
-        "section_color_scheme": "scheme-2"
+        "columns_desktop": 2, "spacing_grid": 16, "spacing_grid_mobile": 12,
+        "desktop_section_height": 360, "mobile_section_height": 260, "mobile_layout": "grid",
+        "title": "Then & Now", "heading_size": "h1",
+        "text": "<p>We gave the shop a full refresh in 2025. Same family, same passion &mdash; a whole lot more room to dig.</p>",
+        "text_size": "t2", "desktop_heading_alignment": "center", "mobile_heading_alignment": "center",
+        "section_color_scheme": "scheme-sj-navy", "top_padding": 56, "bottom_padding": 56
       }
     },
-
     "store_info": {
       "type": "icons-with-text",
       "blocks": {
-        "location_info": {
-          "type": "icon_with_text",
-          "settings": {
-            "icon": "location",
-            "title": "<strong>6123 Bridgetown Rd</strong>",
-            "text": "Cincinnati, OH 45248"
-          }
-        },
-        "hours_info": {
-          "type": "icon_with_text",
-          "settings": {
-            "icon": "clock",
-            "title": "<strong>Visit in Person</strong>",
-            "text": "See us for grading submissions"
-          }
-        },
-        "contact_info": {
-          "type": "icon_with_text",
-          "settings": {
-            "icon": "chat_bubbles",
-            "title": "<strong>Questions?</strong>",
-            "text": "Contact us anytime"
-          }
-        }
+        "location_info": { "type": "icon_with_text", "settings": { "icon": "location", "title": "<strong>6123 Bridgetown Rd</strong>", "text": "Cincinnati, OH 45248" } },
+        "hours_info": { "type": "icon_with_text", "settings": { "icon": "clock", "title": "<strong>Open 7 Days</strong>", "text": "Stop in for grading & singles" } },
+        "contact_info": { "type": "icon_with_text", "settings": { "icon": "chat_bubbles", "title": "<strong>Questions?</strong>", "text": "Contact us anytime" } }
       },
       "block_order": ["location_info", "hours_info", "contact_info"],
-      "settings": {
-        "placement": "beside",
-        "vertical_padding": 3,
-        "icon_size": 2.8
-      }
+      "settings": { "placement": "beside", "vertical_padding": 3, "icon_size": 2.8, "section_color_scheme": "scheme-1203590d-2999-412a-986f-d063dd6d00f1" }
     }
   },
-  "order": ["hero_banner", "brand_marquee", "sealed_wax_section", "graded_cards_cta", "grading_services_cta", "store_info"]
+  "order": ["hero_banner", "trust_badges", "store_gallery", "grading_cta", "before_after", "store_info"]
 }
