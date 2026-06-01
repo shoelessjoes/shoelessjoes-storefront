@@ -22,11 +22,13 @@ Full content (hours, About, history, social) is in `docs/CONTENT.md`.
 
 | Repo | Purpose | Status |
 |---|---|---|
-| **shoelessjoes-storefront** | Shopify theme (Ignite base) + PSA form + Apps Script | **Active — this is where all work has happened** |
-| shoelessjoes-ops | Node/Prisma monorepo: embedded Shopify app, Dealernet sync, inventory | Created on GitHub, empty. Not started. |
-| shoelessjoes-supplier-py | Python pipeline (DealernetX scrape, matching, alerts) | Legacy/transitional. Not migrated yet. |
+| **shoelessjoes-storefront** | Shopify theme (Ignite base) + PSA form + Apps Script | **Active — customer-facing work** |
+| **shoelessjoes-ops** | Node monorepo: Dealernet offer ingest, inbox, Shopify draft orders/orders, Remix admin app | **Migrated & local dev working** (Docker Postgres, `ingest-offers` validated). See `../shoelessjoes-ops/docs/HANDOFF_CLAUDE.md` |
+| **shoelessjoes-supplier-py** | Python: DealerNet **pricing table** scrape, match, alerts, review packs | **Migrated from legacy `shoeless-joes`**. See `../shoelessjoes-supplier-py/docs/HANDOFF_CLAUDE.md` |
 
-Old tangled repos (`shopify`, `shoeless-joes`, `dealernet-shopify-ops`) should be **archived** on GitHub, not deleted. Local clones live under `C:\Users\burke\Git2\`.
+**Next cross-repo priority:** shared Shopify **sealed-product catalog export** (UPC + variant ID) used by both ops purchase sync and pricing/margin pipeline.
+
+Old tangled repos (`shopify`, `shoeless-joes`, `dealernet-shopify-ops`) should be **archived** on GitHub, not deleted. Local clones live under `C:\Users\burke\Git2\`. Old Railway Postgres tied to legacy repo — **do not use**; see `shoelessjoes-ops/docs/RAILWAY_FRESH_START.md`.
 
 ---
 

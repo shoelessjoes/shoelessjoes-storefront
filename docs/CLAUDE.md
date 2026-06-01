@@ -50,8 +50,8 @@ shoelessjoes-storefront/
 | Repo | Purpose |
 |---|---|
 | `shoelessjoes-storefront` (this) | Customer-facing Shopify theme + PSA form + Apps Script |
-| `shoelessjoes-ops` | Back-office: embedded Shopify app, Dealernet sync, inventory, pricing |
-| `shoelessjoes-supplier-py` | Legacy Python pipeline (being migrated into `-ops`) |
+| `shoelessjoes-ops` | Back-office: Dealernet offer ingest, inbox, purchase/sale Shopify sync, Remix admin app. Handoff: `docs/HANDOFF_CLAUDE.md` |
+| `shoelessjoes-supplier-py` | Python pricing-table scrape, margin ranking, alerts (Windows scheduled). Handoff: `docs/HANDOFF_CLAUDE.md` |
 
 ---
 
