@@ -1,0 +1,20 @@
+---
+description: Shoeless Joe's storefront — read project docs before editing
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+Before editing this repo, read in order:
+
+1. `docs/CLAUDE.md` — architecture, brand, key decisions
+2. `docs/HANDOFF.md` — current done/pending status and gotchas
+
+Critical facts:
+
+- Shopify myshopify domain is `qebynk-b0.myshopify.com` (not `shoelessjoescards.myshopify.com`)
+- Shopify Admin API token lives in Apps Script Script Properties only — never in theme assets
+- Theme deploy: `.\scripts\package-theme.ps1` (not raw `Compress-Archive`)
+- Sibling repos under `C:\Users\burke\Git2\`: `shoelessjoes-ops`, `shoelessjoes-supplier-py`
+
+Do not reorganize repo folders or split the PSA form HTML file unless explicitly asked.

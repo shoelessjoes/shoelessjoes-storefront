@@ -27,12 +27,12 @@ shopify auth login
 
 Local dev with hot reload:
 ```powershell
-shopify theme dev --store shoelessjoescards.myshopify.com
+shopify theme dev --store qebynk-b0.myshopify.com
 ```
 
 Push directly to live or unpublished theme:
 ```powershell
-shopify theme push --store shoelessjoescards.myshopify.com --unpublished
+shopify theme push --store qebynk-b0.myshopify.com --unpublished
 ```
 
 The `.shopifyignore` file ensures `apps-script/`, `docs/`, and `scripts/` aren't uploaded.
