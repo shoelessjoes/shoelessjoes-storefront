@@ -26,7 +26,7 @@ Full content (hours, About, history, social) is in `docs/CONTENT.md`.
 | **shoelessjoes-ops** | Node monorepo: Dealernet offer ingest, inbox, Shopify draft orders/orders, Remix admin app | **Migrated & local dev working** (Docker Postgres, `ingest-offers` validated). See `../shoelessjoes-ops/docs/HANDOFF_CLAUDE.md` |
 | **shoelessjoes-supplier-py** | Python: DealerNet **pricing table** scrape, match, alerts, review packs | **Migrated from legacy `shoeless-joes`**. See `../shoelessjoes-supplier-py/docs/HANDOFF_CLAUDE.md` |
 
-**Next cross-repo priority:** shared Shopify **sealed-product catalog export** (UPC + variant ID) used by both ops purchase sync and pricing/margin pipeline.
+**Next cross-repo priority:** shared Shopify **sealed-product catalog export** (UPC + variant ID) used by both ops purchase sync and pricing/margin pipeline. **Full inbound picture** (Dealernet + Topps/Panini/GTS email invoices → scan-to-receive): see `../shoelessjoes-ops/docs/AGENT_HANDOFF.md`.
 
 Old tangled repos (`shopify`, `shoeless-joes`, `dealernet-shopify-ops`) should be **archived** on GitHub, not deleted. Local clones live under `C:\Users\burke\Git2\`. Old Railway Postgres tied to legacy repo — **do not use**; see `shoelessjoes-ops/docs/RAILWAY_FRESH_START.md`.
 
