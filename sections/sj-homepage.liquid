@@ -1,0 +1,375 @@
+{%- comment -%}
+  Shoeless Joe's custom homepage — ported from the owner-approved mockup.
+  All styles scoped under .sj so nothing leaks into theme header/footer or other pages.
+  Editable content lives in settings + blocks (tile / photo / vend).
+{%- endcomment -%}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap">
+
+<div class="sj">
+
+  {%- comment -%} ---------- HERO ---------- {%- endcomment -%}
+  <section class="sj-hero">
+    {%- if section.settings.hero_image != blank -%}
+      <div class="sj-hero-photo" style="background-image:url('{{ section.settings.hero_image | image_url: width: 2400 }}');background-size:cover;background-position:center;"></div>
+    {%- else -%}
+      <div class="sj-hero-photo sj-hero-ph"><div class="sj-ph-label"><i>&#128247;</i>Add a full-width shop photo in the customizer</div></div>
+    {%- endif -%}
+    <div class="sj-hero-overlay">
+      <div class="sj-hero-content">
+        <div class="sj-hero-inner">
+          {%- if section.settings.hero_eyebrow != blank -%}<span class="sj-hero-est sj-rv">{{ section.settings.hero_eyebrow }}</span>{%- endif -%}
+          <h1 class="sj-rv" style="animation-delay:.08s">{{ section.settings.hero_heading }}{% if section.settings.hero_heading_accent != blank %}<br><span class="sj-au">{{ section.settings.hero_heading_accent }}</span>{% endif %}</h1>
+          {%- if section.settings.hero_text != blank -%}<p class="sj-rv" style="animation-delay:.16s">{{ section.settings.hero_text }}</p>{%- endif -%}
+          <div class="sj-cta-row sj-rv" style="animation-delay:.24s">
+            {%- if section.settings.hero_cta1_label != blank -%}<a class="sj-btn sj-btn-gold" href="{{ section.settings.hero_cta1_link | default: '#' }}">{{ section.settings.hero_cta1_label }}</a>{%- endif -%}
+            {%- if section.settings.hero_cta2_label != blank -%}<a class="sj-btn sj-btn-ghost" href="{{ section.settings.hero_cta2_link | default: '#' }}">{{ section.settings.hero_cta2_label }}</a>{%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ---------- BRAND MARQUEE ---------- {%- endcomment -%}
+  {%- if section.settings.brands != blank -%}
+    <div class="sj-mq-band">
+      {%- if section.settings.marquee_label != blank -%}<div class="sj-mq-lbl"><span class="sj-eyebrow">{{ section.settings.marquee_label }}</span></div>{%- endif -%}
+      <div class="sj-mq">
+        {%- assign brand_list = section.settings.brands | split: ',' -%}
+        {%- for b in brand_list -%}<span class="sj-mq-chip">{{ b | strip }}</span>{%- endfor -%}
+        {%- for b in brand_list -%}<span class="sj-mq-chip">{{ b | strip }}</span>{%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ---------- SEALED WAX CATEGORY TILES ---------- {%- endcomment -%}
+  {%- assign tiles = section.blocks | where: 'type', 'tile' -%}
+  {%- if tiles.size > 0 -%}
+    <section class="sj-blk sj-cream">
+      <div class="sj-wrap">
+        <div class="sj-sechead">
+          {%- if section.settings.tiles_eyebrow != blank -%}<span class="sj-eyebrow">{{ section.settings.tiles_eyebrow }}</span>{%- endif -%}
+          <h2>{{ section.settings.tiles_heading }}</h2>
+          <div class="sj-rule"></div>
+        </div>
+        <div class="sj-tiles">
+          {%- for block in tiles -%}
+            <a class="sj-tile{% if block.settings.is_cta %} sj-tile-cta{% endif %}" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>
+              {%- if block.settings.image != blank -%}
+                <div class="sj-tile-img" style="background-image:url('{{ block.settings.image | image_url: width: 600 }}');background-size:cover;background-position:center;"></div>
+              {%- else -%}
+                <div class="sj-tile-img"><i>{{ block.settings.icon | default: '&#9918;' }}</i></div>
+              {%- endif -%}
+              <div class="sj-tile-label">
+                <h3>{{ block.settings.title }}</h3>
+                {%- if block.settings.subtitle != blank -%}<span>{{ block.settings.subtitle }}</span>{%- endif -%}
+              </div>
+            </a>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ---------- SHOP GALLERY ---------- {%- endcomment -%}
+  {%- assign photos = section.blocks | where: 'type', 'photo' -%}
+  {%- if photos.size > 0 -%}
+    <section class="sj-blk sj-lightbg">
+      <div class="sj-wrap">
+        <div class="sj-sechead">
+          {%- if section.settings.gallery_eyebrow != blank -%}<span class="sj-eyebrow">{{ section.settings.gallery_eyebrow }}</span>{%- endif -%}
+          <h2>{{ section.settings.gallery_heading }}</h2>
+          <div class="sj-rule"></div>
+        </div>
+        <div class="sj-gallery">
+          {%- for block in photos -%}
+            <div class="sj-gphoto{% if block.settings.size == 'wide' %} sj-wide{% elsif block.settings.size == 'tall' %} sj-tall{% elsif block.settings.size == 'widetall' %} sj-wide sj-tall{% endif %}"
+              {% if block.settings.image != blank %}style="background-image:url('{{ block.settings.image | image_url: width: 1200 }}');background-size:cover;background-position:center;"{% endif %} {{ block.shopify_attributes }}>
+              {%- if block.settings.image == blank -%}<div><i>&#128247;</i><br>{{ block.settings.caption }}</div>{%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ---------- THEN & NOW (BEFORE / AFTER) ---------- {%- endcomment -%}
+  {%- if section.settings.show_beforeafter -%}
+    <section class="sj-blk sj-ba">
+      <div class="sj-wrap">
+        <div class="sj-sechead">
+          {%- if section.settings.ba_eyebrow != blank -%}<span class="sj-eyebrow sj-eyebrow-l">{{ section.settings.ba_eyebrow }}</span>{%- endif -%}
+          <h2 class="sj-h2-cream">{{ section.settings.ba_heading }}</h2>
+          <div class="sj-rule"></div>
+        </div>
+        <div class="sj-ba-grid">
+          <div class="sj-ba-card">
+            {%- if section.settings.before_image != blank -%}
+              <div class="sj-ba-img" style="background-image:url('{{ section.settings.before_image | image_url: width: 1200 }}');background-size:cover;background-position:center;"></div>
+            {%- else -%}<div class="sj-ba-img sj-ba-before">&#128247; Before photo</div>{%- endif -%}
+            <div class="sj-ba-tag"><h3>{{ section.settings.before_label | default: 'BEFORE' }}</h3></div>
+          </div>
+          <div class="sj-ba-card">
+            {%- if section.settings.after_image != blank -%}
+              <div class="sj-ba-img" style="background-image:url('{{ section.settings.after_image | image_url: width: 1200 }}');background-size:cover;background-position:center;"></div>
+            {%- else -%}<div class="sj-ba-img sj-ba-after">&#128247; After photo</div>{%- endif -%}
+            <div class="sj-ba-tag sj-aft"><h3>{{ section.settings.after_label | default: 'AFTER' }}</h3></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ---------- GRADING CTA ---------- {%- endcomment -%}
+  {%- if section.settings.show_grading -%}
+    <section class="sj-blk sj-grade">
+      <div class="sj-wrap">
+        {%- if section.settings.grade_eyebrow != blank -%}<span class="sj-eyebrow">{{ section.settings.grade_eyebrow }}</span>{%- endif -%}
+        <h2>{{ section.settings.grade_heading }}</h2>
+        {%- if section.settings.grade_text != blank -%}<p>{{ section.settings.grade_text }}</p>{%- endif -%}
+        {%- if section.settings.grade_cta_label != blank -%}<a class="sj-btn sj-btn-navy" href="{{ section.settings.grade_cta_link | default: '#' }}">{{ section.settings.grade_cta_label }}</a>{%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ---------- MYSTERY CARD VENDING ---------- {%- endcomment -%}
+  {%- assign vends = section.blocks | where: 'type', 'vend' -%}
+  {%- if vends.size > 0 -%}
+    <section class="sj-blk sj-cream sj-vend">
+      <div class="sj-wrap">
+        <div class="sj-sechead">
+          {%- if section.settings.vend_eyebrow != blank -%}<span class="sj-eyebrow">{{ section.settings.vend_eyebrow }}</span>{%- endif -%}
+          <h2>{{ section.settings.vend_heading }}</h2>
+          <div class="sj-rule"></div>
+        </div>
+        <div class="sj-vend-grid">
+          {%- for block in vends -%}
+            <div class="sj-vend-card" {{ block.shopify_attributes }}>
+              {%- if block.settings.image != blank -%}
+                <div class="sj-vend-img" style="background-image:url('{{ block.settings.image | image_url: width: 800 }}');background-size:cover;background-position:center;"></div>
+              {%- else -%}<div class="sj-vend-img">&#127981;</div>{%- endif -%}
+              <div class="sj-vend-body">
+                <h3>{{ block.settings.name }}</h3>
+                {%- if block.settings.location != blank -%}<div class="sj-vend-loc">{{ block.settings.location }}</div>{%- endif -%}
+                {%- if block.settings.status_label != blank -%}<span class="sj-vend-status{% if block.settings.status_style == 'soon' %} sj-soon{% endif %}">{{ block.settings.status_label }}</span>{%- endif -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+</div>
+
+{% stylesheet %}
+.sj{--sj-navy:#173B4E;--sj-navy2:#0E2535;--sj-gold:#DDA852;--sj-gold-l:#F0C96A;--sj-gold-d:#8B6200;--sj-cream:#F5EEDC;--sj-cream2:#EDE0C0;--sj-border:#C8B98A;--sj-light:#FAF6EE;--sj-text:#1A2935;--sj-muted:#5A7285;font-family:'Roboto',sans-serif;color:var(--sj-text);line-height:1.6;}
+.sj *{margin:0;padding:0;box-sizing:border-box;}
+.sj h1,.sj h2,.sj h3,.sj h4{font-family:'Bebas Neue',sans-serif;letter-spacing:.03em;line-height:1.02;font-weight:400;}
+.sj a{text-decoration:none;color:inherit;}
+.sj .sj-eyebrow{font-family:'Roboto',sans-serif;text-transform:uppercase;letter-spacing:.18em;font-weight:600;font-size:.74rem;color:var(--sj-gold-d);display:block;}
+.sj .sj-eyebrow-l{color:var(--sj-gold-l);}
+.sj .sj-wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
+.sj .sj-btn{display:inline-block;font-family:'Bebas Neue',sans-serif;letter-spacing:.08em;font-size:1.15rem;padding:13px 30px;border-radius:6px;transition:.18s;cursor:pointer;border:2px solid transparent;}
+.sj .sj-btn-gold{background:var(--sj-gold);color:var(--sj-navy2);}
+.sj .sj-btn-gold:hover{background:var(--sj-gold-l);}
+.sj .sj-btn-navy{background:var(--sj-navy);color:var(--sj-cream);}
+.sj .sj-btn-navy:hover{background:var(--sj-navy2);}
+.sj .sj-btn-ghost{background:transparent;color:var(--sj-cream);border-color:var(--sj-gold);}
+.sj .sj-btn-ghost:hover{background:var(--sj-gold);color:var(--sj-navy2);}
+/* hero */
+.sj .sj-hero{position:relative;background:var(--sj-navy);overflow:hidden;}
+.sj .sj-hero-photo{height:560px;}
+.sj .sj-hero-ph{background:repeating-linear-gradient(135deg,rgba(221,168,82,.05) 0 2px,transparent 2px 22px),linear-gradient(160deg,#1d4a61,#0e2535);display:flex;align-items:center;justify-content:center;}
+.sj .sj-ph-label{font-family:'Roboto',sans-serif;color:rgba(245,238,220,.45);font-size:.95rem;letter-spacing:.05em;text-align:center;}
+.sj .sj-ph-label i{display:block;font-size:2.4rem;margin-bottom:8px;}
+.sj .sj-hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,37,53,.92) 0%,rgba(14,37,53,.6) 45%,rgba(14,37,53,.15) 100%);display:flex;align-items:center;}
+.sj .sj-hero-content{max-width:1200px;margin:0 auto;padding:0 24px;width:100%;}
+.sj .sj-hero-inner{max-width:560px;}
+.sj .sj-hero-est{display:inline-block;border:1.5px solid var(--sj-gold);color:var(--sj-gold-l);font-family:'Roboto',sans-serif;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;padding:5px 14px;border-radius:20px;margin-bottom:20px;}
+.sj .sj-hero h1{font-size:4.4rem;color:var(--sj-cream);margin-bottom:14px;}
+.sj .sj-au{color:var(--sj-gold);}
+.sj .sj-hero p{color:var(--sj-cream2);font-size:1.18rem;font-weight:300;margin-bottom:28px;max-width:480px;}
+.sj .sj-cta-row{display:flex;gap:14px;flex-wrap:wrap;}
+/* marquee */
+.sj .sj-mq-band{background:var(--sj-cream2);border-bottom:1px solid var(--sj-border);padding:18px 0;overflow:hidden;}
+.sj .sj-mq-lbl{text-align:center;margin-bottom:12px;}
+.sj .sj-mq{display:flex;gap:46px;animation:sj-scroll 26s linear infinite;width:max-content;align-items:center;}
+@keyframes sj-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.sj .sj-mq-chip{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:.04em;color:var(--sj-navy);opacity:.62;white-space:nowrap;}
+/* generic block section */
+.sj .sj-blk{padding:74px 0;}
+.sj .sj-cream{background:var(--sj-cream);}
+.sj .sj-lightbg{background:var(--sj-light);}
+.sj .sj-sechead{text-align:center;margin-bottom:42px;}
+.sj .sj-sechead h2{font-size:2.9rem;color:var(--sj-navy);}
+.sj .sj-h2-cream{color:var(--sj-cream)!important;}
+.sj .sj-rule{width:64px;height:3px;background:var(--sj-gold);margin:14px auto 0;}
+/* tiles */
+.sj .sj-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+.sj .sj-tile{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1/1;border:1px solid var(--sj-border);cursor:pointer;background:var(--sj-navy);transition:.2s;display:block;}
+.sj .sj-tile:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(23,59,78,.25);}
+.sj .sj-tile-img{position:absolute;inset:0;background:linear-gradient(160deg,#1d4a61,#0e2535);display:flex;align-items:center;justify-content:center;}
+.sj .sj-tile-img i{font-size:2.6rem;color:rgba(221,168,82,.4);font-style:normal;}
+.sj .sj-tile-label{position:absolute;bottom:0;left:0;right:0;padding:18px 16px 16px;background:linear-gradient(180deg,transparent,rgba(14,37,53,.96));}
+.sj .sj-tile-label h3{color:var(--sj-cream);font-size:1.7rem;}
+.sj .sj-tile-label span{font-family:'Roboto',sans-serif;font-size:.74rem;color:var(--sj-gold-l);letter-spacing:.04em;}
+.sj .sj-tile-cta{background:var(--sj-gold);}
+.sj .sj-tile-cta .sj-tile-img{background:none;}
+.sj .sj-tile-cta .sj-tile-img i{color:var(--sj-navy2);}
+.sj .sj-tile-cta .sj-tile-label{background:linear-gradient(180deg,transparent,rgba(139,98,0,.85));}
+.sj .sj-tile-cta .sj-tile-label h3,.sj .sj-tile-cta .sj-tile-label span{color:var(--sj-navy2);}
+/* gallery */
+.sj .sj-gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:170px;gap:12px;}
+.sj .sj-gphoto{background:linear-gradient(150deg,#e7dcc0,#d8ccae);border:1px solid var(--sj-border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--sj-gold-d);opacity:.9;font-family:'Roboto',sans-serif;font-size:.82rem;text-align:center;padding:10px;}
+.sj .sj-gphoto i{font-size:1.6rem;font-style:normal;}
+.sj .sj-tall{grid-row:span 2;}
+.sj .sj-wide{grid-column:span 2;}
+/* before / after */
+.sj .sj-ba{background:var(--sj-navy);color:var(--sj-cream);}
+.sj .sj-ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch;}
+.sj .sj-ba-card{border-radius:10px;overflow:hidden;border:1px solid rgba(221,168,82,.3);}
+.sj .sj-ba-img{height:300px;display:flex;align-items:center;justify-content:center;font-family:'Roboto',sans-serif;font-size:.9rem;}
+.sj .sj-ba-before{background:repeating-linear-gradient(45deg,#3a3a3a 0 14px,#444 14px 28px);color:rgba(255,255,255,.5);}
+.sj .sj-ba-after{background:linear-gradient(150deg,#1d4a61,#0e2535);color:rgba(221,168,82,.55);}
+.sj .sj-ba-tag{padding:14px 18px;background:var(--sj-navy2);display:flex;align-items:center;gap:10px;}
+.sj .sj-ba-tag h3{font-size:1.7rem;color:var(--sj-gold);}
+.sj .sj-ba-tag.sj-aft h3{color:var(--sj-cream);}
+/* grading */
+.sj .sj-grade{background:var(--sj-gold);color:var(--sj-navy2);text-align:center;}
+.sj .sj-grade h2{font-size:3rem;color:var(--sj-navy2);}
+.sj .sj-grade p{max-width:560px;margin:12px auto 26px;font-size:1.1rem;color:var(--sj-navy);}
+.sj .sj-grade .sj-eyebrow{color:var(--sj-gold-d);}
+/* vending */
+.sj .sj-vend-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.sj .sj-vend-card{background:var(--sj-light);border:1px solid var(--sj-border);border-radius:10px;overflow:hidden;}
+.sj .sj-vend-img{height:200px;background:linear-gradient(160deg,#1d4a61,#0e2535);display:flex;align-items:center;justify-content:center;color:rgba(221,168,82,.45);font-size:2.2rem;}
+.sj .sj-vend-body{padding:18px;}
+.sj .sj-vend-body h3{font-size:1.6rem;color:var(--sj-navy);}
+.sj .sj-vend-loc{font-family:'Roboto',sans-serif;font-size:.84rem;color:var(--sj-muted);margin-top:3px;}
+.sj .sj-vend-status{display:inline-block;margin-top:10px;font-family:'Roboto',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:4px 11px;border-radius:14px;background:rgba(26,107,64,.12);color:#1A6B40;}
+.sj .sj-vend-status.sj-soon{background:rgba(221,168,82,.18);color:var(--sj-gold-d);}
+/* reveal */
+.sj .sj-rv{opacity:0;transform:translateY(22px);animation:sj-rise .7s forwards;}
+@keyframes sj-rise{to{opacity:1;transform:none;}}
+@media(max-width:900px){
+  .sj .sj-hero h1{font-size:3rem;}
+  .sj .sj-tiles{grid-template-columns:repeat(2,1fr);}
+  .sj .sj-gallery{grid-template-columns:repeat(2,1fr);}
+  .sj .sj-ba-grid{grid-template-columns:1fr;}
+  .sj .sj-vend-grid{grid-template-columns:1fr;}
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "SJ Homepage",
+  "tag": "section",
+  "class": "sj-homepage-section",
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero background photo" },
+    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow", "default": "Est. 1992 · Lima, Ohio" },
+    { "type": "text", "id": "hero_heading", "label": "Heading", "default": "YOUR LOCAL CARD SHOP" },
+    { "type": "text", "id": "hero_heading_accent", "label": "Heading accent (gold, second line)", "default": "SINCE 1992" },
+    { "type": "textarea", "id": "hero_text", "label": "Intro text", "default": "We're collectors too. Vintage stars, modern rookies, Pokémon hits, sealed wax, and a PSA submission desk — right here in town." },
+    { "type": "text", "id": "hero_cta1_label", "label": "Button 1 label", "default": "Shop Sealed Wax" },
+    { "type": "url", "id": "hero_cta1_link", "label": "Button 1 link" },
+    { "type": "text", "id": "hero_cta2_label", "label": "Button 2 label", "default": "Visit the Shop" },
+    { "type": "url", "id": "hero_cta2_link", "label": "Button 2 link" },
+    { "type": "header", "content": "Brand marquee" },
+    { "type": "text", "id": "marquee_label", "label": "Label", "default": "Brands we carry" },
+    { "type": "text", "id": "brands", "label": "Brands (comma separated)", "default": "TOPPS, PANINI, BOWMAN, POKÉMON, UPPER DECK, FANATICS, LEAF, FUTERA" },
+    { "type": "header", "content": "Category tiles heading" },
+    { "type": "text", "id": "tiles_eyebrow", "label": "Eyebrow", "default": "Shop by category" },
+    { "type": "text", "id": "tiles_heading", "label": "Heading", "default": "SEALED WAX" },
+    { "type": "header", "content": "Shop gallery heading" },
+    { "type": "text", "id": "gallery_eyebrow", "label": "Eyebrow", "default": "Inside the shop" },
+    { "type": "text", "id": "gallery_heading", "label": "Heading", "default": "COME SEE US IN PERSON" },
+    { "type": "header", "content": "Then & Now" },
+    { "type": "checkbox", "id": "show_beforeafter", "label": "Show Then & Now", "default": true },
+    { "type": "text", "id": "ba_eyebrow", "label": "Eyebrow", "default": "2025 renovation" },
+    { "type": "text", "id": "ba_heading", "label": "Heading", "default": "THEN & NOW" },
+    { "type": "image_picker", "id": "before_image", "label": "Before photo" },
+    { "type": "text", "id": "before_label", "label": "Before label", "default": "BEFORE" },
+    { "type": "image_picker", "id": "after_image", "label": "After photo" },
+    { "type": "text", "id": "after_label", "label": "After label", "default": "AFTER" },
+    { "type": "header", "content": "Grading CTA" },
+    { "type": "checkbox", "id": "show_grading", "label": "Show grading band", "default": true },
+    { "type": "text", "id": "grade_eyebrow", "label": "Eyebrow", "default": "PSA Authorized Grading Agent" },
+    { "type": "text", "id": "grade_heading", "label": "Heading", "default": "GET YOUR CARDS GRADED" },
+    { "type": "textarea", "id": "grade_text", "label": "Text", "default": "Drop off in store or ship to us. PSA, BGS, SGC & TAG submissions handled in-house — fill out the form online and we'll take it from there." },
+    { "type": "text", "id": "grade_cta_label", "label": "Button label", "default": "Start a Submission" },
+    { "type": "url", "id": "grade_cta_link", "label": "Button link" },
+    { "type": "header", "content": "Mystery vending heading" },
+    { "type": "text", "id": "vend_eyebrow", "label": "Eyebrow", "default": "Around town" },
+    { "type": "text", "id": "vend_heading", "label": "Heading", "default": "MYSTERY CARD VENDING" }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Category tile",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Baseball" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Hobby · Retail · Singles" },
+        { "type": "text", "id": "icon", "label": "Emoji icon (used if no image)", "default": "⚾" },
+        { "type": "image_picker", "id": "image", "label": "Image (optional)" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "checkbox", "id": "is_cta", "label": "Style as gold 'View All' tile", "default": false }
+      ]
+    },
+    {
+      "type": "photo",
+      "name": "Gallery photo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "text", "id": "caption", "label": "Placeholder caption", "default": "Shop photo" },
+        { "type": "select", "id": "size", "label": "Size", "default": "normal", "options": [
+          { "value": "normal", "label": "Normal" },
+          { "value": "wide", "label": "Wide" },
+          { "value": "tall", "label": "Tall" },
+          { "value": "widetall", "label": "Wide + Tall" }
+        ] }
+      ]
+    },
+    {
+      "type": "vend",
+      "name": "Vending location",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo (optional)" },
+        { "type": "text", "id": "name", "label": "Location name", "default": "Location" },
+        { "type": "text", "id": "location", "label": "Sub line", "default": "Active mystery list" },
+        { "type": "text", "id": "status_label", "label": "Status badge", "default": "Live now" },
+        { "type": "select", "id": "status_style", "label": "Status style", "default": "live", "options": [
+          { "value": "live", "label": "Live (green)" },
+          { "value": "soon", "label": "Coming soon (gold)" }
+        ] }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SJ Homepage",
+      "blocks": [
+        { "type": "tile", "settings": { "title": "Baseball", "subtitle": "Hobby · Retail · Singles", "icon": "⚾" } },
+        { "type": "tile", "settings": { "title": "Basketball", "subtitle": "Hobby · Retail · Singles", "icon": "🏀" } },
+        { "type": "tile", "settings": { "title": "Football", "subtitle": "Hobby · Retail · Singles", "icon": "🏈" } },
+        { "type": "tile", "settings": { "title": "Hockey", "subtitle": "Hobby · Retail · Singles", "icon": "🏒" } },
+        { "type": "tile", "settings": { "title": "Soccer", "subtitle": "Hobby · Retail · Singles", "icon": "⚽" } },
+        { "type": "tile", "settings": { "title": "Pokémon", "subtitle": "Booster · ETB · Singles", "icon": "⚡" } },
+        { "type": "tile", "settings": { "title": "Other", "subtitle": "UFC · F1 · TCG", "icon": "🃏" } },
+        { "type": "tile", "settings": { "title": "View All", "subtitle": "Browse the full catalog", "icon": "+", "is_cta": true } },
+        { "type": "photo", "settings": { "caption": "Display cases", "size": "widetall" } },
+        { "type": "photo", "settings": { "caption": "Single boxes", "size": "normal" } },
+        { "type": "photo", "settings": { "caption": "Wax wall", "size": "normal" } },
+        { "type": "photo", "settings": { "caption": "Dig boxes", "size": "normal" } },
+        { "type": "photo", "settings": { "caption": "Grading desk", "size": "normal" } },
+        { "type": "photo", "settings": { "caption": "Storefront", "size": "wide" } },
+        { "type": "vend", "settings": { "name": "Stumps / Cinful Eats", "location": "Active mystery list", "status_label": "Live now", "status_style": "live" } },
+        { "type": "vend", "settings": { "name": "Western Bowl", "location": "Active mystery list", "status_label": "Live now", "status_style": "live" } },
+        { "type": "vend", "settings": { "name": "West Central Station", "location": "Coming soon", "status_label": "ETA 6/26", "status_style": "soon" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
