@@ -1,0 +1,107 @@
+{%- comment -%}
+  Shoeless Joe's custom footer — ported from the homepage mockup.
+  Navy footer with brand + tagline, a Shop menu column, a Visit column
+  (address/hours/directions), a working newsletter signup (Shopify customer
+  form), and a bottom PSA line. Scoped under .sj-ftr.
+{%- endcomment -%}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap">
+
+<footer class="sj-ftr" role="contentinfo">
+  <div class="sj-ftr-wrap">
+    <div class="sj-ftr-grid">
+      <div class="sj-ftr-brand">
+        {%- if section.settings.logo != blank -%}
+          <img src="{{ section.settings.logo | image_url: width: 360 }}" alt="{{ shop.name | escape }}">
+        {%- else -%}
+          <img src="{{ 'sj-logo.png' | asset_url }}" alt="{{ shop.name | escape }}">
+        {%- endif -%}
+        {%- if section.settings.tagline != blank -%}<p>{{ section.settings.tagline }}</p>{%- endif -%}
+      </div>
+
+      <div class="sj-ftr-col">
+        <h4>{{ section.settings.shop_heading }}</h4>
+        <ul>
+          {%- if section.settings.shop_menu != blank -%}
+            {%- for link in linklists[section.settings.shop_menu].links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          {%- endif -%}
+        </ul>
+      </div>
+
+      <div class="sj-ftr-col">
+        <h4>{{ section.settings.visit_heading }}</h4>
+        <ul>
+          {%- if section.settings.visit_line1 != blank -%}<li>{{ section.settings.visit_line1 }}</li>{%- endif -%}
+          {%- if section.settings.visit_line2 != blank -%}<li>{{ section.settings.visit_line2 }}</li>{%- endif -%}
+          {%- if section.settings.visit_line3 != blank -%}<li>{{ section.settings.visit_line3 }}</li>{%- endif -%}
+          {%- if section.settings.directions_url != blank -%}<li><a href="{{ section.settings.directions_url }}">{{ section.settings.directions_label }}</a></li>{%- endif -%}
+        </ul>
+      </div>
+
+      <div class="sj-ftr-news">
+        <h4>{{ section.settings.news_heading }}</h4>
+        {%- form 'customer' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input type="email" name="contact[email]" placeholder="{{ section.settings.news_placeholder | escape }}" aria-label="Email" required>
+          <button type="submit" class="sj-ftr-sub">{{ section.settings.news_button }}</button>
+          {%- if form.posted_successfully? -%}<p class="sj-ftr-ok">Thanks &mdash; you're on the list.</p>{%- endif -%}
+        {%- endform -%}
+      </div>
+    </div>
+    {%- if section.settings.bottom_text != blank -%}<div class="sj-ftr-bot">{{ section.settings.bottom_text }}</div>{%- endif -%}
+  </div>
+</footer>
+
+{% stylesheet %}
+.sj-ftr{--navy:#173B4E;--navy2:#0E2535;--gold:#DDA852;--gold-l:#F0C96A;--cream:#F5EEDC;--cream2:#EDE0C0;--border:#C8B98A;background:var(--navy2);color:var(--cream2);padding:60px 0 26px;border-top:3px solid var(--gold);font-family:'Roboto',sans-serif;}
+.sj-ftr *{box-sizing:border-box;}
+.sj-ftr a{text-decoration:none;color:inherit;}
+.sj-ftr-wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
+.sj-ftr-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:36px;margin-bottom:40px;}
+.sj-ftr h4{font-family:'Bebas Neue',sans-serif;color:var(--gold);font-size:1.5rem;letter-spacing:.05em;margin:0 0 16px;font-weight:400;}
+.sj-ftr-brand img{height:64px;width:auto;margin-bottom:14px;display:block;}
+.sj-ftr p,.sj-ftr li{font-size:.9rem;color:rgba(245,238,220,.78);line-height:1.9;list-style:none;}
+.sj-ftr ul{margin:0;padding:0;}
+.sj-ftr a:hover{color:var(--gold-l);}
+.sj-ftr-news input{width:100%;padding:11px 13px;border-radius:6px;border:1px solid var(--border);background:var(--navy);color:var(--cream);font-family:'Roboto',sans-serif;margin-bottom:10px;}
+.sj-ftr-news input::placeholder{color:rgba(245,238,220,.5);}
+.sj-ftr-sub{display:block;width:100%;text-align:center;font-family:'Bebas Neue',sans-serif;letter-spacing:.08em;font-size:1.15rem;padding:11px 20px;border-radius:6px;border:none;background:var(--gold);color:var(--navy2);cursor:pointer;transition:.18s;}
+.sj-ftr-sub:hover{background:var(--gold-l);}
+.sj-ftr-ok{margin-top:10px;color:var(--gold-l);font-size:.85rem;}
+.sj-ftr-bot{border-top:1px solid rgba(221,168,82,.2);padding-top:20px;text-align:center;font-size:.8rem;color:rgba(245,238,220,.5);}
+@media(max-width:900px){
+  .sj-ftr-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:560px){
+  .sj-ftr-grid{grid-template-columns:1fr;gap:28px;}
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "SJ Footer",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Falls back to the bundled logo if empty." },
+    { "type": "textarea", "id": "tagline", "label": "Tagline", "default": "Family-owned cards & collectibles since 1992. Buy, sell, trade, and grade — Lima, Ohio." },
+    { "type": "header", "content": "Shop column" },
+    { "type": "text", "id": "shop_heading", "label": "Heading", "default": "Shop" },
+    { "type": "link_list", "id": "shop_menu", "label": "Menu", "default": "footer" },
+    { "type": "header", "content": "Visit column" },
+    { "type": "text", "id": "visit_heading", "label": "Heading", "default": "Visit" },
+    { "type": "text", "id": "visit_line1", "label": "Line 1", "default": "Lima, Ohio" },
+    { "type": "text", "id": "visit_line2", "label": "Line 2", "default": "Mon–Sat: 11a–7p" },
+    { "type": "text", "id": "visit_line3", "label": "Line 3", "default": "Sun: 12p–5p" },
+    { "type": "text", "id": "directions_label", "label": "Directions label", "default": "Get directions" },
+    { "type": "url", "id": "directions_url", "label": "Directions link" },
+    { "type": "header", "content": "Newsletter" },
+    { "type": "text", "id": "news_heading", "label": "Heading", "default": "Stay in the loop" },
+    { "type": "text", "id": "news_placeholder", "label": "Placeholder", "default": "Your email" },
+    { "type": "text", "id": "news_button", "label": "Button", "default": "Subscribe" },
+    { "type": "header", "content": "Bottom bar" },
+    { "type": "text", "id": "bottom_text", "label": "Bottom line", "default": "© 2026 Shoeless Joe's Cards & Collectibles · PSA Authorized Grading Agent" }
+  ],
+  "enabled_on": { "groups": ["footer"] }
+}
+{% endschema %}

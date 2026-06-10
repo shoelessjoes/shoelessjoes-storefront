@@ -1,0 +1,86 @@
+{%- comment -%}
+  Shoeless Joe's custom header — ported from the homepage mockup.
+  Navy sticky bar, logo, menu (with one-level dropdowns) from a link list,
+  account + cart, and a pure-CSS hamburger for mobile. Scoped under .sj-hdr.
+  Logo falls back to the bundled assets/sj-logo.png if no logo is set.
+{%- endcomment -%}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap">
+
+<header class="sj-hdr" role="banner">
+  <input type="checkbox" id="sj-nav-toggle" class="sj-nav-cb">
+  <div class="sj-hdr-bar">
+    <a class="sj-hdr-logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+      {%- if section.settings.logo != blank -%}
+        <img src="{{ section.settings.logo | image_url: width: 360 }}" alt="{{ shop.name | escape }}" width="180" height="62">
+      {%- else -%}
+        <img src="{{ 'sj-logo.png' | asset_url }}" alt="{{ shop.name | escape }}">
+      {%- endif -%}
+    </a>
+    <label for="sj-nav-toggle" class="sj-hdr-burger" aria-label="Toggle menu"><span></span><span></span><span></span></label>
+    <nav class="sj-hdr-nav" role="navigation">
+      {%- for link in linklists[section.settings.menu].links -%}
+        {%- if link.links != blank -%}
+          <div class="sj-hdr-item sj-has-drop">
+            <a href="{{ link.url }}">{{ link.title }}<span class="sj-car">&#9662;</span></a>
+            <div class="sj-hdr-drop">
+              {%- for child in link.links -%}<a href="{{ child.url }}">{{ child.title }}</a>{%- endfor -%}
+            </div>
+          </div>
+        {%- else -%}
+          <div class="sj-hdr-item"><a href="{{ link.url }}">{{ link.title }}</a></div>
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
+    <div class="sj-hdr-icons">
+      {%- if section.settings.show_search -%}<a href="{{ routes.search_url }}" aria-label="Search">&#128269;</a>{%- endif -%}
+      {%- if shop.customer_accounts_enabled -%}<a href="{{ routes.account_url }}" aria-label="Account">&#9906;</a>{%- endif -%}
+      <a href="{{ routes.cart_url }}" class="sj-hdr-cart" aria-label="Cart">&#128722;<span class="sj-cart-count">{{ cart.item_count }}</span></a>
+    </div>
+  </div>
+</header>
+
+{% stylesheet %}
+.sj-hdr{--navy:#173B4E;--navy2:#0E2535;--gold:#DDA852;--gold-l:#F0C96A;--cream:#F5EEDC;--cream2:#EDE0C0;--border:#C8B98A;--muted:#5A7285;background:var(--navy2);position:sticky;top:0;z-index:100;border-bottom:3px solid var(--gold);box-shadow:0 3px 18px rgba(0,0,0,.28);font-family:'Roboto',sans-serif;}
+.sj-hdr *{box-sizing:border-box;}
+.sj-hdr a{text-decoration:none;}
+.sj-hdr-bar{display:flex;align-items:center;gap:28px;height:84px;max-width:1200px;margin:0 auto;padding:0 24px;}
+.sj-hdr-logo img{height:62px;width:auto;display:block;}
+.sj-hdr-nav{display:flex;gap:22px;margin-left:auto;align-items:center;}
+.sj-hdr-item{position:relative;}
+.sj-hdr-item>a{font-family:'Bebas Neue',sans-serif;letter-spacing:.06em;font-size:1.12rem;color:var(--cream);transition:.15s;padding:4px 0;display:inline-block;}
+.sj-hdr-item>a:hover{color:var(--gold-l);}
+.sj-car{font-size:.7rem;margin-left:4px;}
+.sj-hdr-drop{position:absolute;top:100%;left:0;background:var(--navy2);border:1px solid rgba(221,168,82,.3);border-top:2px solid var(--gold);min-width:190px;padding:8px 0;display:none;flex-direction:column;box-shadow:0 12px 28px rgba(0,0,0,.35);z-index:120;}
+.sj-hdr-item.sj-has-drop:hover .sj-hdr-drop{display:flex;}
+.sj-hdr-drop a{font-family:'Roboto',sans-serif;font-size:.9rem;color:var(--cream2);padding:8px 18px;white-space:nowrap;}
+.sj-hdr-drop a:hover{background:var(--navy);color:var(--gold-l);}
+.sj-hdr-icons{display:flex;gap:16px;margin-left:8px;color:var(--cream);font-size:1.2rem;align-items:center;}
+.sj-hdr-icons a{color:var(--cream);}
+.sj-hdr-icons a:hover{color:var(--gold-l);}
+.sj-cart-count{font-family:'Roboto',sans-serif;font-size:.7rem;background:var(--gold);color:var(--navy2);border-radius:10px;padding:0 6px;margin-left:2px;font-weight:700;vertical-align:top;}
+.sj-hdr-burger{display:none;flex-direction:column;gap:5px;margin-left:auto;cursor:pointer;}
+.sj-hdr-burger span{width:26px;height:3px;background:var(--cream);border-radius:2px;display:block;}
+.sj-nav-cb{position:absolute;opacity:0;pointer-events:none;}
+@media(max-width:900px){
+  .sj-hdr-burger{display:flex;}
+  .sj-hdr-nav{display:none;position:absolute;top:84px;left:0;right:0;background:var(--navy2);flex-direction:column;gap:0;padding:6px 0;border-bottom:3px solid var(--gold);box-shadow:0 14px 24px rgba(0,0,0,.35);}
+  .sj-nav-cb:checked ~ .sj-hdr-bar .sj-hdr-nav{display:flex;}
+  .sj-hdr-item{width:100%;}
+  .sj-hdr-item>a{display:block;padding:12px 24px;font-size:1.3rem;}
+  .sj-hdr-drop{position:static;display:flex;border:none;box-shadow:none;padding:0 0 6px 18px;}
+  .sj-hdr-icons{margin-left:auto;}
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "SJ Header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Falls back to the bundled logo if empty." },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "checkbox", "id": "show_search", "label": "Show search icon", "default": true }
+  ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}
