@@ -1,0 +1,60 @@
+{%- comment -%}
+  Shoeless Joe's graded-card cert panel. Reads card metafields and shows the
+  grade, cert number, and a "Verify Certification" button linking to the grader.
+  Only renders when the product actually has a grade or cert link, so it stays
+  invisible on non-graded products. Scoped under .sj-cert.
+{%- endcomment -%}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap">
+
+{%- assign cert_link = product.metafields.custom.certification_link -%}
+{%- assign grade = product.metafields.custom.card_grade -%}
+{%- assign cert_num = product.metafields.custom.certification_number -%}
+
+{%- if grade != blank or cert_link != blank -%}
+<div class="sj-cert">
+  <div class="sj-cert-wrap">
+    {%- if grade != blank -%}
+      <div class="sj-cert-grade">
+        <span class="sj-cert-grade-num">{{ grade }}</span>
+        <span class="sj-cert-grade-lbl">{{ section.settings.grade_label | default: 'Grade' }}</span>
+      </div>
+    {%- endif -%}
+    <div class="sj-cert-info">
+      {%- if cert_num != blank -%}<div class="sj-cert-num">Cert #{{ cert_num | remove: "'" | strip }}</div>{%- endif -%}
+      {%- if section.settings.note != blank -%}<p>{{ section.settings.note }}</p>{%- endif -%}
+    </div>
+    {%- if cert_link != blank -%}
+      <a class="sj-cert-btn" href="{{ cert_link }}" target="_blank" rel="noopener">{{ section.settings.button_label | default: 'Verify Certification' }}</a>
+    {%- endif -%}
+  </div>
+</div>
+{%- endif -%}
+
+{% stylesheet %}
+.sj-cert{background:#173B4E;color:#F5EEDC;padding:22px 0;font-family:'Roboto',sans-serif;}
+.sj-cert *{box-sizing:border-box;}
+.sj-cert-wrap{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+.sj-cert-grade{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#DDA852;color:#173B4E;border-radius:10px;padding:10px 22px;min-width:96px;}
+.sj-cert-grade-num{font-family:'Bebas Neue',sans-serif;font-size:2.7rem;line-height:1;}
+.sj-cert-grade-lbl{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;margin-top:2px;}
+.sj-cert-info{flex:1;min-width:150px;}
+.sj-cert-num{font-family:'Roboto Mono',monospace;font-size:1.05rem;color:#F5EEDC;letter-spacing:.02em;}
+.sj-cert-info p{font-size:.88rem;color:rgba(245,238,220,.8);margin-top:4px;}
+.sj-cert-btn{display:inline-block;font-family:'Bebas Neue',sans-serif;letter-spacing:.06em;font-size:1.2rem;background:#DDA852;color:#173B4E;padding:12px 28px;border-radius:6px;transition:.18s;text-decoration:none;border:2px solid #DDA852;}
+.sj-cert-btn:hover{background:#F0C96A;border-color:#F0C96A;}
+@media(max-width:600px){.sj-cert-wrap{flex-direction:column;align-items:flex-start;}.sj-cert-btn{width:100%;text-align:center;}}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "SJ Cert Panel",
+  "settings": [
+    { "type": "text", "id": "grade_label", "label": "Grade label", "default": "Grade" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Verify Certification" },
+    { "type": "text", "id": "note", "label": "Note (optional)" }
+  ],
+  "enabled_on": { "templates": ["product"] },
+  "presets": [{ "name": "SJ Cert Panel" }]
+}
+{% endschema %}
