@@ -1,0 +1,105 @@
+{%- comment -%}
+  Shoeless Joe's — Sealed Wax landing section. Same tile design as the homepage
+  band, standalone so it can be the landing page for the "Sealed Wax" menu item.
+  Scoped under .sj.
+{%- endcomment -%}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap">
+
+<div class="sj">
+  <section class="sj-blk sj-cream">
+    <div class="sj-wrap">
+      <div class="sj-sechead">
+        {%- if section.settings.eyebrow != blank -%}<span class="sj-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+        <h2>{{ section.settings.heading }}</h2>
+        {%- if section.settings.intro != blank -%}<p class="sj-intro">{{ section.settings.intro }}</p>{%- endif -%}
+        <div class="sj-rule"></div>
+      </div>
+      <div class="sj-tiles">
+        {%- for block in section.blocks -%}
+          <a class="sj-tile{% if block.settings.is_cta %} sj-tile-cta{% endif %}" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              <div class="sj-tile-img" style="background-image:url('{{ block.settings.image | image_url: width: 600 }}');background-size:cover;background-position:center;"></div>
+            {%- else -%}
+              <div class="sj-tile-img"><i>{{ block.settings.icon | default: '&#9918;' }}</i></div>
+            {%- endif -%}
+            <div class="sj-tile-label">
+              <h3>{{ block.settings.title }}</h3>
+              {%- if block.settings.subtitle != blank -%}<span>{{ block.settings.subtitle }}</span>{%- endif -%}
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+</div>
+
+{% stylesheet %}
+.sj{--sj-navy:#173B4E;--sj-navy2:#0E2535;--sj-gold:#DDA852;--sj-gold-l:#F0C96A;--sj-gold-d:#8B6200;--sj-cream:#F5EEDC;--sj-cream2:#EDE0C0;--sj-border:#C8B98A;--sj-light:#FAF6EE;--sj-text:#1A2935;--sj-muted:#5A7285;font-family:'Roboto',sans-serif;color:var(--sj-text);line-height:1.6;}
+.sj *{box-sizing:border-box;}
+.sj h2,.sj h3{font-family:'Bebas Neue',sans-serif;letter-spacing:.03em;line-height:1.02;font-weight:400;margin:0;}
+.sj a{text-decoration:none;color:inherit;}
+.sj .sj-eyebrow{font-family:'Roboto',sans-serif;text-transform:uppercase;letter-spacing:.18em;font-weight:600;font-size:.74rem;color:var(--sj-gold-d);display:block;}
+.sj .sj-wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
+.sj .sj-blk{padding:74px 0;}
+.sj .sj-cream{background:var(--sj-cream);}
+.sj .sj-sechead{text-align:center;margin-bottom:42px;}
+.sj .sj-sechead h2{font-size:2.9rem;color:var(--sj-navy);}
+.sj .sj-intro{max-width:620px;margin:12px auto 0;color:var(--sj-muted);font-size:1.05rem;}
+.sj .sj-rule{width:64px;height:3px;background:var(--sj-gold);margin:14px auto 0;}
+.sj .sj-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+.sj .sj-tile{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1/1;border:1px solid var(--sj-border);cursor:pointer;background:var(--sj-navy);transition:.2s;display:block;}
+.sj .sj-tile:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(23,59,78,.25);}
+.sj .sj-tile-img{position:absolute;inset:0;background:linear-gradient(160deg,#1d4a61,#0e2535);display:flex;align-items:center;justify-content:center;}
+.sj .sj-tile-img i{font-size:2.6rem;color:rgba(221,168,82,.4);font-style:normal;}
+.sj .sj-tile-label{position:absolute;bottom:0;left:0;right:0;padding:18px 16px 16px;background:linear-gradient(180deg,transparent,rgba(14,37,53,.96));}
+.sj .sj-tile-label h3{color:var(--sj-cream);font-size:1.7rem;}
+.sj .sj-tile-label span{font-family:'Roboto',sans-serif;font-size:.74rem;color:var(--sj-gold-l);letter-spacing:.04em;}
+.sj .sj-tile-cta{background:var(--sj-gold);}
+.sj .sj-tile-cta .sj-tile-img{background:none;}
+.sj .sj-tile-cta .sj-tile-img i{color:var(--sj-navy2);}
+.sj .sj-tile-cta .sj-tile-label{background:linear-gradient(180deg,transparent,rgba(139,98,0,.85));}
+.sj .sj-tile-cta .sj-tile-label h3,.sj .sj-tile-cta .sj-tile-label span{color:var(--sj-navy2);}
+@media(max-width:900px){.sj .sj-tiles{grid-template-columns:repeat(2,1fr);}}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "SJ Sealed Wax",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop by category" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "SEALED WAX" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Boxes, cases, and packs across every sport and TCG — browse by category below." }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Category tile",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Baseball" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Hobby · Retail · Singles" },
+        { "type": "text", "id": "icon", "label": "Emoji icon (used if no image)", "default": "⚾" },
+        { "type": "image_picker", "id": "image", "label": "Image (optional)" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "checkbox", "id": "is_cta", "label": "Style as gold 'View All' tile", "default": false }
+      ]
+    }
+  ],
+  "enabled_on": { "templates": ["page"] },
+  "presets": [
+    {
+      "name": "SJ Sealed Wax",
+      "blocks": [
+        { "type": "tile", "settings": { "title": "Baseball", "subtitle": "Hobby · Retail · Singles", "icon": "⚾", "link": "/collections/sealed-baseball-wax" } },
+        { "type": "tile", "settings": { "title": "Basketball", "subtitle": "Hobby · Retail · Singles", "icon": "🏀", "link": "/collections/sealed-basketball-wax" } },
+        { "type": "tile", "settings": { "title": "Football", "subtitle": "Hobby · Retail · Singles", "icon": "🏈", "link": "/collections/sealed-football-wax" } },
+        { "type": "tile", "settings": { "title": "Hockey", "subtitle": "Hobby · Retail · Singles", "icon": "🏒", "link": "/collections/sealed-hockey-wax" } },
+        { "type": "tile", "settings": { "title": "Soccer", "subtitle": "Hobby · Retail · Singles", "icon": "⚽", "link": "/collections/sealed-soccer-wax" } },
+        { "type": "tile", "settings": { "title": "Pokémon", "subtitle": "Booster · ETB · Singles", "icon": "⚡", "link": "/collections/sealed-pokemon-wax" } },
+        { "type": "tile", "settings": { "title": "Other", "subtitle": "UFC · F1 · TCG", "icon": "🃏", "link": "/collections/sealed-entertainment-wax" } },
+        { "type": "tile", "settings": { "title": "View All", "subtitle": "Browse all sealed wax", "icon": "+", "is_cta": true, "link": "/collections/all" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,45 @@
+{
+  "sections": {
+    "vend": {
+      "type": "sj-vending",
+      "settings": {},
+      "blocks": {
+        "v1": {
+          "type": "vend",
+          "settings": {
+            "name": "Stumps / Cinful Eats",
+            "location": "Active mystery list",
+            "status_label": "Live now",
+            "status_style": "live"
+          }
+        },
+        "v2": {
+          "type": "vend",
+          "settings": {
+            "name": "Western Bowl",
+            "location": "Active mystery list",
+            "status_label": "Live now",
+            "status_style": "live"
+          }
+        },
+        "v3": {
+          "type": "vend",
+          "settings": {
+            "name": "West Central Station",
+            "location": "Coming soon",
+            "status_label": "ETA 6/26",
+            "status_style": "soon"
+          }
+        }
+      },
+      "block_order": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    }
+  },
+  "order": [
+    "vend"
+  ]
+}

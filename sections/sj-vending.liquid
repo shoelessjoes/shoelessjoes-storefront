@@ -1,0 +1,94 @@
+{%- comment -%}
+  Shoeless Joe's — Mystery Card Vending landing section. Same card design as the
+  homepage band, standalone so it can be the master vending page. Scoped under .sj.
+{%- endcomment -%}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap">
+
+<div class="sj">
+  <section class="sj-blk sj-cream">
+    <div class="sj-wrap">
+      <div class="sj-sechead">
+        {%- if section.settings.eyebrow != blank -%}<span class="sj-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+        <h2>{{ section.settings.heading }}</h2>
+        {%- if section.settings.intro != blank -%}<p class="sj-intro">{{ section.settings.intro }}</p>{%- endif -%}
+        <div class="sj-rule"></div>
+      </div>
+      <div class="sj-vend-grid">
+        {%- for block in section.blocks -%}
+          <div class="sj-vend-card" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              <div class="sj-vend-img" style="background-image:url('{{ block.settings.image | image_url: width: 800 }}');background-size:cover;background-position:center;"></div>
+            {%- else -%}<div class="sj-vend-img">&#127981;</div>{%- endif -%}
+            <div class="sj-vend-body">
+              <h3>{{ block.settings.name }}</h3>
+              {%- if block.settings.location != blank -%}<div class="sj-vend-loc">{{ block.settings.location }}</div>{%- endif -%}
+              {%- if block.settings.status_label != blank -%}<span class="sj-vend-status{% if block.settings.status_style == 'soon' %} sj-soon{% endif %}">{{ block.settings.status_label }}</span>{%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+</div>
+
+{% stylesheet %}
+.sj{--sj-navy:#173B4E;--sj-navy2:#0E2535;--sj-gold:#DDA852;--sj-gold-l:#F0C96A;--sj-gold-d:#8B6200;--sj-cream:#F5EEDC;--sj-border:#C8B98A;--sj-light:#FAF6EE;--sj-text:#1A2935;--sj-muted:#5A7285;font-family:'Roboto',sans-serif;color:var(--sj-text);line-height:1.6;}
+.sj *{box-sizing:border-box;}
+.sj h2,.sj h3{font-family:'Bebas Neue',sans-serif;letter-spacing:.03em;line-height:1.02;font-weight:400;margin:0;}
+.sj .sj-eyebrow{font-family:'Roboto',sans-serif;text-transform:uppercase;letter-spacing:.18em;font-weight:600;font-size:.74rem;color:var(--sj-gold-d);display:block;}
+.sj .sj-wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
+.sj .sj-blk{padding:74px 0;}
+.sj .sj-cream{background:var(--sj-cream);}
+.sj .sj-sechead{text-align:center;margin-bottom:42px;}
+.sj .sj-sechead h2{font-size:2.9rem;color:var(--sj-navy);}
+.sj .sj-intro{max-width:620px;margin:12px auto 0;color:var(--sj-muted);font-size:1.05rem;}
+.sj .sj-rule{width:64px;height:3px;background:var(--sj-gold);margin:14px auto 0;}
+.sj .sj-vend-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.sj .sj-vend-card{background:var(--sj-light);border:1px solid var(--sj-border);border-radius:10px;overflow:hidden;}
+.sj .sj-vend-img{height:200px;background:linear-gradient(160deg,#1d4a61,#0e2535);display:flex;align-items:center;justify-content:center;color:rgba(221,168,82,.45);font-size:2.2rem;}
+.sj .sj-vend-body{padding:18px;}
+.sj .sj-vend-body h3{font-size:1.6rem;color:var(--sj-navy);}
+.sj .sj-vend-loc{font-family:'Roboto',sans-serif;font-size:.84rem;color:var(--sj-muted);margin-top:3px;}
+.sj .sj-vend-status{display:inline-block;margin-top:10px;font-family:'Roboto',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:4px 11px;border-radius:14px;background:rgba(26,107,64,.12);color:#1A6B40;}
+.sj .sj-vend-status.sj-soon{background:rgba(221,168,82,.18);color:var(--sj-gold-d);}
+@media(max-width:900px){.sj .sj-vend-grid{grid-template-columns:1fr;}}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "SJ Vending",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Around town" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "MYSTERY CARD VENDING" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Find a Shoeless Joe's mystery card machine near you. New spots added all the time." }
+  ],
+  "blocks": [
+    {
+      "type": "vend",
+      "name": "Vending location",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo (optional)" },
+        { "type": "text", "id": "name", "label": "Location name", "default": "Location" },
+        { "type": "text", "id": "location", "label": "Sub line", "default": "Active mystery list" },
+        { "type": "text", "id": "status_label", "label": "Status badge", "default": "Live now" },
+        { "type": "select", "id": "status_style", "label": "Status style", "default": "live", "options": [
+          { "value": "live", "label": "Live (green)" },
+          { "value": "soon", "label": "Coming soon (gold)" }
+        ] }
+      ]
+    }
+  ],
+  "enabled_on": { "templates": ["page"] },
+  "presets": [
+    {
+      "name": "SJ Vending",
+      "blocks": [
+        { "type": "vend", "settings": { "name": "Stumps / Cinful Eats", "location": "Active mystery list", "status_label": "Live now", "status_style": "live" } },
+        { "type": "vend", "settings": { "name": "Western Bowl", "location": "Active mystery list", "status_label": "Live now", "status_style": "live" } },
+        { "type": "vend", "settings": { "name": "West Central Station", "location": "Coming soon", "status_label": "ETA 6/26", "status_style": "soon" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
