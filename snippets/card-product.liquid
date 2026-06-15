@@ -643,7 +643,7 @@
               {% endif %}
             {%- endif -%}
 
-            {% if horizontal_mini != true and settings.flash_sale_position == 'below_info' %}
+            {% if horizontal_mini != true and settings.flash_sale_position == 'below_info' and hide_flash_sale != true %}
               {%- render 'flash-sale', flash_sale_product: card_product, class: 'flash-sale--below' -%}
             {% endif %}
           </div>
@@ -656,12 +656,12 @@
             </div>
           {%- endif -%}
 
-          {% if horizontal_mini %}
+          {% if horizontal_mini and hide_flash_sale != true %}
             {%- render 'flash-sale', flash_sale_product: card_product, class: 'flash-sale--bottom card__information' -%}
           {% endif %}
         </div>
 
-        {% if horizontal_mini != true and settings.flash_sale_position == 'bottom' %}
+        {% if horizontal_mini != true and settings.flash_sale_position == 'bottom' and hide_flash_sale != true %}
           {%- render 'flash-sale', flash_sale_product: card_product, class: 'flash-sale--bottom card__information' -%}
         {% endif %}
 

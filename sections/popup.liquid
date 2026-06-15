@@ -62,18 +62,19 @@
     {
       "type": "range",
       "id": "show_delay",
+      "visible_if": "{{ section.settings.show_trigger == 'delay' }}",
       "min": 0,
       "max": 20,
       "step": 1,
       "unit": "s",
       "default": 4,
-      "info": "Only applies to 'A few seconds after the page loads' above.",
       "label": "Number of seconds"
     },
     {
       "type": "text",
       "id": "popup_id",
-      "info": "One word, no spaces. Only applies to 'User clicks a link'. This can be applied to any link throughout the store. Use a # followed by the above Popup ID to open this popup. [Learn more](https://benchmarkthemes.com/help-center/ignite/sections/popup/).",
+      "visible_if": "{{ section.settings.show_trigger == 'click' }}",
+      "info": "One word, no spaces. This can be applied to any link throughout the store. Use a # followed by the above Popup ID to open this popup. [Learn more](https://benchmarkthemes.com/help-center/ignite/sections/popup/).",
       "label": "Popup ID"
     },
     {
@@ -3535,6 +3536,12 @@
           "id": "success_message",
           "default": "Thanks for subscribing.",
           "label": "Success message"
+        },
+        {
+          "type": "url",
+          "id": "return_to",
+          "label": "Success page to redirect to",
+          "info": "Optional."
         }
       ]
     }

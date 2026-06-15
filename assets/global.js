@@ -1,3 +1,25 @@
+/* DEVICE/BROWSER DETECTION */
+window.themeDevice = {
+  mobile: window.matchMedia('(max-width: 749.98px)'),
+  touchDevice: window.matchMedia('(hover: none) and (pointer: coarse)'),
+
+  get isMobile() {
+    return this.mobile.matches;
+  },
+
+  get isTouchDevice() {
+    return this.touchDevice.matches;
+  },
+
+  get isTablet() {
+    return !this.isMobile && this.isTouchDevice;
+  },
+
+  isRTL(element) {
+    return (element?.closest('[dir="rtl"]') || document.documentElement).dir === 'rtl';
+  },
+};
+
 /* EVENTS/SUBSCRIPTIONS */
 const ON_CHANGE_DEBOUNCE_TIMER = 300;
 
@@ -328,11 +350,25 @@ function pauseAllMedia() {
   document.querySelectorAll('.js-vimeo:not(.js-video-background)').forEach((video) => {
     video.contentWindow.postMessage('{"method":"pause"}', '*');
   });
-  document.querySelectorAll('video:not(.js-video-background)').forEach((video) => video.pause());
+  document.querySelectorAll('video:not(.js-video-background)').forEach((video) => {
+    if (!video.paused) {
+      video.setAttribute('data-was-playing', 'true');
+    }
+
+    video.pause();
+  });
   document.querySelectorAll('product-model').forEach((model) => {
     if (model.modelViewerUI && typeof model.modelViewerUI.pause === "function") {
       try { model.modelViewerUI.pause(); } catch(err) {}
     }
+  });
+}
+
+function resumePreviouslyPlayingHTML5Video() {
+  document.querySelectorAll('video[data-was-playing="true"]').forEach((video) => {
+    video.muted = true;
+    video.play().catch(() => {});
+    video.removeAttribute('data-was-playing');
   });
 }
 
@@ -849,12 +885,13 @@ customElements.define('custom-nav', CustomNav);
 class ModalDialog extends HTMLElement {
   constructor() {
     super();
+    this.isSocialVideoPopup = this.classList.contains('popup-modal--social-video');
     // Handle close events
     this.addEventListener('click', this.handleComponentClick.bind(this));
 
     if (!this.dataset.preventClose) {
       this.addEventListener('keyup', (event) => {
-        if (event.code.toUpperCase() === 'ESCAPE') this.hide();
+        if (event.code?.toUpperCase() === 'ESCAPE') this.hide();
       });
 
       if (this.classList.contains('media-modal')) {
@@ -903,11 +940,43 @@ class ModalDialog extends HTMLElement {
   }
 
   show(opener, modalClass) {
+    // Load any dynamic content
+    if (this.dataset.contentSelector) {
+      const content = [...document.querySelectorAll(this.dataset.contentSelector)];
+      const sectionContent = this.querySelector('.section-content');
+
+      if (content.length && sectionContent) {
+        const clonedContent = content.map((item) => {
+          const clone = item.cloneNode(true);
+          const videos = clone.matches('video') ? [clone] : [...clone.querySelectorAll('video')];
+
+          videos.forEach((video) => {
+            video.muted = false;
+            video.removeAttribute('muted');
+
+            video.autoplay = false;
+            video.removeAttribute('autoplay');
+          });
+
+          return clone;
+        });
+
+        sectionContent.append(...clonedContent);
+      }
+
+      this.removeAttribute('data-content-selector');
+    }
+
     this.moveModal();
     window.loadTemplateContent(this);
 
     // Load all lazy scripts immediately
     this.querySelectorAll('lazy-script').forEach(script => script.loadScript());
+
+    // Load all deferred media immediately
+    this.querySelectorAll('deferred-media').forEach(deferredMedia => {
+      deferredMedia.loadContent?.();
+    });
 
     if (this.dataset.isAlert) {
       this.setAttribute('open', '');
@@ -928,6 +997,45 @@ class ModalDialog extends HTMLElement {
         if (modalClass) this.classList.add(modalClass);
 
         window.makeTablesResponsive();
+
+        if (this.isSocialVideoPopup) {
+          // Scroll to relevant element
+          const openerVideo = opener.querySelector('video') || opener.closest('video');
+          const sourceVideo = opener.querySelector('source')?.getAttribute('src');
+          const seekTime = openerVideo?.currentTime || 0;
+
+          if (sourceVideo) {
+            const matchingVideo = [...this.querySelectorAll('video')].find((video) => {
+              return [...video.querySelectorAll('source')].some((source) => {
+                return source.getAttribute('src') === sourceVideo;
+              });
+            });
+
+            if (matchingVideo) {
+              matchingVideo.scrollIntoView({
+                block: 'start',
+                behavior: 'instant',
+              });
+
+              const playMatchingVideo = () => {
+                matchingVideo.currentTime = seekTime;
+
+                const playPromise = matchingVideo.play();
+
+                if (playPromise !== undefined) {
+                  playPromise.catch(() => {});
+                }
+              };
+
+              if (matchingVideo.readyState >= 1) {
+                playMatchingVideo();
+              } else {
+                matchingVideo.addEventListener('loadedmetadata', playMatchingVideo, { once: true });
+                matchingVideo.load();
+              }
+            }
+          }
+        }
       }, 100);
     }
   }
@@ -944,6 +1052,7 @@ class ModalDialog extends HTMLElement {
       document.body.dispatchEvent(new CustomEvent('modalClosed'));
       this.removeAttribute('open');
       this.classList.remove('popup-modal--closing');
+      window.resumePreviouslyPlayingHTML5Video();
     }
 
     if (preventAnimation) {
@@ -1097,7 +1206,7 @@ class CustomPopup extends ModalDialog {
     this.delaySeconds = parseInt(this.dataset.delaySeconds);
     this.timeToShow = this.dataset.timeOfDayToShow;
 
-    if (Shopify.designMode) {
+    if (Shopify.designMode && !this.isSocialVideoPopup) {
       if (!this.dataset.teOnly) {
         document.addEventListener('shopify:section:select', (event) => {
           if (event.target === this.closest('.shopify-section')) {
@@ -1116,13 +1225,14 @@ class CustomPopup extends ModalDialog {
         });
 
         // Bind click triggered popups in the Theme Editor
-        if ((this.dataset.visibility === "mobile" && window.matchMedia('(max-width: 749.98px)').matches) ||
+        if (
+          (this.dataset.visibility === "mobile" && window.matchMedia('(max-width: 749.98px)').matches) ||
           (this.dataset.visibility === "desktop" && window.matchMedia('(min-width: 750px)').matches) ||
-          (this.dataset.visibility === "both")) {
+          (this.dataset.visibility === "both")
+        ) {
           if (this.dataset.trigger && this.dataset.trigger === 'click') {
             // Listen for clicks on any anchor links which end with this.dataset.popupTriggerId. Do a this.show() for those clicks.
-            this.clickTriggerHandler = this.clickTriggerHandler || this.handleClickTrigger.bind(this);
-            document.addEventListener('click', this.clickTriggerHandler);
+            this.bindGlobalClickTrigger();
           }
         }
       } else {
@@ -1147,18 +1257,22 @@ class CustomPopup extends ModalDialog {
       }
 
       if (
-          (
-              (this.dataset.visibility === "mobile" && window.matchMedia('(max-width: 749.98px)').matches) ||
-              (this.dataset.visibility === "desktop" && window.matchMedia('(min-width: 750px)').matches) ||
-              (this.dataset.visibility === "both")
-          ) &&
-          (
-              !this.timeToShow || this.timeToShow.split(',').map(s => s.trim()).includes(timeOfDay)
-          )
-      )  {
-
+        (
+          (this.dataset.visibility === "mobile" && window.matchMedia('(max-width: 749.98px)').matches) ||
+          (this.dataset.visibility === "desktop" && window.matchMedia('(min-width: 750px)').matches) ||
+          (this.dataset.visibility === "both")
+        ) &&
+        (
+          !this.timeToShow || this.timeToShow.split(',').map(s => s.trim()).includes(timeOfDay)
+        )
+      ) {
         const closedElements = JSON.parse(localStorage.getItem('theme-closed-elements')) || [];
-        if (this.dataset.mode === "test" || (this.dataset.trigger && this.dataset.trigger === 'click') || !closedElements.includes(this.dataset.popupId)) {
+
+        if (
+          this.dataset.mode === "test" ||
+          (this.dataset.trigger && this.dataset.trigger === 'click') ||
+          !closedElements.includes(this.dataset.popupId)
+        ) {
           if (!this.dataset.trigger || this.dataset.trigger.length === 0 || this.dataset.trigger === 'delay') {
             setTimeout(() => {
               this.show();
@@ -1182,9 +1296,7 @@ class CustomPopup extends ModalDialog {
 
           } else if (this.dataset.trigger === 'click') {
             // Listen for clicks on any anchor links which end with this.dataset.popupTriggerId. Do a this.show() for those clicks.
-            this.clickTriggerHandler = this.clickTriggerHandler || this.handleClickTrigger.bind(this);
-            document.addEventListener('click', this.clickTriggerHandler);
-
+            this.bindGlobalClickTrigger();
           }
         }
       }
@@ -1199,19 +1311,32 @@ class CustomPopup extends ModalDialog {
     }
   }
 
+  bindGlobalClickTrigger() {
+    if (window.themeCustomPopupClickTriggerHandler) return;
+
+    window.themeCustomPopupClickTriggerHandler = (event) => {
+      document.querySelectorAll('custom-popup').forEach((popup) => {
+        popup.handleClickTrigger(event);
+      });
+    };
+
+    document.addEventListener('click', window.themeCustomPopupClickTriggerHandler);
+  }
+
   handleClickTrigger(event) {
-    if (this.dataset.popupTriggerId && this.dataset.popupTriggerId.length > 0) {
-      const target = event.target.closest('a');
-      if (target && target.hash === `#${this.dataset.popupTriggerId}`) {
-        event.preventDefault();
-        this.show();
-      }
-    }
+    const id = this.dataset.popupTriggerId;
+    if (!id) return;
+
+    const trigger = event.target.closest(`a[href="#${id}"], button[data-open-popup="${id}"]`);
+    if (!trigger) return;
+
+    event.preventDefault();
+    this.show(trigger);
   }
 
   handleCopyToClipboard() {
     const closedElements = JSON.parse(localStorage.getItem('theme-closed-elements')) || [];
-    if(this.dataset.mode === "test" || !closedElements.includes(this.dataset.popupId)) this.show();
+    if (this.dataset.mode === "test" || !closedElements.includes(this.dataset.popupId)) this.show();
   }
 
   handleStoreLeave(event) {
@@ -1416,7 +1541,7 @@ class CustomVideo extends HTMLElement {
 
   bindHtmlVideoListeners() {
     setTimeout(this.playbackStarted.bind(this, true), 500);
-    this.video.addEventListener('play', this.playbackStarted.bind(this));
+    this.video.addEventListener('playing', this.playbackStarted.bind(this));
     this.video.addEventListener('pause', this.playbackPaused.bind(this));
     this.video.addEventListener('ended', this.playbackEnded.bind(this));
   }
@@ -1489,7 +1614,7 @@ class DeferredMedia extends HTMLElement {
         }, {once: true});
     }
 
-    if (!this.closest('.product') && !Shopify.designMode) {
+    if ((!this.closest('.product') || this.closest('.product__social-videos')) && !Shopify.designMode) {
       this.addIntersectionObserver();
     }
   }
@@ -1497,7 +1622,9 @@ class DeferredMedia extends HTMLElement {
   addIntersectionObserver() {
     if ('IntersectionObserver' in window === false) return;
 
-    const rootMarginValue = window.innerWidth < 750 ? '0px 0px 500px 0px' : '0px 0px 900px 0px';
+    const rootMargin = this.classList.contains('social-video-wrapper') ? 400 : 900;
+
+    const rootMarginValue = window.innerWidth < 750 ? '0px 0px 500px 0px' : `0px 0px ${rootMargin}px 0px`;
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -1546,6 +1673,8 @@ class DeferredMedia extends HTMLElement {
       // }, 0);
 
       window.makeTablesResponsive();
+    } else if (this.classList.contains('social-video-wrapper') && window.matchMedia('(max-width: 749.98px)').matches) {
+      this.querySelector('video')?.play();
     }
   }
 }
@@ -1712,9 +1841,7 @@ class SliderComponent extends HTMLElement {
       // Watch for size change
       if (this.slider.dataset.slideMobile === 'true') {
         this._updateMobileSlideSettings = () => {
-          const isMobile = window.matchMedia('(max-width: 749.98px)').matches;
-
-          if (isMobile) {
+          if (window.themeDevice.isMobile) {
             if (this.slider.dataset.slideType !== 'slide') {
               this.isStacked = false;
               this.oldSlideAnimation = this.slider.dataset.slideAnimation;
@@ -2064,6 +2191,37 @@ class SliderComponent extends HTMLElement {
     });
   }
 
+  getCurrentPageFromCenteredSnap() {
+    const items = this.sliderItemsToShow;
+    if (!items?.length) return 1;
+
+    const EPSILON = 1;
+    const scrollPos = this.isRTL ? this.getNormalizedScrollLeft() : this.slider.scrollLeft;
+    const scrollMax = this.getScrollMax();
+
+    if (scrollPos <= EPSILON) return 1;
+    if (scrollMax > 0 && scrollPos >= scrollMax - EPSILON) return items.length;
+
+    const sliderRect = this.slider.getBoundingClientRect();
+    const sliderCenter = sliderRect.left + sliderRect.width / 2;
+
+    let closestIndex = 0;
+    let closestDistance = Infinity;
+
+    items.forEach((item, index) => {
+      const itemRect = item.getBoundingClientRect();
+      const itemCenter = itemRect.left + itemRect.width / 2;
+      const distance = Math.abs(itemCenter - sliderCenter);
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    return closestIndex + 1;
+  }
+
   update() {
     if (!this.slider || this._isResizing) return;
 
@@ -2072,6 +2230,8 @@ class SliderComponent extends HTMLElement {
     if (this.isStacked) {
       const visible = this.querySelector('.slideshow__slide[aria-hidden="false"]');
       if (visible) this.currentPage = parseInt(visible.dataset.slideIndex, 10);
+    } else if (this.sliderItemsToShow.some((item) => getComputedStyle(item).scrollSnapAlign.includes('center'))) {
+      this.currentPage = this.getCurrentPageFromCenteredSnap();
     } else {
       this.currentPage = Math.round(this.slider.scrollLeft / this.sliderItemOffset) + 1;
     }
@@ -3449,7 +3609,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Wait a bit to let browser finish any native scrolling first
       setTimeout(() => {
         const target = document.querySelector(anchor);
-        if (target) {
+        if (target && !target.closest('.section-popup')) {
           const offset = 200;
           const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
 

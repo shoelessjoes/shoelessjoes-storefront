@@ -184,6 +184,12 @@
                             {{- item.product.title | escape -}}
                           </a>
 
+                          {%- if settings.cart_show_subtitle and item.product.metafields.descriptors.subtitle != blank -%}
+                            <p class="t7 mt-0 light text-current break">
+                              {{- item.product.metafields.descriptors.subtitle | escape -}}
+                            </p>
+                          {%- endif -%}
+
                           {%- if settings.badge_preorder_show_cart and item.product.template_suffix contains 'preorder' -%}
                             <span class="badge badge--preorder badge--bottom-left badge--{{ settings.badge_shape }}">
                               {{- 'products.product.preorder' | t -}}
@@ -198,7 +204,7 @@
                           {%- endif -%}
                           {% endcomment %}
 
-                          {%- if item.sku != blank -%}
+                          {%- if settings.cart_show_sku and item.sku != blank -%}
                             <dl class="opacity-80 cart-item__sku">
                               <div class="product-option">
                                 <dt>{{ 'products.product.sku' | t }}</dt>

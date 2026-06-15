@@ -114,7 +114,7 @@
                   class="responsive-card-padding overflow-hidden h-full flex flex-col content-container color-{{ block.settings.card_color_scheme }} gradient text-{{ block.settings.column_alignment }}
                     {% if section.settings.full_width %} rounded-none{% endif %}
                     {% if content_has_link == false and block.settings.card_link != blank %} full-unstyled-link--foreground hover-zoom focus-this-inner-inset{% endif %}"
-                  style="--responsive-card-padding: {{ section.settings.content_padding }}rem;{% if block.settings.image != blank %}--overlay-opacity: {{ block.settings.image_overlay_opacity | divided_by: 100.0 }};{% endif %}"
+                  style="--responsive-card-padding: {{ section.settings.content_padding }}rem;{% if block.settings.image != blank %}--overlay-opacity: {{ block.settings.image_overlay_opacity | divided_by: 100.0 }};{% endif %}{% if block.settings.custom_background != blank and block.settings.custom_background.alpha > 0 %}--color-background: {{ block.settings.custom_background.red }},{{ block.settings.custom_background.green }},{{ block.settings.custom_background.blue }};--gradient-background: {{ block.settings.custom_background }};{% endif %}"
               >
                 {%- assign image = "" -%}
                 {%- if block.settings.image != blank -%}
@@ -2028,6 +2028,12 @@
           "id": "card_color_scheme",
           "label": "Card color scheme",
           "default": "scheme-3"
+        },
+        {
+          "type": "color",
+          "id": "custom_background",
+          "label": "Custom background",
+          "info": "Overrides the background from the color scheme."
         }
       ]
     }

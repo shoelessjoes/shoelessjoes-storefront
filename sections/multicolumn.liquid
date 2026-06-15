@@ -127,6 +127,33 @@
       ]
     },
     {
+      "type": "select",
+      "id": "carousel_width_desktop",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Page width"
+        },
+        {
+          "value": "normal",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "default": "normal",
+      "label": "Width on desktop"
+    },
+    {
+      "type": "checkbox",
+      "visible_if": "{{ section.settings.carousel_width_desktop == 'narrow' and settings.carousel_arrows == true and section.settings.desktop_layout == 'carousel' }}",
+      "id": "always_show_arrows",
+      "default": true,
+      "label": "Always show arrows"
+    },
+    {
       "type": "header",
       "content": "Image"
     },
@@ -1707,6 +1734,12 @@
           "label": "Custom heading size"
         },
         {
+          "type": "checkbox",
+          "id": "heading_grow",
+          "default": false,
+          "label": "Make heading as tall as possible"
+        },
+        {
           "type": "header",
           "content": "Text"
         },
@@ -1754,6 +1787,12 @@
     "label": "Text size"
   }
 ,
+        {
+          "type": "checkbox",
+          "id": "text_grow",
+          "default": false,
+          "label": "Make text as tall as possible"
+        },
         {
           "type": "header",
           "content": "Button"
@@ -1864,6 +1903,12 @@
           "id": "card_color_scheme",
           "label": "Card color scheme",
           "default": "scheme-2"
+        },
+        {
+          "type": "color",
+          "id": "custom_background",
+          "label": "Custom background",
+          "info": "Overrides the background from the color scheme."
         },
         {
           "type": "checkbox",
@@ -2994,6 +3039,12 @@
           "label": "Custom heading size"
         },
         {
+          "type": "checkbox",
+          "id": "heading_grow",
+          "default": false,
+          "label": "Make heading as tall as possible"
+        },
+        {
           "type": "header",
           "content": "Text"
         },
@@ -3041,6 +3092,12 @@
     "label": "Text size"
   }
 ,
+        {
+          "type": "checkbox",
+          "id": "text_grow",
+          "default": false,
+          "label": "Make text as tall as possible"
+        },
         {
           "type": "header",
           "content": "Button"
@@ -3151,6 +3208,12 @@
           "id": "card_color_scheme",
           "label": "Card color scheme",
           "default": "scheme-2"
+        },
+        {
+          "type": "color",
+          "id": "custom_background",
+          "label": "Custom background",
+          "info": "Overrides the background from the color scheme."
         },
         {
           "type": "checkbox",
@@ -4243,6 +4306,12 @@
           "label": "Custom heading size"
         },
         {
+          "type": "checkbox",
+          "id": "heading_grow",
+          "default": false,
+          "label": "Make heading as tall as possible"
+        },
+        {
           "type": "header",
           "content": "Text"
         },
@@ -4290,6 +4359,12 @@
     "label": "Text size"
   }
 ,
+        {
+          "type": "checkbox",
+          "id": "text_grow",
+          "default": false,
+          "label": "Make text as tall as possible"
+        },
         {
           "type": "header",
           "content": "Button"

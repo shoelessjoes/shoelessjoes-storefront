@@ -57,6 +57,31 @@
     <script id="EnableZoomOnHover-main" src="{{ 'magnify.js' | asset_url }}" defer="defer"></script>
   {% endif %}
 
+  {%- assign social_video_blocks = section.blocks | where: 'type', 'social_videos' -%}
+  {%- if social_video_blocks != blank -%}
+    <script src="{{ 'social-video.js' | asset_url }}" defer="defer"></script>
+
+    {%- if section.index < 3 or request.design_mode -%}
+      {{ 'section-video.css' | asset_url | stylesheet_tag }}
+      {{ 'social-video.css' | asset_url | stylesheet_tag }}
+      {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+    {%- else -%}
+      <link rel="stylesheet" href="{{ 'section-video.css' | asset_url }}" media="print" onload="this.media='all'">
+      <link rel="stylesheet" href="{{ 'social-video.css' | asset_url }}" media="print" onload="this.media='all'">
+      <link rel="stylesheet" href="{{ 'component-deferred-media.css' | asset_url }}" media="print" onload="this.media='all'">
+    {%- endif -%}
+
+    {%- liquid
+      for social_video_block in social_video_blocks
+        if social_video_block != blank
+          if social_video_block.settings.on_click_action == 'modal'
+            render 'inline-social-video-modal', video_ratio: social_video_block.settings.video_ratio, custom_id: social_video_block.id
+          endif
+        endif
+      endfor
+    -%}
+  {%- endif -%}
+
   {%- assign first_3d_model = product.media | where: 'media_type', 'model' | first -%}
   {%- if first_3d_model -%}
     {{ 'component-product-model.css' | asset_url | stylesheet_tag }}
@@ -16522,6 +16547,272 @@
           "id": "color_scheme",
           "label": "Color scheme",
           "default": "scheme-5"
+        }
+      ]
+    },
+    {
+      "type": "social_videos",
+      "name": "Social video reel",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video_1",
+          "label": "Video 1"
+        },
+        {
+          "type": "video",
+          "id": "video_2",
+          "label": "Video 2"
+        },
+        {
+          "type": "video",
+          "id": "video_3",
+          "label": "Video 3"
+        },
+        {
+          "type": "video",
+          "id": "video_4",
+          "label": "Video 4"
+        },
+        {
+          "type": "video",
+          "id": "video_5",
+          "label": "Video 5"
+        },
+        {
+          "type": "video",
+          "id": "video_6",
+          "label": "Video 6"
+        },
+        {
+          "type": "video",
+          "id": "video_7",
+          "label": "Video 7"
+        },
+        {
+          "type": "video",
+          "id": "video_8",
+          "label": "Video 8"
+        },
+        {
+          "type": "video",
+          "id": "video_9",
+          "label": "Video 9"
+        },
+        {
+          "type": "video",
+          "id": "video_10",
+          "label": "Video 10"
+        },
+        {
+          "type": "header",
+          "content": "Playback"
+        },
+        {
+          "type": "select",
+          "id": "video_ratio",
+          "options": [
+            {
+              "value": "portrait",
+              "label": "Portrait (4:5)"
+            },
+            {
+              "value": "portrait_medium",
+              "label": "Portrait (3:4)"
+            },
+            {
+              "value": "portrait_tall",
+              "label": "Portrait (2:3)"
+            },
+            {
+              "value": "portrait_video",
+              "label": "Portrait (9:16)"
+            }
+          ],
+          "default": "portrait_video",
+          "label": "Aspect ratio"
+        },
+        {
+          "type": "select",
+          "id": "videos_to_show",
+          "options": [
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            }
+          ],
+          "default": "3",
+          "label": "Videos to show on desktop"
+        },
+        {
+          "type": "select",
+          "id": "autoplay",
+          "options": [
+            {
+              "value": "first",
+              "label": "First video"
+            },
+            {
+              "value": "all",
+              "label": "All videos"
+            }
+          ],
+          "default": "first",
+          "info": "Video will have no sound and may not always autoplay on mobile. This is determined by the device. [Read more](https://benchmarkthemes.com/help-center/ignite/guides/video-faq/)",
+          "label": "Autoplay"
+        },
+        {
+          "type": "select",
+          "id": "on_click_action",
+          "options": [
+            {
+              "value": "",
+              "label": "Do nothing"
+            },
+            {
+              "value": "modal",
+              "label": "Open popup"
+            }
+          ],
+          "default": "modal",
+          "label": "On click"
+        },
+        {
+          "type": "header",
+          "content": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "block_heading",
+          "default": "Loved by our customers",
+          "label": "Heading"
+        },
+        {
+          "type": "select",
+          "id": "label_text_size",
+          "options": [
+            {
+              "value": "t7",
+              "label": "3XS"
+            },
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            },
+            {
+              "value": "t2",
+              "label": "L"
+            },
+            {
+              "value": "t1",
+              "label": "XL"
+            },
+            {
+              "value": "t0",
+              "label": "2XL"
+            }
+          ],
+          "default": "t3",
+          "label": "Text size"
+        },
+        {
+          "type": "select",
+          "id": "label_text_weight",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Standard"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "bold",
+              "label": "Bold"
+            }
+          ],
+          "default": "bold",
+          "label": "Text weight"
+        },
+        {
+          "type": "header",
+          "content": "Visibility"
+        },
+        {
+          "type": "select",
+          "id": "visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        },
+        {
+          "type": "select",
+          "id": "stock_visibility",
+          "options": [
+            {
+              "value": "in_stock",
+              "label": "Product is in stock"
+            },
+            {
+              "value": "out_of_stock",
+              "label": "Product is out of stock"
+            },
+            {
+              "value": "variant_out_of_stock",
+              "label": "Selected variant is out of stock"
+            },
+            {
+              "value": "variant_in_stock",
+              "label": "Selected variant is in stock"
+            },
+            {
+              "value": "variant_unavailable",
+              "label": "Selected variant doesn't exist"
+            },
+            {
+              "value": "either",
+              "label": "Show all the time"
+            }
+          ],
+          "info": "Always shows in the Theme Editor.",
+          "default": "either",
+          "label": "Stock condition to show on"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_in_quickbuy",
+          "default": false,
+          "label": "Show in quick add"
         }
       ]
     },

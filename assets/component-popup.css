@@ -13,6 +13,10 @@
   height: 100%;
   backdrop-filter: blur(2px);
   transition: opacity var(--duration-medium), visibility var(--duration-medium);
+
+  &.popup-modal--social-video {
+    background: rgba(0,0,0,.8);
+  }
 }
 
 .page-is-not-idle .popup-modal:not([data-delay-seconds="0"]):not([data-delay-seconds="1"]) {

@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "breadcrumbs": {
@@ -145,21 +154,18 @@
     "product_list_fDetpa": {
       "type": "product-list",
       "settings": {
-        "products": [
-
-        ],
+        "products": [],
         "desktop_layout": "carousel",
         "mobile_layout": "carousel",
         "columns_desktop": "4",
         "columns_mobile": "2",
-        "full_width": false,
         "content_max_width": "m",
         "desktop_heading_alignment": "left",
         "mobile_heading_alignment": "left",
         "title": "In this article...",
         "italic_convert": "",
         "heading_size": "h2",
-        "text": "<p>These products can be managed by setting up a Product list metafield for articles, and assigning it to the <strong>Products<\/strong> setting at the top.<\/p>",
+        "text": "<p>These products can be managed by setting up a Product list metafield for articles, and assigning it to the <strong>Products</strong> setting at the top.</p>",
         "text_size": "t3",
         "show_view_all_link": false,
         "view_all_link": "",
@@ -193,7 +199,7 @@
           "type": "text",
           "settings": {
             "visibility": "always",
-            "text": "<p>Be the first to know about new collections and exclusive offers.<\/p>",
+            "text": "<p>Be the first to know about new collections and exclusive offers.</p>",
             "text_size": "t3"
           }
         },

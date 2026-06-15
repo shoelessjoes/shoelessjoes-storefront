@@ -174,10 +174,31 @@
       ]
     },
     {
+      "type": "select",
+      "id": "carousel_width_desktop",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Page width"
+        },
+        {
+          "value": "normal",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "default": "normal",
+      "label": "Width on desktop"
+    },
+    {
       "type": "checkbox",
-      "id": "full_width",
-      "label": "Set carousel/grid to full screen width",
-      "default": false
+      "visible_if": "{{ section.settings.carousel_width_desktop == 'narrow' and settings.carousel_arrows == true and section.settings.desktop_layout == 'carousel' }}",
+      "id": "always_show_arrows",
+      "default": true,
+      "label": "Always show arrows"
     },
     {
       "type": "header",
@@ -709,6 +730,16 @@
           "id": "card_link",
           "info": "Turns the entire card into a link. Doesn't apply when a button is added or when the text contains a link.",
           "label": "Card link"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "color",
+          "id": "custom_background",
+          "label": "Custom background",
+          "info": "Overrides the background from the color scheme."
         }
       ]
     }

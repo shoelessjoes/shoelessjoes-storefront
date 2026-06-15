@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -411,7 +420,8 @@
     },
     "video": {
       "load_video": "Lataa video: {{ description }}",
-      "toggle": "Vaihda videon toistotilaa"
+      "toggle": "Vaihda videon toistotilaa",
+      "volume": "Vaimenna/poista video ääni käytöstä"
     },
     "slideshow": {
       "load_slide": "Lataa dia",

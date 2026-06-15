@@ -156,6 +156,38 @@
       padding: {{ section.settings.spacing }}rem 3rem;
     }
   }
+
+  {%- if section.settings.customer_account_login_style == 'popup' -%}
+    {%- assign shopify_account_color_scheme = section.settings.dropdown_menu_color_scheme -%}
+    shopify-account {
+      --shopify-account-font-heading: var(--font-heading-family);
+      --shopify-account-font-heading-weight: var(--font-heading-weight);
+      --shopify-account-font-body: var(--font-body-family);
+      --shopify-account-font-body-weight: var(--font-body-weight);
+      --shopify-account-radius-base: var(--inputs-radius);
+      --shopify-account-radius-dialog: var(--popup-corner-radius);
+      --shopify-account-radius-button: var(--buttons-radius);
+      --shopify-account-radius-button-small: var(--buttons-radius);
+      --shopify-account-radius-input: var(--inputs-radius);
+      --shopify-account-color-background: rgb({{ shopify_account_color_scheme.settings.background.red }},{{ shopify_account_color_scheme.settings.background.green }},{{ shopify_account_color_scheme.settings.background.blue }});
+      --shopify-account-color-text: rgb({{ shopify_account_color_scheme.settings.text.red }},{{ shopify_account_color_scheme.settings.text.green }},{{ shopify_account_color_scheme.settings.text.blue }});
+      --shopify-account-color-card-text: rgb({{ shopify_account_color_scheme.settings.text.red }},{{ shopify_account_color_scheme.settings.text.green }},{{ shopify_account_color_scheme.settings.text.blue }});
+      --shopify-account-color-accent: rgb({{ shopify_account_color_scheme.settings.accent.red }},{{ shopify_account_color_scheme.settings.accent.green }},{{ shopify_account_color_scheme.settings.accent.blue }});
+      --shopify-account-color-accent-text: rgb({{ shopify_account_color_scheme.settings.text.red }},{{ shopify_account_color_scheme.settings.text.green }},{{ shopify_account_color_scheme.settings.text.blue }});
+      --shopify-account-signed-in-avatar-color-background: rgb({{ section.settings.color_scheme.settings.text.red }},{{ section.settings.color_scheme.settings.text.green }},{{ section.settings.color_scheme.settings.text.blue }});
+      --shopify-account-signed-in-avatar-color-text: rgb({{ section.settings.color_scheme.settings.background.red }},{{ section.settings.color_scheme.settings.background.green }},{{ section.settings.color_scheme.settings.background.blue }});
+      --shopify-account-signed-in-avatar-size: 36px;
+
+      &:not(:defined) {
+        min-width: 44px;
+        height: 44px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: normal;
+      }
+    }
+  {%- endif -%}
 {% endstyle %}
 
 <lazy-script data-watch-element="details-modal" src="{{ 'details-modal.js' | asset_url }}" defer="defer"></lazy-script>
@@ -375,24 +407,35 @@
       {%- endif -%}
 
       {%- if shop.customer_accounts_enabled and section.settings.enable_accounts or section.settings.enable_accounts_mobile -%}
-        <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="header__icon header__icon--account link focus-inset{% if section.settings.enable_accounts and section.settings.enable_accounts_mobile == false %} small-hide{% elsif section.settings.enable_accounts == false and section.settings.enable_accounts_mobile %} visible-xs{% endif %}">
-          <account-icon>
-            {%- if customer and customer.has_avatar? -%}
-              {{ customer | avatar }}
-            {%- else -%}
-              {% render 'icon-account' %}
-            {%- endif -%}
-          </account-icon>
-          <span class="visually-hidden">
-            {%- liquid
-              if customer
-                echo 'customer.account_fallback' | t
-              else
-                echo 'customer.log_in' | t
-              endif
-            -%}
-          </span>
-        </a>
+        {%- if section.settings.customer_account_login_style == 'popup' -%}
+          <shopify-account menu="{{ section.settings.customer_account_menu }}">
+            <div slot="signed-out-avatar">
+              <div class="header__icon header__icon--account link focus-inset{% if section.settings.enable_accounts and section.settings.enable_accounts_mobile == false %} small-hide{% elsif section.settings.enable_accounts == false and section.settings.enable_accounts_mobile %} visible-xs{% endif %}">
+                {% render 'icon-account' %}
+                <span class="visually-hidden">{{ 'customer.log_in' | t }}</span>
+              </div>
+            </div>
+          </shopify-account>
+        {%- else -%}
+          <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="header__icon header__icon--account link focus-inset{% if section.settings.enable_accounts and section.settings.enable_accounts_mobile == false %} small-hide{% elsif section.settings.enable_accounts == false and section.settings.enable_accounts_mobile %} visible-xs{% endif %}">
+            <account-icon>
+              {%- if customer and customer.has_avatar? -%}
+                {{ customer | avatar }}
+              {%- else -%}
+                {% render 'icon-account' %}
+              {%- endif -%}
+            </account-icon>
+            <span class="visually-hidden">
+              {%- liquid
+                if customer
+                  echo 'customer.account_fallback' | t
+                else
+                  echo 'customer.log_in' | t
+                endif
+              -%}
+            </span>
+          </a>
+        {%- endif -%}
       {%- endif -%}
 
       {%- if section.settings.custom_icon != blank -%}
@@ -747,6 +790,30 @@
       "id": "enable_accounts_mobile",
       "default": false,
       "label": "Show customer account icon on mobile"
+    },
+    {
+      "type": "select",
+      "id": "customer_account_login_style",
+      "options": [
+        {
+          "value": "popup",
+          "label": "Popup"
+        },
+        {
+          "value": "page",
+          "label": "Legacy"
+        }
+      ],
+      "default": "page",
+      "info": "Popup won't work when [legacy customer accounts](/admin/settings/customer_accounts) are enabled.",
+      "label": "Login style"
+    },
+    {
+      "type": "link_list",
+      "id": "customer_account_menu",
+      "visible_if": "{{ section.settings.customer_account_login_style == 'popup' }}",
+      "label": "Customer account menu",
+      "default": "customer-account-main-menu"
     },
     {
       "type": "header",

@@ -1,0 +1,28 @@
+{%- comment -%}
+  PSA Grading Submission page template.
+  Embeds the self-contained form app from assets/ShoelessJoes_PSA_ShopifyAsset.html
+  in an isolated iframe. The asset posts { type:'resize', height } to the parent
+  on load/resize/DOM change; we resize the iframe to fit so there is no inner scrollbar.
+{%- endcomment -%}
+<div class="psa-form-wrap" style="max-width:1000px;margin:0 auto;padding:0;">
+  <iframe
+    id="psaFormFrame"
+    src="{{ 'ShoelessJoes_PSA_ShopifyAsset.html' | asset_url }}"
+    title="PSA Grading Submission — Shoeless Joe's"
+    style="width:100%;border:0;display:block;min-height:1400px;overflow:hidden;"
+    scrolling="no"
+    loading="lazy"></iframe>
+</div>
+<script>
+  (function () {
+    var frame = document.getElementById('psaFormFrame');
+    if (!frame) return;
+    window.addEventListener('message', function (e) {
+      var d = e && e.data;
+      if (d && d.type === 'resize' && typeof d.height === 'number' && d.height > 0) {
+        frame.style.height = (d.height + 24) + 'px';
+        frame.style.minHeight = '0';
+      }
+    });
+  })();
+</script>

@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "breadcrumbs": {
@@ -57,9 +66,7 @@
         "icon_33JU4B",
         "heading_QNj4VA"
       ],
-      "custom_css": [
-
-      ],
+      "custom_css": [],
       "settings": {
         "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
         "show_play_pause": false,
@@ -679,12 +686,12 @@
       "settings": {
         "full_width": true,
         "show_line_separator": true,
-        "visibility": "",
         "line_width": 100,
         "spacing_top": 0,
         "spacing_bottom": 0,
         "color_scheme": "scheme-2",
-        "line_color": ""
+        "line_color": "",
+        "visibility": ""
       }
     },
     "section_tabs_qhTfBK": {
@@ -801,12 +808,12 @@
       "settings": {
         "full_width": true,
         "show_line_separator": false,
-        "visibility": "",
         "line_width": 100,
         "spacing_top": 2.4,
         "spacing_bottom": 2.4,
         "color_scheme": "scheme-4",
-        "line_color": ""
+        "line_color": "",
+        "visibility": ""
       }
     },
     "testimonials_wGiqtd": {
@@ -927,7 +934,6 @@
         "mobile_layout": "carousel",
         "columns_desktop": "3",
         "columns_desktop_scale": true,
-        "full_width": false,
         "image_overlay_opacity": 0,
         "content_max_width": "m",
         "desktop_heading_alignment": "left",

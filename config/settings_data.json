@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "color_scheme_notes": "<p><strong>Scheme 1</strong> - The main page background.<br/><br/><strong>Scheme 2</strong> - Pure white background. Used for cards, cart drawer and header.<br/><br/><strong>Scheme 3</strong> - An example color scheme with a dark background.<br/><br/><strong>Scheme 4</strong> - An example gradient background color scheme.</p><p><strong>Scheme 5</strong> - Used for the announcement bar and various sections.</p><p><strong>Scheme 6</strong> - Used for white text over an image.</p><p><strong>Scheme 7</strong> - Used in various sections.</p><p><strong>Scheme 8</strong> - Used in the header navigation.</p><p><strong>Scheme 9</strong> - Used for the header navigation menu.</p><p><strong>Scheme 11</strong> - Used for the second message in the announcement bar and a few places on the homepage.</p>",
@@ -119,6 +128,30 @@
       }
     },
     "content_for_index": [],
+    "blocks": {
+      "7297205921758642463": {
+        "type": "shopify://apps/ta-mappy-store-locator-maps/blocks/bss-sl-script/edfca2bd-82ad-413c-b32c-580d239b17ab",
+        "disabled": false,
+        "settings": {}
+      },
+      "8764476057892802672": {
+        "type": "shopify://apps/stoq/blocks/main/4bb73be2-b7c2-4870-949f-c528145452a3",
+        "disabled": true,
+        "settings": {}
+      },
+      "6810584612362904079": {
+        "type": "shopify://apps/findter-filter-search/blocks/search-filters-core/bf706e6d-709f-4687-a2e2-1fbe1b007cc7",
+        "disabled": false,
+        "settings": {
+          "theme_compatible": "ignite",
+          "search_input_selector": "[name=q]",
+          "link_no_results": "shopify://collections/all",
+          "collection_grid_selector": "",
+          "search_result_selector": "",
+          "custom_css": ""
+        }
+      }
+    },
     "color_schemes": {
       "scheme-1": {
         "settings": {
@@ -356,56 +389,20 @@
       },
       "scheme-1203590d-2999-412a-986f-d063dd6d00f1": {
         "settings": {
-          "background": "#F5EEDC",
-          "background_gradient": "linear-gradient(180deg, rgba(245,238,220,1), rgba(250,246,238,1) 100%)",
-          "background_accent": "#DDA852",
-          "text": "#173B4E",
-          "link": "#173B4E",
-          "caption": "#5A7285",
-          "accent": "#DDA852",
-          "accent_gradient": "",
-          "heading": "#173B4E",
+          "background": "#f5eedc",
+          "background_gradient": "linear-gradient(180deg, rgba(245, 238, 220, 1), rgba(255, 255, 255, 1) 100%)",
+          "background_accent": "#dda852",
+          "text": "#173b4e",
+          "link": "#0454a5",
+          "caption": "#121212",
+          "accent": "#dda852",
+          "accent_gradient": "linear-gradient(139deg, rgba(251, 51, 51, 1), rgba(127, 72, 176, 1) 50%, rgba(48, 83, 211, 1) 100%)",
+          "heading": "#ffffff",
           "heading_background_gradient": "",
-          "button_label": "#F5EEDC",
-          "button": "#173B4E",
-          "button_background_gradient": "linear-gradient(180deg, rgba(23,59,78,1), rgba(14,37,53,1) 100%)",
-          "secondary_button_label": "#173B4E"
-        }
-      },
-      "scheme-sj-navy": {
-        "settings": {
-          "background": "#173B4E",
-          "background_gradient": "linear-gradient(180deg, rgba(23,59,78,1), rgba(14,37,53,1) 100%)",
-          "background_accent": "#DDA852",
-          "text": "#F5EEDC",
-          "link": "#DDA852",
-          "caption": "#C8B98A",
-          "accent": "#DDA852",
-          "accent_gradient": "",
-          "heading": "#FFFFFF",
-          "heading_background_gradient": "",
-          "button_label": "#173B4E",
-          "button": "#DDA852",
-          "button_background_gradient": "linear-gradient(180deg, rgba(221,168,82,1), rgba(139,98,0,1) 100%)",
-          "secondary_button_label": "#F5EEDC"
-        }
-      },
-      "scheme-sj-gold": {
-        "settings": {
-          "background": "#DDA852",
-          "background_gradient": "linear-gradient(180deg, rgba(221,168,82,1), rgba(240,201,106,1) 100%)",
-          "background_accent": "#173B4E",
-          "text": "#173B4E",
-          "link": "#173B4E",
-          "caption": "#8B6200",
-          "accent": "#173B4E",
-          "accent_gradient": "",
-          "heading": "#173B4E",
-          "heading_background_gradient": "",
-          "button_label": "#F5EEDC",
-          "button": "#173B4E",
-          "button_background_gradient": "linear-gradient(180deg, rgba(23,59,78,1), rgba(14,37,53,1) 100%)",
-          "secondary_button_label": "#173B4E"
+          "button_label": "#ffffff",
+          "button": "#173b4e",
+          "button_background_gradient": "linear-gradient(180deg, rgba(23, 59, 78, 1), rgba(18, 47, 62, 1) 100%)",
+          "secondary_button_label": "#dda852"
         }
       }
     }
@@ -413,13 +410,13 @@
   "presets": {
     "Ignite": {
       "color_scheme_notes": "<p><strong>Scheme 1</strong> - The main page background.<br/><br/><strong>Scheme 2</strong> - Pure white background. Used for cards, cart drawer and header.<br/><br/><strong>Scheme 3</strong> - An example color scheme with a dark background.<br/><br/><strong>Scheme 4</strong> - An example gradient background color scheme.</p><p><strong>Scheme 5</strong> - Used for the first message in the announcement bar.</p><p><strong>Scheme 6</strong> - Used for white text over an image.</p><p><strong>Scheme 7</strong> - Used on the deals collection</p><p><strong>Scheme 8</strong> - Used in the header navigation.</p><p><strong>Scheme 9</strong> - Used for the header navigation menu.</p><p><strong>Scheme 10</strong> - Dark background gradient. Complements Color Scheme 3 well.</p><p><strong>Scheme 11</strong> - Used for the second message in the announcement bar and a few places on the homepage.</p><p><strong>Scheme 12</strong> - Warm colored section. Used on homepage.</p><p><strong>Scheme 13</strong> - Example with a sharp gradient background. Used on homepage.</p>",
-      "type_header_font": "noto_sans_display_n6",
       "color_overlay": "#010101",
-      "heading_scale": 100,
+      "type_header_font": "noto_sans_display_n6",
+      "heading_scale": 96,
       "heading_letter_spacing": -30,
       "heading_text_transform": "none",
       "type_body_font": "sans-serif",
-      "body_scale": 100,
+      "body_scale": 95,
       "type_article_header_font": "times_new_roman_n4",
       "article_heading_letter_spacing": -30,
       "animations_reveal_on_scroll": false,
@@ -449,17 +446,23 @@
       "card_image_show_rating": true,
       "card_show_subtitle": true,
       "card_show_inventory": "low_stock",
+      "card_show_inventory_quantity": true,
       "card_highlight_badge_show": true,
       "card_highlight_badge_weight": "medium",
-      "card_highlight_badge_color": "#0a9331",
+      "card_highlight_badge_color": "#057b27",
       "swatch_placement": "below_title",
-      "swatch_size": 0.9,
+      "swatch_size": 1.3,
       "swatch_limit": 10,
       "card_enable_quick_add": true,
       "quick_add_out_of_stock": "notify",
       "quick_add": "standard",
+      "quick_add_plus_icon": true,
+      "card_title_size": "t1",
+      "card_price_size": "t2",
       "card_star_size": "1.9",
+      "card_title_transform": "none",
       "card_title_weight": "medium",
+      "inventory_text_size": "t7",
       "card_color_scheme": "scheme-2",
       "collection_card_text_alignment": "center",
       "collection_card_corner_radius": 0,
@@ -494,6 +497,10 @@
       "badge_custom_border_color": "rgba(0,0,0,0)",
       "badge_custom_bg_color": "rgba(0,0,0,0)",
       "badge_custom_background_gradient": "linear-gradient(145deg, rgba(42, 156, 44, 1) 20%, rgba(42, 156, 44, 0.76) 82%)",
+      "flash_sale_background_color": "#257ded",
+      "flash_sale_background": "linear-gradient(270deg, rgba(37, 125, 237, 1) 13%, rgba(159, 199, 250, 1) 86%)",
+      "flash_sale_badge_background_color": "#d3e4fa",
+      "flash_sale_badge_foreground_color": "#0455BE",
       "inventory_threshold": 30,
       "show_search_types": true,
       "predictive_search_enabled": true,
@@ -536,10 +543,6 @@
       "drawer_shadow_horizontal_offset": 0,
       "drawer_shadow_vertical_offset": 4,
       "drawer_shadow_blur": 5,
-      "flash_sale_background_color": "#257ded",
-      "flash_sale_background": "linear-gradient(270deg, rgba(37, 125, 237, 1) 13%, rgba(159, 199, 250, 1) 86%)",
-      "flash_sale_badge_background_color": "#d3e4fa",
-      "flash_sale_badge_foreground_color": "#0455BE",
       "sections": {
         "main-password-header": {
           "type": "main-password-header",
@@ -559,17 +562,17 @@
             "background": "#f8f9fa",
             "background_gradient": "",
             "background_accent": "",
-            "text": "#121212",
+            "text": "#393942",
             "link": "#1a5ab3",
-            "caption": "#121212",
+            "caption": "#393942",
             "accent": "#dc2bff",
-            "accent_gradient": "linear-gradient(139deg, rgba(251, 51, 166, 1), rgba(127, 72, 176, 1) 50%, rgba(48, 145, 211, 1) 100%)",
-            "heading": "#121212",
+            "accent_gradient": "linear-gradient(90deg, rgba(122, 152, 188, 1), rgba(124, 184, 252, 1) 50%, rgba(158, 164, 255, 1) 100%)",
+            "heading": "#393942",
             "heading_background_gradient": "",
             "button_label": "#ffffff",
-            "button": "#121212",
+            "button": "#393942",
             "button_background_gradient": "",
-            "secondary_button_label": "#121212"
+            "secondary_button_label": "#393942"
           }
         },
         "scheme-2": {
@@ -577,17 +580,17 @@
             "background": "#ffffff",
             "background_gradient": "",
             "background_accent": "",
-            "text": "#191919",
-            "link": "#1967d2",
-            "caption": "#3c4043",
-            "accent": "#1390d6",
-            "accent_gradient": "linear-gradient(360deg, rgba(19, 144, 214, 1) 11%, rgba(31, 198, 108, 1) 84%)",
-            "heading": "#3c4043",
+            "text": "#393942",
+            "link": "#1a5ab3",
+            "caption": "#393942",
+            "accent": "#dc2bff",
+            "accent_gradient": "linear-gradient(139deg, rgba(251, 51, 166, 1), rgba(127, 72, 176, 1) 50%, rgba(48, 145, 211, 1) 100%)",
+            "heading": "#393942",
             "heading_background_gradient": "",
-            "button_label": "#f3f3f3",
-            "button": "#3c4043",
+            "button_label": "#ffffff",
+            "button": "#393942",
             "button_background_gradient": "",
-            "secondary_button_label": "#3c4043"
+            "secondary_button_label": "#393942"
           }
         },
         "scheme-3": {
@@ -599,7 +602,7 @@
             "link": "#ffffff",
             "caption": "#ffffff",
             "accent": "#dc2bff",
-            "accent_gradient": "linear-gradient(0deg, rgba(100, 179, 255, 1) 3%, rgba(234, 145, 254, 1) 98%)",
+            "accent_gradient": "linear-gradient(74deg, rgba(182, 226, 255, 1), rgba(252, 175, 223, 1) 100%)",
             "heading": "#ffffff",
             "heading_background_gradient": "",
             "button_label": "#121212",
@@ -785,6 +788,24 @@
             "button_label": "#ffffff",
             "button": "#2a97d3",
             "button_background_gradient": "linear-gradient(305deg, rgba(42, 151, 211, 1), rgba(72, 171, 227, 1) 46%, rgba(119, 179, 245, 1) 91%)",
+            "secondary_button_label": "#ffffff"
+          }
+        },
+        "scheme-14": {
+          "settings": {
+            "background": "#483e2b",
+            "background_gradient": "",
+            "background_accent": "",
+            "text": "#f4e5c8",
+            "link": "#f4e5c8",
+            "caption": "#f4e5c8",
+            "accent": "#bc870e",
+            "accent_gradient": "",
+            "heading": "#f4e5c8",
+            "heading_background_gradient": "",
+            "button_label": "#bc870e",
+            "button": "#ffffff",
+            "button_background_gradient": "",
             "secondary_button_label": "#ffffff"
           }
         }
@@ -1143,33 +1164,52 @@
             "button_background_gradient": "linear-gradient(305deg, rgba(42, 151, 211, 1), rgba(72, 171, 227, 1) 46%, rgba(119, 179, 245, 1) 91%)",
             "secondary_button_label": "#ffffff"
           }
+        },
+        "scheme-14": {
+          "settings": {
+            "background": "#483e2b",
+            "background_gradient": "",
+            "background_accent": "",
+            "text": "#f4e5c8",
+            "link": "#f4e5c8",
+            "caption": "#f4e5c8",
+            "accent": "#bc870e",
+            "accent_gradient": "",
+            "heading": "#f4e5c8",
+            "heading_background_gradient": "",
+            "button_label": "#bc870e",
+            "button": "#FFFFFF",
+            "button_background_gradient": "",
+            "secondary_button_label": "#ffffff"
+          }
         }
       }
     },
     "Tails": {
       "color_scheme_notes": "<p><strong>Scheme 1</strong> - The main page background.<br/><br/><strong>Scheme 2</strong> - Pure white background. Used for cards, cart drawer and header.<br/><br/><strong>Scheme 3</strong> - An example color scheme with a dark background.<br/><br/><strong>Scheme 4</strong> - An example gradient background color scheme.</p><p><strong>Scheme 5</strong> - Used for the first message in the announcement bar.</p><p><strong>Scheme 6</strong> - Used for white text over an image.</p><p><strong>Scheme 7</strong> - Used on the deals collection.</p><p><strong>Scheme 8</strong> - Used in the header navigation.</p><p><strong>Scheme 9</strong> - Used for the header navigation menu.</p><p><strong>Scheme 10</strong> - Dark background. Used on homepage.</p><p><strong>Scheme 11</strong> - Used for the second message in the announcement bar and a few places on the homepage.</p><p><strong>Scheme 12</strong> - Dark background. Used on homepage.</p>",
       "color_overlay": "#040404",
-      "type_header_font": "source_sans_pro_n6",
-      "heading_scale": 102,
-      "heading_letter_spacing": -26,
-      "type_body_font": "sans-serif",
+      "type_header_font": "outfit_n5",
+      "heading_scale": 100,
+      "heading_letter_spacing": -30,
+      "type_body_font": "almarai_n4",
       "body_scale": 100,
+      "body_letter_spacing": -10,
       "animations_reveal_on_scroll": true,
-      "spacing_sections": "50",
-      "text_boxes_radius": 28,
+      "spacing_sections": "60",
+      "text_boxes_radius": 24,
       "popup_corner_radius": 6,
       "promo_corner_radius": 6,
-      "panel_corner_radius": 20,
+      "panel_corner_radius": 12,
       "controls_corner_radius": 20,
       "spacing_grid": 16,
-      "buttons_border_thickness": 2,
+      "buttons_border_thickness": 1,
       "buttons_radius": 28,
       "button_letter_spacing": -0.5,
       "button_text_transform": "none",
-      "button_text_font_weight": "bold",
+      "button_text_font_weight": "normal",
       "animations_hover_buttons": "grow",
       "pagination_text_size": "t4",
-      "breadcrumb_truncate": "10",
+      "breadcrumb_truncate": "7",
       "breadcrumb_text_transform": "none",
       "card_style": "card",
       "card_text_alignment": "left",
@@ -1202,6 +1242,12 @@
       "badge_position": "top left",
       "badge_shape": "rounded",
       "badge_text_weight": "normal",
+      "flash_sale_background_color": "#976e36",
+      "flash_sale_show_badge": true,
+      "flash_sale_show_badge_icon": false,
+      "flash_sale_badge_word": "SALE",
+      "flash_sale_badge_background_color": "#976e36",
+      "flash_sale_badge_foreground_color": "#ffffff",
       "show_search_types": true,
       "predictive_search_enabled": true,
       "predictive_search_show_vendor": false,
@@ -1235,12 +1281,6 @@
       "drawer_shadow_horizontal_offset": 0,
       "drawer_shadow_vertical_offset": 4,
       "drawer_shadow_blur": 5,
-      "flash_sale_background_color": "#976e36",
-      "flash_sale_show_badge": true,
-      "flash_sale_show_badge_icon": false,
-      "flash_sale_badge_word": "SALE",
-      "flash_sale_badge_background_color": "#976e36",
-      "flash_sale_badge_foreground_color": "#ffffff",
       "sections": {
         "main-password-header": {
           "type": "main-password-header",
@@ -1260,24 +1300,24 @@
             "background": "#fcf6ef",
             "background_gradient": "",
             "background_accent": "",
-            "text": "#2c463d",
-            "link": "#2c463d",
-            "caption": "#2c463d",
+            "text": "#483e2b",
+            "link": "#483e2b",
+            "caption": "#483e2b",
             "accent": "#157631",
             "accent_gradient": "linear-gradient(90deg, rgba(21, 118, 49, 1), rgba(68, 225, 85, 1) 100%)",
-            "heading": "#192e28",
+            "heading": "#483e2b",
             "heading_background_gradient": "",
             "button_label": "#ffffff",
-            "button": "#2c463d",
+            "button": "#483e2b",
             "button_background_gradient": "",
-            "secondary_button_label": "#2c463d"
+            "secondary_button_label": "#483e2b"
           }
         },
         "scheme-2": {
           "settings": {
             "background": "#ffffff",
             "background_gradient": "",
-            "background_accent": "",
+            "background_accent": "#f9fff8",
             "text": "#121212",
             "link": "#157631",
             "caption": "#121212",
@@ -1299,7 +1339,7 @@
             "text": "#ffffff",
             "link": "#ffffff",
             "caption": "#ffffff",
-            "accent": "#c39540",
+            "accent": "#dc2bff",
             "accent_gradient": "linear-gradient(240deg, rgba(250, 212, 143, 1), rgba(195, 149, 64, 1) 100%)",
             "heading": "#ffffff",
             "heading_background_gradient": "",
@@ -1317,7 +1357,7 @@
             "text": "#ffffff",
             "link": "#ffffff",
             "caption": "#ffffff",
-            "accent": "#c39540",
+            "accent": "#dc2bff",
             "accent_gradient": "linear-gradient(240deg, rgba(250, 212, 143, 1), rgba(195, 149, 64, 1) 100%)",
             "heading": "#ffffff",
             "heading_background_gradient": "",
@@ -1329,20 +1369,20 @@
         },
         "scheme-5": {
           "settings": {
-            "background": "#0e7b38",
+            "background": "#0a0a0a",
             "background_gradient": "",
             "background_accent": "",
             "text": "#ffffff",
             "link": "#ffffff",
             "caption": "#ffffff",
-            "accent": "#c39540",
-            "accent_gradient": "",
+            "accent": "#dc2bff",
+            "accent_gradient": "linear-gradient(270deg, rgba(255, 228, 49, 1) 42%, rgba(249, 100, 32, 1) 100%)",
             "heading": "#ffffff",
             "heading_background_gradient": "",
-            "button_label": "#ffffff",
-            "button": "#121212",
+            "button_label": "#000000",
+            "button": "#ffffff",
             "button_background_gradient": "",
-            "secondary_button_label": "#121212"
+            "secondary_button_label": "#ffffff"
           }
         },
         "scheme-6": {
@@ -1488,6 +1528,24 @@
             "button_background_gradient": "linear-gradient(305deg, rgba(42, 151, 211, 1), rgba(72, 171, 227, 1) 46%, rgba(119, 179, 245, 1) 91%)",
             "secondary_button_label": "#ffffff"
           }
+        },
+        "scheme-14": {
+          "settings": {
+            "background": "#483e2b",
+            "background_gradient": "",
+            "background_accent": "",
+            "text": "#f4e5c8",
+            "link": "#f4e5c8",
+            "caption": "#f4e5c8",
+            "accent": "#bc870e",
+            "accent_gradient": "",
+            "heading": "#f4e5c8",
+            "heading_background_gradient": "",
+            "button_label": "#bc870e",
+            "button": "#FFFFFF",
+            "button_background_gradient": "",
+            "secondary_button_label": "#ffffff"
+          }
         }
       }
     },
@@ -1621,12 +1679,12 @@
             "background": "#f9f7f6",
             "background_gradient": "",
             "background_accent": "",
-            "text": "#121212",
+            "text": "#434343",
             "link": "#1c70be",
             "caption": "#121212",
-            "accent": "#ef8027",
+            "accent": "#dc2bff",
             "accent_gradient": "linear-gradient(180deg, rgba(244, 173, 116, 1), rgba(216, 96, 0, 1) 100%)",
-            "heading": "#121212",
+            "heading": "#383838",
             "heading_background_gradient": "",
             "button_label": "#ffffff",
             "button": "#121212",
@@ -1638,18 +1696,18 @@
           "settings": {
             "background": "#ffffff",
             "background_gradient": "",
-            "background_accent": "",
-            "text": "#121212",
+            "background_accent": "#fffbf7",
+            "text": "#434343",
             "link": "#1c70be",
             "caption": "#121212",
-            "accent": "#ef8027",
+            "accent": "#dc2bff",
             "accent_gradient": "linear-gradient(275deg, rgba(244, 173, 116, 1), rgba(216, 96, 0, 1) 100%)",
-            "heading": "#121212",
+            "heading": "#434343",
             "heading_background_gradient": "",
             "button_label": "#f3f3f3",
-            "button": "#d86000",
+            "button": "#d4441c",
             "button_background_gradient": "linear-gradient(340deg, rgba(255, 166, 95, 1) 13%, rgba(216, 96, 0, 1) 86%)",
-            "secondary_button_label": "#dc6000"
+            "secondary_button_label": "#d4441c"
           }
         },
         "scheme-3": {
@@ -1672,13 +1730,13 @@
         },
         "scheme-4": {
           "settings": {
-            "background": "#196293",
-            "background_gradient": "linear-gradient(123deg, rgba(25, 98, 147, 1) 3%, rgba(151, 204, 255, 1) 97%)",
+            "background": "#0d5899",
+            "background_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 1) 3%, rgba(11, 75, 131, 1) 71%)",
             "background_accent": "",
             "text": "#ffffff",
             "link": "#ffffff",
             "caption": "#ffffff",
-            "accent": "#ec5252",
+            "accent": "#dc2bff",
             "accent_gradient": "",
             "heading": "#ffffff",
             "heading_background_gradient": "",
@@ -1696,7 +1754,7 @@
             "text": "#ffffff",
             "link": "#ffffff",
             "caption": "#ffffff",
-            "accent": "#97ccff",
+            "accent": "#dc2bff",
             "accent_gradient": "",
             "heading": "#ffffff",
             "heading_background_gradient": "",
@@ -1736,7 +1794,7 @@
             "accent_gradient": "",
             "heading": "#ffffff",
             "heading_background_gradient": "",
-            "button_label": "#121212",
+            "button_label": "#495d6b",
             "button": "#ffffff",
             "button_background_gradient": "",
             "secondary_button_label": "#ffffff"
@@ -1849,21 +1907,40 @@
             "button_background_gradient": "linear-gradient(305deg, rgba(42, 151, 211, 1), rgba(72, 171, 227, 1) 46%, rgba(119, 179, 245, 1) 91%)",
             "secondary_button_label": "#ffffff"
           }
+        },
+        "scheme-14": {
+          "settings": {
+            "background": "#483e2b",
+            "background_gradient": "",
+            "background_accent": "",
+            "text": "#f4e5c8",
+            "link": "#f4e5c8",
+            "caption": "#f4e5c8",
+            "accent": "#bc870e",
+            "accent_gradient": "",
+            "heading": "#f4e5c8",
+            "heading_background_gradient": "",
+            "button_label": "#bc870e",
+            "button": "#FFFFFF",
+            "button_background_gradient": "",
+            "secondary_button_label": "#ffffff"
+          }
         }
       }
     },
     "Peak": {
       "color_scheme_notes": "<p><strong>Scheme 1</strong> - The main page background.<br/><br/><strong>Scheme 2</strong> - Pure white background. Used for cards, cart drawer and header.<br/><br/><strong>Scheme 3</strong> - An example color scheme with a dark background.<br/><br/><strong>Scheme 4</strong> - An example gradient background color scheme.</p><p><strong>Scheme 5</strong> - Used for the first message in the announcement bar.</p><p><strong>Scheme 6</strong> - Used for white text over an image.</p><p><strong>Scheme 7</strong> - Used on the deals collection.</p><p><strong>Scheme 8</strong> - Used in the header navigation and Brands page.</p><p><strong>Scheme 9</strong> - Used for the header navigation menu.</p><p><strong>Scheme 11</strong> - Used for the second message in the announcement bar and a few places on the homepage.</p>",
       "color_overlay": "#060606",
-      "type_header_font": "figtree_n5",
+      "type_header_font": "outfit_n5",
       "heading_scale": 94,
       "heading_letter_spacing": -30,
       "heading_text_transform": "none",
-      "type_body_font": "figtree_n4",
-      "body_scale": 95,
+      "type_body_font": "almarai_n4",
+      "body_scale": 100,
+      "body_letter_spacing": -10,
       "type_article_header_font": "times_new_roman_n4",
       "article_heading_letter_spacing": -30,
-      "animations_reveal_on_scroll": false,
+      "animations_reveal_on_scroll": true,
       "page_width": 1440,
       "spacing_sections": "75",
       "text_boxes_radius": 10,
@@ -1871,17 +1948,17 @@
       "promo_corner_radius": 6,
       "swatch_corner_radius": 50,
       "spacing_grid": 16,
-      "buttons_border_thickness": 2,
-      "buttons_radius": 2,
-      "button_letter_spacing": -2.5,
-      "button_text_transform": "uppercase",
-      "button_text_font_weight": "bold",
-      "animations_hover_buttons": "lift",
+      "buttons_border_thickness": 1,
+      "buttons_radius": 40,
+      "button_letter_spacing": 0,
+      "button_text_transform": "none",
+      "button_text_font_weight": "normal",
+      "animations_hover_buttons": "grow",
       "pagination_style": "show_more",
       "pagination_text_size": "t6",
       "breadcrumb_truncate": "7",
       "card_style": "card",
-      "card_text_alignment": "left",
+      "card_text_alignment": "center",
       "card_corner_radius": 6,
       "card_image_ratio": "square",
       "card_image_position": "center",
@@ -1898,6 +1975,11 @@
       "card_highlight_badge_show": true,
       "card_highlight_badge_weight": "medium",
       "card_highlight_badge_color": "#0a9331",
+      "product_icons_enabled": true,
+      "product_icons_placement": "bottom",
+      "product_icons_background": true,
+      "product_icons_alignment": "center",
+      "product_icons_size": 24,
       "swatch_placement": "below_title",
       "swatch_size": 0.9,
       "swatch_limit": 10,
@@ -1906,8 +1988,10 @@
       "quick_add": "standard",
       "quick_add_icon_over_image": "never",
       "quick_add_plus_icon": true,
-      "card_title_size": "t2",
-      "card_price_size": "t2",
+      "card_shadow": false,
+      "card_vendor_text_size": "t6",
+      "card_title_size": "t1",
+      "card_price_size": "t3",
       "card_star_size": "1.9",
       "card_title_transform": "none",
       "card_title_weight": "bold",
@@ -1915,11 +1999,11 @@
       "card_star_color": "#F5E121",
       "collection_card_text_alignment": "center",
       "collection_card_corner_radius": 0,
-      "collection_card_image_scale": 90,
+      "collection_card_image_scale": 70,
       "collection_card_show_count": false,
       "collection_card_image_ratio": "circle",
       "collection_card_image_cover": false,
-      "collection_card_shadow": false,
+      "collection_card_shadow": true,
       "blog_card_style": "card",
       "blog_card_corner_radius": 8,
       "blog_card_image_ratio": "grow",
@@ -1948,15 +2032,26 @@
       "badge_custom_border_color": "rgba(0,0,0,0)",
       "badge_custom_bg_color": "rgba(0,0,0,0)",
       "badge_custom_background_gradient": "linear-gradient(145deg, rgba(42, 156, 44, 1) 20%, rgba(42, 156, 44, 0.76) 82%)",
+      "flash_sale_collections": [],
+      "flash_sale_type": "percent",
+      "flash_sale_position": "bottom",
+      "flash_sale_background_color": "#866c00",
+      "flash_sale_show_badge": false,
+      "flash_sale_show_badge_icon": true,
+      "flash_sale_corner_radius": 16,
+      "flash_sale_badge_word": "DEAL",
+      "flash_sale_badge_background_color": "#a98800",
+      "flash_sale_badge_foreground_color": "#fcf6ef",
       "inventory_threshold": 10,
       "stock_low": "#E66711",
       "social_share_whatsapp": "",
       "show_search_types": true,
       "predictive_search_enabled": true,
       "predictive_search_show_vendor": false,
-      "predictive_search_suggested_searches": "Wine\nVitamins\nCoffee\nProtein powder",
+      "predictive_search_suggested_searches": "Supplements\nVitamins\nCoffee\nProtein powder",
       "currency_code_enabled": true,
       "cart_icon": "cart",
+      "atc_action": "notification",
       "cart_drawer_enabled": true,
       "cart_drawer_ctas": "checkout",
       "cart_show_cart_note": true,
@@ -1966,15 +2061,20 @@
       "cart_drawer_color_scheme": "scheme-2",
       "cart_related_show": true,
       "cart_related_layout": "stack",
+      "cart_related_heading": "You may also like?",
       "cart_shipping_bar_show": true,
       "cart_shipping_bar_background_color": "#0a9331",
       "cart_shipping_bar_background": "linear-gradient(92deg, rgba(1, 57, 28, 1) 7%, rgba(41, 207, 150, 1) 94%)",
+      "cart_drawer_promo_show": false,
+      "cart_drawer_promo_text": "<h5><strong>Up 20% off<br/>sale now on.</strong></h5>",
       "cart_drawer_promo_text_size": "h6-size",
       "cart_drawer_promo_text_position": "justify-start items-start",
       "cart_drawer_promo_text_alignment": "left",
       "cart_show_shipping_calculator": true,
       "seo_title_tag_store_name": true,
-      "tab_message": "Come back to great savings!",
+      "lazy_load_js": true,
+      "tab_message": "We price match!",
+      "head_code": "",
       "highlight_badge_weight": "medium",
       "badge_bulk_show_cart": true,
       "type_navigation_font": "lato_n5",
@@ -1996,13 +2096,6 @@
       "drawer_shadow_horizontal_offset": 0,
       "drawer_shadow_vertical_offset": 4,
       "drawer_shadow_blur": 5,
-      "flash_sale_background_color": "#866c00",
-      "flash_sale_show_badge": true,
-      "flash_sale_show_badge_icon": true,
-      "flash_sale_corner_radius": 16,
-      "flash_sale_badge_word": "DEAL",
-      "flash_sale_badge_background_color": "#a98800",
-      "flash_sale_badge_foreground_color": "#fcf6ef",
       "sections": {
         "main-password-header": {
           "type": "main-password-header",
@@ -2019,33 +2112,33 @@
       "color_schemes": {
         "scheme-1": {
           "settings": {
-            "background": "#fcf6ef",
+            "background": "#fbefe1",
             "background_gradient": "",
             "background_accent": "",
-            "text": "#2c463d",
-            "link": "#2c463d",
-            "caption": "#2c463d",
+            "text": "#483e2b",
+            "link": "#483e2b",
+            "caption": "#483e2b",
             "accent": "#008031",
             "accent_gradient": "linear-gradient(90deg, rgba(0, 128, 49, 1), rgba(59, 217, 119, 1) 100%)",
-            "heading": "#121212",
+            "heading": "#483e2b",
             "heading_background_gradient": "",
             "button_label": "#ffffff",
-            "button": "#121212",
+            "button": "#483e2b",
             "button_background_gradient": "",
-            "secondary_button_label": "#121212"
+            "secondary_button_label": "#483e2b"
           }
         },
         "scheme-2": {
           "settings": {
             "background": "#ffffff",
             "background_gradient": "",
-            "background_accent": "",
-            "text": "#191919",
+            "background_accent": "#f9fff8",
+            "text": "#4e3c19",
             "link": "#008031",
             "caption": "#3c4043",
             "accent": "#dc2bff",
             "accent_gradient": "linear-gradient(90deg, rgba(135, 98, 3, 1) 16%, rgba(31, 198, 108, 1) 84%)",
-            "heading": "#3c4043",
+            "heading": "#73510f",
             "heading_background_gradient": "",
             "button_label": "#f3f3f3",
             "button": "#4a9767",
@@ -2061,7 +2154,7 @@
             "text": "#ffffff",
             "link": "#ffffff",
             "caption": "#ffffff",
-            "accent": "#fcde71",
+            "accent": "#dc2bff",
             "accent_gradient": "linear-gradient(97deg, rgba(253, 212, 159, 1) 14%, rgba(252, 222, 113, 1) 83%)",
             "heading": "#ffffff",
             "heading_background_gradient": "",
@@ -2109,19 +2202,19 @@
         },
         "scheme-6": {
           "settings": {
-            "background": "#e6d8be",
+            "background": "#f9f6f1",
             "background_gradient": "",
             "background_accent": "",
             "text": "#ffffff",
             "link": "#ffffff",
             "caption": "#ffffff",
             "accent": "#0a812a",
-            "accent_gradient": "linear-gradient(82deg, rgba(126, 199, 45, 1) 13%, rgba(239, 255, 218, 1) 84%)",
+            "accent_gradient": "linear-gradient(82deg, rgba(115, 193, 29, 1) 13%, rgba(220, 247, 185, 1) 84%)",
             "heading": "#ffffff",
             "heading_background_gradient": "",
             "button_label": "#ffffff",
             "button": "#4a9767",
-            "button_background_gradient": "linear-gradient(50deg, rgba(121, 167, 70, 1) 13%, rgba(138, 186, 75, 1) 86%)",
+            "button_background_gradient": "linear-gradient(50deg, rgba(136, 188, 78, 1) 13%, rgba(141, 191, 75, 1) 86%)",
             "secondary_button_label": "#ffffff"
           }
         },
@@ -2217,7 +2310,7 @@
         },
         "scheme-12": {
           "settings": {
-            "background": "#f7f5ef",
+            "background": "#edf1ef",
             "background_gradient": "",
             "background_accent": "",
             "text": "#595951",
@@ -2248,6 +2341,24 @@
             "button_label": "#ffffff",
             "button": "#2a97d3",
             "button_background_gradient": "linear-gradient(305deg, rgba(42, 151, 211, 1), rgba(72, 171, 227, 1) 46%, rgba(119, 179, 245, 1) 91%)",
+            "secondary_button_label": "#ffffff"
+          }
+        },
+        "scheme-14": {
+          "settings": {
+            "background": "#483e2b",
+            "background_gradient": "",
+            "background_accent": "",
+            "text": "#f4e5c8",
+            "link": "#f4e5c8",
+            "caption": "#f4e5c8",
+            "accent": "#bc870e",
+            "accent_gradient": "",
+            "heading": "#f4e5c8",
+            "heading_background_gradient": "",
+            "button_label": "#bc870e",
+            "button": "#ffffff",
+            "button_background_gradient": "",
             "secondary_button_label": "#ffffff"
           }
         }

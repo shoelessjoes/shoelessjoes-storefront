@@ -101,7 +101,15 @@
                             <p class="caption-with-letter-spacing">{{ item.product.vendor }}</p>
                           {%- endif -%}
 
-                          <a href="{{ item.url }}" class="cart-item__name font-medium text-current break">{{ item.product.title | escape }}</a>
+                          <a href="{{ item.url }}" class="cart-item__name font-medium text-current break">
+                            {{ item.product.title | escape }}
+                          </a>
+
+                          {%- if settings.cart_show_subtitle and item.product.metafields.descriptors.subtitle != blank -%}
+                            <p class="t7 mt-0 light text-current break mb-1">
+                              {{- item.product.metafields.descriptors.subtitle | escape -}}
+                            </p>
+                          {%- endif -%}
 
                           {%- if item.original_price != item.final_price -%}
                             <div class="cart-item__discounted-prices">
@@ -130,7 +138,7 @@
                             </span>
                           {%- endif -%}
 
-                          {%- if item.sku != blank -%}
+                          {%- if settings.cart_show_sku and item.sku != blank -%}
                             <dl class="opacity-80 cart-item__sku">
                               <div class="product-option">
                                 <dt>{{ 'products.product.sku' | t }}</dt>

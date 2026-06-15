@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -411,7 +420,8 @@
     },
     "video": {
       "load_video": "Muat video: {{ description }}",
-      "toggle": "Ubah status pemutaran video"
+      "toggle": "Ubah status pemutaran video",
+      "volume": "Nyamankan/bunyikan video"
     },
     "slideshow": {
       "load_slide": "Muat slide",

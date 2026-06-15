@@ -7,6 +7,7 @@ if (!customElements.get('product-compare')) {
 
     disconnectedCallback() {
       this.detachObservers();
+      clearTimeout(this.rowHeightCheckTimeout);
       this.removeEventListener('change', this.productChangeHandler);
     }
 
@@ -21,6 +22,7 @@ if (!customElements.get('product-compare')) {
 
     doInit() {
       this.fetchAttempts = 0;
+      this.rowHeightCheckTimeout = null;
 
       if (this.dataset.products) {
         this.products = this.dataset.products.split(',').map(Number);
@@ -117,13 +119,13 @@ if (!customElements.get('product-compare')) {
           this.innerHTML = el.innerHTML;
           this.querySelector('ul.compare-grid').scrollLeft = scrollLeft;
 
-          // Do some rendering updates
-          requestAnimationFrame(this.checkRowHeights.bind(this, 0));
-
           // Call external functions to render and reinitialize
           window.renderSelects();
           window.loadDesktopOnlyTemplates();
           window.stickersReinit?.();
+
+          // Do some rendering updates after content has had a chance to load
+          this.scheduleCheckRowHeights(this.initialized ? 600 : 300);
 
           requestAnimationFrame(() => {
             setTimeout(() => {
@@ -131,9 +133,6 @@ if (!customElements.get('product-compare')) {
             }, this.initialized ? 400 : 100);
           });
 
-          // For luck
-          requestAnimationFrame(this.checkRowHeights.bind(this, 200));
-          requestAnimationFrame(this.checkRowHeights.bind(this, 800));
           this.attachObservers();
 
           this.initialized = true;
@@ -146,12 +145,24 @@ if (!customElements.get('product-compare')) {
         } else {
           this.fetchProducts(); // Retry
         }
+      } finally {
+        this.checkRowHeights(3000);
       }
     }
 
     debouncedCheckRowHeights = debounce(() => {
       this.checkRowHeights();
     }, 600);
+
+    scheduleCheckRowHeights(delay = 600) {
+      clearTimeout(this.rowHeightCheckTimeout);
+
+      this.rowHeightCheckTimeout = setTimeout(() => {
+        requestAnimationFrame(() => {
+          this.checkRowHeights();
+        });
+      }, delay);
+    }
 
     attachObservers() {
       // Attach a 'load' event listener to each image within 'this'

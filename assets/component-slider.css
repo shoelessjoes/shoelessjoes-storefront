@@ -175,6 +175,18 @@ slider-component.slider-component-full-width {
     padding-inline-start: var(--px-mobile);
   }
 
+  .slider--desktop.grid--9-col-desktop:not(.grid--scaled) .grid__item {
+    width: calc((100% - var(--desktop-margin-left-first-item)) / 9 - var(--grid-desktop-horizontal-spacing) * 2);
+  }
+
+  .slider--desktop.grid--8-col-desktop:not(.grid--scaled) .grid__item {
+    width: calc((100% - var(--desktop-margin-left-first-item)) / 8 - var(--grid-desktop-horizontal-spacing) * 2);
+  }
+
+  .slider--desktop.grid--7-col-desktop:not(.grid--scaled) .grid__item {
+    width: calc((100% - var(--desktop-margin-left-first-item)) / 7 - var(--grid-desktop-horizontal-spacing) * 2);
+  }
+
   .slider--desktop.grid--6-col-desktop:not(.grid--scaled) .grid__item {
     width: calc((100% - var(--desktop-margin-left-first-item)) / 6 - var(--grid-desktop-horizontal-spacing) * 2);
   }
@@ -189,7 +201,10 @@ slider-component.slider-component-full-width {
 
   .slider--desktop.grid--4-col-desktop.grid--scaled .grid__item,
   .slider--desktop.grid--5-col-desktop.grid--scaled .grid__item,
-  .slider--desktop.grid--6-col-desktop.grid--scaled .grid__item {
+  .slider--desktop.grid--6-col-desktop.grid--scaled .grid__item,
+  .slider--desktop.grid--7-col-desktop.grid--scaled .grid__item,
+  .slider--desktop.grid--8-col-desktop.grid--scaled .grid__item,
+  .slider--desktop.grid--9-col-desktop.grid--scaled .grid__item {
     width: calc((100% - var(--desktop-margin-left-first-item)) / 3 - var(--grid-desktop-horizontal-spacing) * 2);
   }
 
@@ -218,6 +233,9 @@ slider-component.slider-component-full-width {
 @media screen and (min-width: 990px) {
   .slider--desktop.grid--5-col-desktop.grid--scaled .grid__item,
   .slider--desktop.grid--6-col-desktop.grid--scaled .grid__item,
+  .slider--desktop.grid--7-col-desktop.grid--scaled .grid__item,
+  .slider--desktop.grid--8-col-desktop.grid--scaled .grid__item,
+  .slider--desktop.grid--9-col-desktop.grid--scaled .grid__item,
   .slider--desktop.grid--4-col-desktop:not(.grid--scaled) .grid__item {
     width: calc((100% - var(--desktop-margin-left-first-item)) / 4 - var(--grid-desktop-horizontal-spacing) * 2);
   }
@@ -232,6 +250,26 @@ slider-component.slider-component-full-width {
   .slider--desktop.grid--6-col-desktop.grid--scaled .grid__item {
     width: calc((100% - var(--desktop-margin-left-first-item)) / 5 - var(--grid-desktop-horizontal-spacing) * 2);
   }
+
+  .slider--desktop.grid--7-col-desktop.grid--scaled .grid__item {
+    width: calc((100% - var(--desktop-margin-left-first-item)) / 6 - var(--grid-desktop-horizontal-spacing) * 2);
+  }
+
+  .slider--desktop.grid--8-col-desktop.grid--scaled .grid__item {
+    width: calc((100% - var(--desktop-margin-left-first-item)) / 7 - var(--grid-desktop-horizontal-spacing) * 2);
+  }
+
+  .slider--desktop.grid--9-col-desktop.grid--scaled .grid__item {
+    width: calc((100% - var(--desktop-margin-left-first-item)) / 8 - var(--grid-desktop-horizontal-spacing) * 2);
+  }
+
+  slider-component.slider-component--narrow-width.slider-component--narrow-width {
+    --desktop-margin-left-first-item: 0px;
+    max-width: var(--page-width);
+    overflow: hidden;
+    padding-inline-start: 5rem;
+    padding-inline-end: 5rem;
+  }
 }
 
 @media screen and (min-width: 1440px) {
@@ -245,6 +283,18 @@ slider-component.slider-component-full-width {
 
   .slider--desktop.grid--6-col-desktop.grid--scaled .grid__item {
     width: calc((100% - var(--desktop-margin-left-first-item)) / 6 - var(--grid-desktop-horizontal-spacing) * 2);
+  }
+
+  .slider--desktop.grid--7-col-desktop.grid--scaled .grid__item {
+    width: calc((100% - var(--desktop-margin-left-first-item)) / 7 - var(--grid-desktop-horizontal-spacing) * 2);
+  }
+
+  .slider--desktop.grid--8-col-desktop.grid--scaled .grid__item {
+    width: calc((100% - var(--desktop-margin-left-first-item)) / 8 - var(--grid-desktop-horizontal-spacing) * 2);
+  }
+
+  .slider--desktop.grid--9-col-desktop.grid--scaled .grid__item {
+    width: calc((100% - var(--desktop-margin-left-first-item)) / 9 - var(--grid-desktop-horizontal-spacing) * 2);
   }
 }
 

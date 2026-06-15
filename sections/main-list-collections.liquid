@@ -25,7 +25,7 @@
     {%- paginate collections by paginate_by -%}
       <infinite-scroll data-infinite-scroll-enabled="{% if settings.pagination_style == 'infinite' %}true{% else %}false{% endif %}">
         <ul
-          class="collection-list grid grid--{{ columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down grid--scaled"
+          class="collection-list grid grid--{{ columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down{% if section.settings.columns_desktop_scale %} grid--scaled{% endif %}"
           role="list"
         >
           {%- for collection in collections -%}
@@ -91,6 +91,22 @@
       "id": "columns_desktop",
       "options": [
         {
+          "value": "9",
+          "label": "4XS"
+        },
+        {
+          "value": "8",
+          "label": "3XS"
+        },
+        {
+          "value": "7",
+          "label": "2XS"
+        },
+        {
+          "value": "6",
+          "label": "XS"
+        },
+        {
           "value": "5",
           "label": "S"
         },
@@ -113,6 +129,12 @@
       ],
       "default": "3",
       "label": "Card size on desktop"
+    },
+    {
+      "type": "checkbox",
+      "id": "columns_desktop_scale",
+      "label": "Reduce the number of cards shown as the screen gets narrower",
+      "default": true
     },
     {
       "type": "select",

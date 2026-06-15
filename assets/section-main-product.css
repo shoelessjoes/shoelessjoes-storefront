@@ -1807,3 +1807,12 @@ a.product__text {
 .product[data-variant-status='unavailable'] .visible-variant_out_of_stock {
   display: none !important;
 }
+
+.product__social-videos {
+  --desktop-margin-left-first-item: 10px;
+  --grid-desktop-horizontal-spacing: 10px;
+
+  &.slide-component--show-arrows .slider-button.button-control {
+    transform: translate3d(0, calc(-50% - 16px), 0) scale(1) !important;
+  }
+}

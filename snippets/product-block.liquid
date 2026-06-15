@@ -1688,4 +1688,106 @@
     {%- render 'flash-sale', flash_sale_product: product, class: class, is_product_page: true -%}
   </div>
 
+{%- elsif block.type == 'social_videos' -%}
+  {%- liquid
+    assign num_videos = 0
+    for i in (1..10)
+      assign video_setting_id = "video_" | append: i
+      assign video = block.settings[video_setting_id]
+      if video != blank
+        assign num_videos = num_videos | plus: 1
+      endif
+    endfor
+
+    if num_videos == 0 and request.design_mode
+      assign onboarding = true
+      assign num_videos = 10
+    endif
+
+    assign is_carousel = true
+    if num_videos < 3
+      assign is_carousel = false
+    elsif num_videos == 3 and block.settings.videos_to_show == '3'
+      assign is_carousel = false
+    endif
+  -%}
+  {%- if num_videos > 0 or onboarding -%}
+    <div class="{{ block.settings.visibility }} {% if block.settings.stock_visibility contains 'variant' and request.design_mode == false %} visible-{{ block.settings.stock_visibility }}{% endif %}{% if block.settings.show_in_quickbuy != true %} quick-add-hidden{% endif %}" {{ block.shopify_attributes }}>
+      {%- if block.settings.block_heading != blank -%}
+        <div class="mt-0 mb-05 {{ block.settings.label_text_size }} font-{{ block.settings.label_text_weight }}">
+          {{ block.settings.block_heading }}
+        </div>
+      {%- endif -%}
+
+      <slider-component class="product__social-videos slider-mobile-gutter{% if is_carousel %} slide-component--show-arrows{% endif %} w-full slider-mobile-gutter slider-component-desktop">
+        <ul id="Slider-{{ section.id }}-social-videos" class="contains-content-container section-grid grid mb-0 {% if is_carousel %}slider--everywhere{% endif %} grid--{{ block.settings.videos_to_show }}-col-desktop grid--2-col-tablet-down slider slider--tablet" role="list" tabindex="0" aria-label="{{ 'general.slider.name' | t }}">
+          {%- assign video_index = 0 -%}
+          {%- for i in (1..10) -%}
+            {%- liquid
+              assign video_setting_id = "video_" | append: i
+              assign video = block.settings[video_setting_id]
+
+              assign autoplay = false
+              if block.settings.autoplay == 'all'
+                assign autoplay = true
+              elsif block.settings.autoplay == 'first' and i == 1
+                assign autoplay = true
+              endif
+            -%}
+            {%- if video != blank or onboarding -%}
+              {%- assign video_index = video_index | plus: 1 -%}
+              <li id="Slide-{{ section.id }}-social-videos-{{ forloop.index }}" class="grid__item slider__slide">
+                <div class="responsive-card-padding overflow-hidden h-full flex flex-col content-container card--shadow">
+                  {%- render 'inline-social-video',
+                      video: video,
+                      index: video_index,
+                      custom_id: block.id,
+                      video_autoplay: autoplay,
+                      on_click_action: block.settings.on_click_action,
+                      on_click_page: block.settings.on_click_page,
+                      video_ratio: block.settings.video_ratio,
+                      show_unmute_button: false,
+                      hide_when_empty: true
+                  -%}
+                </div>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+
+        <div class="slider-buttons no-js-hidden">
+          <button
+              type="button"
+              class="slider-button button-control tap-target slider-button--prev"
+              name="previous"
+              aria-label="{{ 'general.slider.previous_slide' | t }}"
+              aria-controls="Slider-{{ section.id }}-social-videos"
+          >
+            {% render 'icon-caret' %}
+          </button>
+
+          <div class="slider-counter caption visually-hidden">
+            <span class="slider-counter--current">1</span>
+            <span aria-hidden="true"> / </span>
+            <span>{{ 'general.slider.of' | t }}</span>
+            <span class="slider-counter--total">{{ num_videos }}</span>
+          </div>
+
+          <button
+              type="button"
+              class="slider-button button-control tap-target slider-button--next"
+              name="next"
+              aria-label="{{ 'general.slider.next_slide' | t }}"
+              aria-controls="Slider-{{ section.id }}-social-videos"
+          >
+            {% render 'icon-caret' %}
+          </button>
+
+          <div class="slider-scrollbar__track" style="--num-slides: {{ num_videos }}" data-num-slides="{{ num_videos }}">
+            <div class="slider-scrollbar__indicator"></div>
+          </div>
+        </div>
+      </slider-component>
+    </div>
+  {%- endif -%}
 {%- endif -%}

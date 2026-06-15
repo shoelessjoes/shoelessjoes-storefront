@@ -323,7 +323,7 @@
       </div>
     {%- else -%}
       {%- assign form_id = 'subscribe-' | append: section.id -%}
-      {%- form 'customer', id: form_id, return_to: 'back' -%}
+      {%- form 'customer', id: form_id, return_to: block.settings.return_to.url -%}
         <div class="section-content__email-form customer-form justify-{{ section.settings.mobile_content_alignment | default: block.settings.mobile_content_alignment | default: section.settings.compare_text_alignment }} md:justify-{{ section.settings.desktop_content_alignment | default: block.settings.desktop_content_alignment | default: section.settings.compare_text_alignment }}{% if animate %} scroll-trigger animate--fade-in{% endif %}{% if class %} {{ class }}{% endif %}"
              id="{{ form_id }}"
                 {{ block.shopify_attributes }}
@@ -436,7 +436,7 @@
         endunless
     -%}
     {%- if icon != blank -%}
-      <div class="last-child-inner:mb-0{% if animate %} scroll-trigger animate--fade-in{% endif %}"
+      <div class="{% unless section_name == 'gallery' %}last-child-inner:mb-0{% endunless %}{% if animate %} scroll-trigger animate--fade-in{% endif %}"
         {{ block.shopify_attributes }}
         {% if animate %}
           data-cascade

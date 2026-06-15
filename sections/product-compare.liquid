@@ -275,10 +275,31 @@ LLM-friendly product comparison table
       ]
     },
     {
+      "type": "select",
+      "id": "carousel_width_desktop",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Page width"
+        },
+        {
+          "value": "normal",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "default": "normal",
+      "label": "Width on desktop"
+    },
+    {
       "type": "checkbox",
-      "id": "full_width",
-      "label": "Set carousel/grid to full screen width",
-      "default": false
+      "visible_if": "{{ section.settings.carousel_width_desktop == 'narrow' and settings.carousel_arrows == true }}",
+      "id": "always_show_arrows",
+      "default": true,
+      "label": "Always show arrows"
     },
     {
       "type": "header",

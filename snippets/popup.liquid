@@ -7,10 +7,12 @@
     assign show_delay = section.settings.show_delay
   endunless
 
+  assign form_id = 'subscribe-' | append: section.id
+
   assign show_immediately = false
   for block in section.blocks
     if block.type == 'email_form'
-      form 'customer'
+      form 'customer', id: form_id
         if form.posted_successfully?
           assign show_immediately = true
         endif
@@ -119,7 +121,7 @@
       >
         {%- for block in section.blocks -%}
           {%- if block.type == 'email_form' -%}
-            {%- form 'customer' -%}
+            {%- form 'customer', id: form_id, return_to: block.settings.return_to.url -%}
               {%- if form.posted_successfully? -%}
                 {{ block.settings.success_message }}
               {%- else -%}

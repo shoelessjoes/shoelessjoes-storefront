@@ -2,7 +2,7 @@
   {
     "name": "theme_info",
     "theme_name": "Ignite",
-    "theme_version": "2.5.2",
+    "theme_version": "2.6.0",
     "theme_author": "Benchmark Themes",
     "theme_documentation_url": "https://benchmarkthemes.com/help-center/ignite/getting-started/welcome/",
     "theme_support_url": "https://benchmarkthemes.com/help-center/ignite/getting-started/welcome/"
@@ -2944,6 +2944,18 @@
         "id": "cart_show_vendor",
         "label": "Show product vendor",
         "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_show_subtitle",
+        "label": "Show product subtitle",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_show_sku",
+        "label": "Show SKU",
+        "default": true
       },
       {
         "type": "url",

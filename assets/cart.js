@@ -242,7 +242,7 @@ class CartItems extends HTMLElement {
         errors.textContent = window.cartStrings.error;
       })
       .finally(() => {
-        this.cartDrawer?.removeDeleteTabIndex();
+        if (typeof this.cartDrawer?.removeDeleteTabIndex === 'function') this.cartDrawer?.removeDeleteTabIndex();
         this.disableLoading(line);
       });
   }
