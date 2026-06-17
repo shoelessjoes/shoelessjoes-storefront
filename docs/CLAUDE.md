@@ -1,12 +1,17 @@
 # Shoeless Joe's Storefront — Dev Context
 
 > **Read this file at the start of every session before touching any code.**
+> For the cross-repo picture (all three repos, canonical IDs, shared gotchas), see the top-level
+> **`SHOELESS_JOES_MASTER.md`** first.
 
 This is the master context for the storefront repo. Companion docs:
 - [`HANDOFF.md`](HANDOFF.md) — Current done/pending status and gotchas (read after this file)
 - [`BRAND.md`](BRAND.md) — Colors, fonts, voice, logo
+- [`CONTENT.md`](CONTENT.md) — Real shop copy (source of truth for hours, About, history, social)
+- [`GRADED_CARDS.md`](GRADED_CARDS.md) — Graded-card product spec: types, title format, metafields, SKU, import workflows
+- [`COLLECTIONS.md`](COLLECTIONS.md) — Smart-collection GIDs/handles, tag-mapping logic, navigation structure
 - [`PSA_FORM.md`](PSA_FORM.md) — Form architecture and workflows
-- [`PSA_PRICING.md`](PSA_PRICING.md) — PSA tier prices and turnaround times
+- [`PSA_PRICING.md`](PSA_PRICING.md) — PSA tier prices and turnaround times (authoritative)
 - [`DEPLOYMENT.md`](DEPLOYMENT.md) — How to ship theme + Apps Script changes
 - [`CREDENTIALS.md`](CREDENTIALS.md) — What credential lives where (no secrets)
 
@@ -14,7 +19,7 @@ This is the master context for the storefront repo. Companion docs:
 
 ## Shop Overview
 
-**Shoeless Joe's Cards & Collectibles** — Cincinnati, OH. Est. 1992. PSA Authorized Grading Agent. Family-owned brick-and-mortar with growing online presence.
+**Shoeless Joe's Cards & Collectibles** — Cincinnati, OH. Est. 1992. PSA Authorized Grading Agent. Family-owned brick-and-mortar with growing online presence. (Full identity/history in `CONTENT.md`.)
 
 | Item | Value |
 |---|---|
@@ -47,11 +52,13 @@ shoelessjoes-storefront/
 
 ## Sibling Repos
 
+See `SHOELESS_JOES_MASTER.md` for the full three-repo map and how they fit together.
+
 | Repo | Purpose |
 |---|---|
 | `shoelessjoes-storefront` (this) | Customer-facing Shopify theme + PSA form + Apps Script |
-| `shoelessjoes-ops` | Back-office: Dealernet offer ingest, inbox, purchase/sale Shopify sync, Remix admin app. Handoff: `docs/HANDOFF_CLAUDE.md` |
-| `shoelessjoes-supplier-py` | Python pricing-table scrape, margin ranking, alerts (Windows scheduled). Handoff: `docs/HANDOFF_CLAUDE.md` |
+| `shoelessjoes-ops` | Back-office: Dealernet offer ingest, inbox, purchase/sale Shopify sync, Remix admin app. Handoff: `docs/AGENT_HANDOFF.md` |
+| `shoelessjoes-supplier-py` | Python pricing-table scrape, margin ranking, alerts (Windows scheduled). Handoff: `docs/PROJECT_STATE.md` |
 
 ---
 
@@ -92,12 +99,12 @@ Full architecture in [`PSA_FORM.md`](PSA_FORM.md).
 ### Current phase: Theme revamp + PSA form integration
 
 1. ✅ Repo structure
-2. ☐ Wire Ignite theme to brand standards (Bebas Neue, navy/gold/cream palette)
-3. ☐ Build out homepage, About, Services, Contact, FAQ, Brands pages with real content
-4. ☐ Add Graded Cards menu pulling live Shopify collection
-5. ☐ Port PSA form into the new theme (section + asset + page template)
-6. ☐ Update PSA pricing and turnaround times (PSA changed them recently — see PSA_PRICING.md)
-7. ☐ Align PSA pricing brochure (PDF printout) with new theme styling
+2. ✅ Wire Ignite theme to brand standards (Bebas Neue, navy/gold/cream palette) — fonts + color schemes configured
+3. ☐ Build out homepage, About, Services, Contact, FAQ, Brands pages with real content — **homepage is the biggest open gap**
+4. ✅ Graded Cards collections live (15 smart collections + tag mapping — see `COLLECTIONS.md`); ☐ menu wired into the new theme header
+5. ✅ Port PSA form into the theme (section + asset + page template); ☐ final go-live (real Apps Script URL + end-to-end test)
+6. ✅ Update PSA pricing and turnaround times (see `PSA_PRICING.md`)
+7. ☐ Align PSA pricing brochure (PDF printout) with new theme styling + current pricing
 8. ☐ Re-deploy Apps Script with updated webhook URL/secret
 
 ### Later phases
