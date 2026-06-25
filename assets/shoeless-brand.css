@@ -54,7 +54,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.18em;
   font-weight: 600;
-  font-size: 0.78rem;
+  font-size: 12.5px;
   color: var(--sj-gold-dark);
 }
 
@@ -72,15 +72,5 @@ body {
   width: 64px;
   background: var(--sj-gold);
   border: 0;
-  margin: 0.75rem 0;
-}
-
-/* ---- Type sizing lock (restores the original 100/100 proportions) ----
-   The current theme's Typography sliders had drifted to heading 140 / body 110,
-   which oversized everything relative to how these sections were designed.
-   Pinning both scales to 1 reproduces the previous working model exactly.
-   To hand sizing back to the theme sliders later, delete this block. */
-:root {
-  --font-body-scale: 1 !important;
-  --font-heading-scale: 1 !important;
+  margin: 12px 0;
 }

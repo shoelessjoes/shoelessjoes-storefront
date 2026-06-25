@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {}
+    },
+    "about": {
+      "type": "sj-about",
+      "settings": {}
+    }
+  },
+  "order": ["breadcrumbs", "about"]
+}

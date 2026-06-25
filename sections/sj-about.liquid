@@ -1,0 +1,246 @@
+{%- comment -%}
+  Shoeless Joe's — About Us section.
+  Copy supplied by owner (KB doc). All type in px so it is independent of the
+  theme's 10px root (matches shoeless-brand.css fix). Brand tokens (--sj-*) come
+  from assets/shoeless-brand.css which loads globally.
+  Photo slots are image_picker settings — drop photos in via the theme editor;
+  empty slots render a labelled placeholder telling you what goes there.
+{%- endcomment -%}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap">
+
+<div class="sj-about">
+
+  {%- comment -%} ---------- INTRO ---------- {%- endcomment -%}
+  <section class="sj-ab-intro">
+    <div class="sj-ab-wrap">
+      <span class="sj-eyebrow">{{ section.settings.intro_eyebrow }}</span>
+      <h1 class="sj-ab-h1">{{ section.settings.intro_heading }}</h1>
+      <hr class="sj-rule">
+      <p class="sj-ab-lede">{{ section.settings.intro_text }}</p>
+    </div>
+  </section>
+
+  {%- comment -%} ---------- OUR STORY / TIMELINE ---------- {%- endcomment -%}
+  <section class="sj-ab-story">
+    <div class="sj-ab-wrap">
+      <div class="sj-ab-section-head">
+        <span class="sj-eyebrow">{{ section.settings.story_eyebrow }}</span>
+        <h2 class="sj-ab-h2">{{ section.settings.story_heading }}</h2>
+      </div>
+
+      {%- assign eras = '1,2,3,4' | split: ',' -%}
+      {%- for n in eras -%}
+        {%- assign img = 'era_' | append: n | append: '_image' -%}
+        {%- assign period = 'era_' | append: n | append: '_period' -%}
+        {%- assign title = 'era_' | append: n | append: '_title' -%}
+        {%- assign body = 'era_' | append: n | append: '_body' -%}
+        {%- assign ph = 'era_' | append: n | append: '_ph' -%}
+        <div class="sj-ab-era">
+          <div class="sj-ab-era-media">
+            {%- if section.settings[img] != blank -%}
+              <img src="{{ section.settings[img] | image_url: width: 1200 }}" alt="{{ section.settings[title] }}" loading="lazy">
+            {%- else -%}
+              <div class="sj-ab-ph"><span>&#128247;<br>{{ section.settings[ph] }}</span></div>
+            {%- endif -%}
+          </div>
+          <div class="sj-ab-era-text">
+            <span class="sj-ab-period">{{ section.settings[period] }}</span>
+            <h3 class="sj-ab-h3">{{ section.settings[title] }}</h3>
+            <p>{{ section.settings[body] }}</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </section>
+
+  {%- comment -%} ---------- MEET THE OWNERS ---------- {%- endcomment -%}
+  <section class="sj-ab-owners">
+    <div class="sj-ab-wrap sj-ab-owners-grid">
+      <div class="sj-ab-owners-media">
+        {%- if section.settings.owners_image != blank -%}
+          <img src="{{ section.settings.owners_image | image_url: width: 1200 }}" alt="{{ section.settings.owners_heading }}" loading="lazy">
+        {%- else -%}
+          <div class="sj-ab-ph"><span>&#128247;<br>{{ section.settings.owners_ph }}</span></div>
+        {%- endif -%}
+      </div>
+      <div class="sj-ab-owners-text">
+        <span class="sj-eyebrow">{{ section.settings.owners_eyebrow }}</span>
+        <h2 class="sj-ab-h2">{{ section.settings.owners_heading }}</h2>
+        <div class="sj-ab-rich">{{ section.settings.owners_body }}</div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ---------- RENOVATION / REOPENING BAND ---------- {%- endcomment -%}
+  <section class="sj-ab-reopen">
+    <div class="sj-ab-wrap">
+      <span class="sj-eyebrow sj-eyebrow-gold">{{ section.settings.reopen_eyebrow }}</span>
+      <h2 class="sj-ab-h2 sj-ab-h2-light">{{ section.settings.reopen_heading }}</h2>
+      <div class="sj-ab-rich sj-ab-rich-light">{{ section.settings.reopen_body }}</div>
+    </div>
+  </section>
+
+  {%- comment -%} ---------- VISIT US ---------- {%- endcomment -%}
+  <section class="sj-ab-visit">
+    <div class="sj-ab-wrap sj-ab-visit-grid">
+      <div>
+        <span class="sj-eyebrow">{{ section.settings.visit_eyebrow }}</span>
+        <h2 class="sj-ab-h2">{{ section.settings.visit_heading }}</h2>
+        <p class="sj-ab-addr">
+          {{ section.settings.address }}<br>
+          <a href="tel:{{ section.settings.phone | remove: '-' | remove: ' ' }}">{{ section.settings.phone }}</a>
+        </p>
+        {%- if section.settings.map_link != blank -%}
+          <a class="sj-ab-btn" href="{{ section.settings.map_link }}" target="_blank" rel="noopener">Get Directions</a>
+        {%- endif -%}
+      </div>
+      <div class="sj-ab-hours">
+        <h3 class="sj-ab-h3">Store Hours</h3>
+        <table>
+          <tr><td>Sunday</td><td>{{ section.settings.hours_sun }}</td></tr>
+          <tr><td>Monday</td><td>{{ section.settings.hours_mon }}</td></tr>
+          <tr><td>Tuesday</td><td>{{ section.settings.hours_tue }}</td></tr>
+          <tr><td>Wednesday</td><td>{{ section.settings.hours_wed }}</td></tr>
+          <tr><td>Thursday</td><td>{{ section.settings.hours_thu }}</td></tr>
+          <tr><td>Friday</td><td>{{ section.settings.hours_fri }}</td></tr>
+          <tr><td>Saturday</td><td>{{ section.settings.hours_sat }}</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<style>
+  .sj-about { font-family: var(--font-body-family, 'Roboto', sans-serif); color: var(--sj-text, #1A2935); }
+  .sj-about * { box-sizing: border-box; }
+  .sj-ab-wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .sj-about h1, .sj-about h2, .sj-about h3 { font-family: var(--font-heading-family, 'Bebas Neue', sans-serif); letter-spacing: .02em; line-height: 1.04; margin: 0; }
+  .sj-about p { font-size: 17px; line-height: 1.65; margin: 0 0 16px; }
+  .sj-about .sj-eyebrow { display: inline-block; margin-bottom: 12px; }
+  .sj-eyebrow-gold { color: var(--sj-gold-light, #F0C96A) !important; }
+
+  /* Intro */
+  .sj-ab-intro { padding: 72px 0 8px; text-align: center; }
+  .sj-ab-h1 { font-size: clamp(48px, 8vw, 84px); color: var(--sj-navy, #173B4E); }
+  .sj-ab-intro .sj-rule { margin: 18px auto; }
+  .sj-ab-lede { max-width: 760px; margin: 0 auto; font-size: 19px; color: var(--sj-muted, #5A7285); }
+
+  /* Section heads */
+  .sj-ab-section-head { text-align: center; margin: 56px 0 40px; }
+  .sj-ab-h2 { font-size: clamp(34px, 5vw, 52px); color: var(--sj-navy, #173B4E); }
+  .sj-ab-h2-light { color: #fff; }
+  .sj-ab-h3 { font-size: 28px; color: var(--sj-navy, #173B4E); }
+
+  /* Timeline eras */
+  .sj-ab-story { padding: 24px 0 64px; }
+  .sj-ab-era { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin: 0 0 48px; }
+  .sj-ab-era:nth-child(even) .sj-ab-era-media { order: 2; }
+  .sj-ab-era-media img, .sj-ab-ph { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 10px; display: block; }
+  .sj-ab-ph { background: var(--sj-cream-2, #EDE0C0); border: 2px dashed var(--sj-border, #C8B98A); display: flex; align-items: center; justify-content: center; text-align: center; color: var(--sj-gold-dark, #8B6200); }
+  .sj-ab-ph span { font-size: 14px; font-weight: 600; line-height: 1.5; padding: 16px; }
+  .sj-ab-period { font-family: 'Roboto Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: .08em; color: var(--sj-gold-dark, #8B6200); text-transform: uppercase; }
+  .sj-ab-era-text h3 { margin: 8px 0 12px; }
+
+  /* Owners */
+  .sj-ab-owners { padding: 56px 0; background: var(--sj-light, #FAF6EE); }
+  .sj-ab-owners-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items: center; }
+  .sj-ab-owners-media img, .sj-ab-owners-media .sj-ab-ph { aspect-ratio: 1 / 1; border-radius: 10px; }
+  .sj-ab-rich p:last-child { margin-bottom: 0; }
+
+  /* Reopen band */
+  .sj-ab-reopen { padding: 64px 0; background: var(--sj-navy, #173B4E); text-align: center; }
+  .sj-ab-rich-light, .sj-ab-reopen p { color: var(--sj-cream, #F5EEDC); }
+  .sj-ab-reopen .sj-ab-rich { max-width: 760px; margin: 16px auto 0; }
+
+  /* Visit */
+  .sj-ab-visit { padding: 64px 0 80px; }
+  .sj-ab-visit-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; }
+  .sj-ab-addr { font-size: 18px; line-height: 1.7; }
+  .sj-ab-addr a { color: var(--sj-navy, #173B4E); font-weight: 600; text-decoration: none; }
+  .sj-ab-btn { display: inline-block; margin-top: 8px; background: var(--sj-gold, #DDA852); color: var(--sj-navy-dark, #0E2535); font-family: var(--font-heading-family, 'Bebas Neue'); font-size: 20px; letter-spacing: .04em; padding: 10px 26px; border-radius: 6px; text-decoration: none; }
+  .sj-ab-hours table { width: 100%; border-collapse: collapse; }
+  .sj-ab-hours td { padding: 9px 0; border-bottom: 1px solid var(--sj-border, #C8B98A); font-size: 16px; }
+  .sj-ab-hours td:last-child { text-align: right; font-weight: 600; color: var(--sj-navy, #173B4E); }
+  .sj-ab-hours h3 { margin-bottom: 10px; }
+
+  @media (max-width: 760px) {
+    .sj-ab-era, .sj-ab-owners-grid, .sj-ab-visit-grid { grid-template-columns: 1fr; gap: 24px; }
+    .sj-ab-era:nth-child(even) .sj-ab-era-media { order: 0; }
+    .sj-ab-intro { padding: 48px 0 8px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "SJ About",
+  "tag": "section",
+  "class": "sj-about-section",
+  "settings": [
+    { "type": "header", "content": "Intro" },
+    { "type": "text", "id": "intro_eyebrow", "label": "Eyebrow", "default": "About Us" },
+    { "type": "text", "id": "intro_heading", "label": "Heading", "default": "SHOELESS JOE'S CARDS" },
+    { "type": "textarea", "id": "intro_text", "label": "Intro text", "default": "Your one-stop sports card & collectibles shop in Cincinnati, OH. Supplies, single cards (raw & graded), sealed packs & boxes, Pokémon & more — backed by years of customer service and a genuine passion for the hobby. Starting young collectors out in the hobby is a focal point of our vision as a community card shop." },
+
+    { "type": "header", "content": "Our Story — heading" },
+    { "type": "text", "id": "story_eyebrow", "label": "Eyebrow", "default": "Our Story" },
+    { "type": "text", "id": "story_heading", "label": "Heading", "default": "NEARLY THREE DECADES ON THE WESTSIDE" },
+
+    { "type": "header", "content": "Era 1" },
+    { "type": "image_picker", "id": "era_1_image", "label": "Photo" },
+    { "type": "text", "id": "era_1_ph", "label": "Placeholder note", "default": "The original shop — \"Dogs & Ice Cream\" storefront" },
+    { "type": "text", "id": "era_1_period", "label": "Period", "default": "Mid-1990s" },
+    { "type": "text", "id": "era_1_title", "label": "Title", "default": "Cards, Creamy Whip & Community" },
+    { "type": "textarea", "id": "era_1_body", "label": "Body", "default": "Before it became a Cincinnati hobby staple, Shoeless Joe's started as a baseball card shop and neighborhood creamy whip — serving up slushies, nachos, and summertime memories alongside the cards." },
+
+    { "type": "header", "content": "Era 2" },
+    { "type": "image_picker", "id": "era_2_image", "label": "Photo" },
+    { "type": "text", "id": "era_2_ph", "label": "Placeholder note", "default": "The Tom Huber era — packed shelves & wall display" },
+    { "type": "text", "id": "era_2_period", "label": "Period", "default": "1997 – 2025" },
+    { "type": "text", "id": "era_2_title", "label": "Title", "default": "Tom Huber's Legacy" },
+    { "type": "textarea", "id": "era_2_body", "label": "Body", "default": "In the late '90s, Tom Huber took over the shop and spent nearly three decades building one of the most diverse card and collectible inventories in the region. His love for the hobby turned Shoeless Joe's into a time capsule collectors of all ages could lose themselves in — more than a store, it was part of the community's fabric." },
+
+    { "type": "header", "content": "Era 3" },
+    { "type": "image_picker", "id": "era_3_image", "label": "Photo" },
+    { "type": "text", "id": "era_3_ph", "label": "Placeholder note", "default": "April 2025 — storm & roof damage / restoration" },
+    { "type": "text", "id": "era_3_period", "label": "Period", "default": "April 2025" },
+    { "type": "text", "id": "era_3_title", "label": "Title", "default": "A Rocky Start to a New Chapter" },
+    { "type": "textarea", "id": "era_3_body", "label": "Body", "default": "Just one week after new ownership took the reins, a major storm tore through the region — damaging the roof and causing significant flooding. The floors, walls, and ceiling had to be replaced, but we worked hard to keep the heart and soul of Shoeless Joe's intact." },
+
+    { "type": "header", "content": "Era 4" },
+    { "type": "image_picker", "id": "era_4_image", "label": "Photo" },
+    { "type": "text", "id": "era_4_ph", "label": "Placeholder note", "default": "The Burke family era — the refreshed shop today" },
+    { "type": "text", "id": "era_4_period", "label": "Period", "default": "2025 – Present" },
+    { "type": "text", "id": "era_4_title", "label": "Title", "default": "Continuing the Story" },
+    { "type": "textarea", "id": "era_4_body", "label": "Body", "default": "Now operated by brothers Dan and Kevin Burke — lifelong Cincinnatians and longtime customers — Shoeless Joe's enters a new chapter. As second-generation collectors, we're proud to preserve what Tom built while growing the shop into new territory. Same local roots. Same collector spirit. A fresh look, ready for the next generation." },
+
+    { "type": "header", "content": "Meet the Owners" },
+    { "type": "image_picker", "id": "owners_image", "label": "Photo (Kevin & Dan / the team)" },
+    { "type": "text", "id": "owners_ph", "label": "Placeholder note", "default": "Kevin & Dan Burke" },
+    { "type": "text", "id": "owners_eyebrow", "label": "Eyebrow", "default": "Meet the Owners" },
+    { "type": "text", "id": "owners_heading", "label": "Heading", "default": "THE BURKE BROTHERS" },
+    { "type": "richtext", "id": "owners_body", "label": "Body", "default": "<p>Shoeless Joe's Cards is proudly operated by brothers Kevin and Dan Burke, lifelong Cincinnati residents and passionate collectors. We've been visiting Shoeless Joe's since it first opened its doors in 1997 and have deep roots in the local hobby community.</p><p>In 2022, during the hobby's post-COVID resurgence, we launched our own card business focused on grading, collecting, and resale. Our experience includes 1,000+ submissions to PSA, BGS, SGC, and other graders. We've been active on eBay since 2001 and continue to work with platforms such as PWCC, Goldin, Collectors, Fanatics, and Rally Rd.</p><p>Our goal is to blend the classic card shop feel of Shoeless Joe's with modern tools and services that meet the needs of today's collectors.</p>" },
+
+    { "type": "header", "content": "Renovation / Reopening band" },
+    { "type": "text", "id": "reopen_eyebrow", "label": "Eyebrow", "default": "Restored, Refreshed & Reopened" },
+    { "type": "text", "id": "reopen_heading", "label": "Heading", "default": "A NEW CHAPTER FOR A WESTSIDE LANDMARK" },
+    { "type": "richtext", "id": "reopen_body", "label": "Body", "default": "<p>After a full roof replacement and new carpeting and ceiling work throughout, Shoeless Joe's has reopened its doors — restored, refreshed, and ready to serve the collecting community once again. We're grateful for the patience and support that carried us through the rebuild. The same nostalgic atmosphere, with modern services for today's hobby.</p>" },
+
+    { "type": "header", "content": "Visit Us" },
+    { "type": "text", "id": "visit_eyebrow", "label": "Eyebrow", "default": "Come See Us" },
+    { "type": "text", "id": "visit_heading", "label": "Heading", "default": "VISIT THE SHOP" },
+    { "type": "text", "id": "address", "label": "Address", "default": "6123 Bridgetown Rd, Cincinnati, OH 45248" },
+    { "type": "text", "id": "phone", "label": "Phone", "default": "513-574-4997" },
+    { "type": "url", "id": "map_link", "label": "Directions link (Google Maps)" },
+    { "type": "text", "id": "hours_sun", "label": "Sunday", "default": "11:00 AM – 2:00 PM" },
+    { "type": "text", "id": "hours_mon", "label": "Monday", "default": "Closed" },
+    { "type": "text", "id": "hours_tue", "label": "Tuesday", "default": "10:00 AM – 8:00 PM" },
+    { "type": "text", "id": "hours_wed", "label": "Wednesday", "default": "10:00 AM – 8:00 PM" },
+    { "type": "text", "id": "hours_thu", "label": "Thursday", "default": "10:00 AM – 6:00 PM" },
+    { "type": "text", "id": "hours_fri", "label": "Friday", "default": "10:00 AM – 6:00 PM" },
+    { "type": "text", "id": "hours_sat", "label": "Saturday", "default": "10:00 AM – 2:00 PM" }
+  ],
+  "presets": [{ "name": "SJ About" }]
+}
+{% endschema %}
