@@ -1,8 +1,9 @@
 {%- comment -%}
-  Shoeless Joe's custom footer — ported from the homepage mockup.
-  Navy footer with brand + tagline, a Shop menu column, a Visit column
-  (address/hours/directions), a working newsletter signup (Shopify customer
-  form), and a bottom PSA line. Scoped under .sj-ftr.
+  Shoeless Joe's custom footer.
+  Navy footer: brand + tagline, Shop menu column, Visit column
+  (address / directions / full weekly hours), and a newsletter signup.
+  Hours render as a clean day-by-day list driven by the settings below.
+  Scoped under .sj-ftr.
 {%- endcomment -%}
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap">
@@ -30,13 +31,25 @@
         </ul>
       </div>
 
-      <div class="sj-ftr-col">
+      <div class="sj-ftr-col sj-ftr-visit">
         <h4>{{ section.settings.visit_heading }}</h4>
-        <ul>
-          {%- if section.settings.visit_line1 != blank -%}<li>{{ section.settings.visit_line1 }}</li>{%- endif -%}
-          {%- if section.settings.visit_line2 != blank -%}<li>{{ section.settings.visit_line2 }}</li>{%- endif -%}
-          {%- if section.settings.visit_line3 != blank -%}<li>{{ section.settings.visit_line3 }}</li>{%- endif -%}
-          {%- if section.settings.directions_url != blank -%}<li><a href="{{ section.settings.directions_url }}">{{ section.settings.directions_label }}</a></li>{%- endif -%}
+        {%- if section.settings.address != blank -%}
+          <p class="sj-ftr-addr">{{ section.settings.address }}</p>
+        {%- endif -%}
+        {%- if section.settings.phone != blank -%}
+          <p class="sj-ftr-phone"><a href="tel:{{ section.settings.phone | remove: '-' | remove: ' ' }}">{{ section.settings.phone }}</a></p>
+        {%- endif -%}
+        {%- if section.settings.address != blank -%}
+          <a class="sj-ftr-dir" href="https://www.google.com/maps/search/?api=1&query={{ section.settings.address | url_encode }}" target="_blank" rel="noopener">{{ section.settings.directions_label }}</a>
+        {%- endif -%}
+        <ul class="sj-ftr-hours">
+          {%- if section.settings.hours_mon != blank -%}<li><span>Mon</span><span>{{ section.settings.hours_mon }}</span></li>{%- endif -%}
+          {%- if section.settings.hours_tue != blank -%}<li><span>Tue</span><span>{{ section.settings.hours_tue }}</span></li>{%- endif -%}
+          {%- if section.settings.hours_wed != blank -%}<li><span>Wed</span><span>{{ section.settings.hours_wed }}</span></li>{%- endif -%}
+          {%- if section.settings.hours_thu != blank -%}<li><span>Thu</span><span>{{ section.settings.hours_thu }}</span></li>{%- endif -%}
+          {%- if section.settings.hours_fri != blank -%}<li><span>Fri</span><span>{{ section.settings.hours_fri }}</span></li>{%- endif -%}
+          {%- if section.settings.hours_sat != blank -%}<li><span>Sat</span><span>{{ section.settings.hours_sat }}</span></li>{%- endif -%}
+          {%- if section.settings.hours_sun != blank -%}<li><span>Sun</span><span>{{ section.settings.hours_sun }}</span></li>{%- endif -%}
         </ul>
       </div>
 
@@ -59,12 +72,22 @@
 .sj-ftr *{box-sizing:border-box;}
 .sj-ftr a{text-decoration:none;color:inherit;}
 .sj-ftr-wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
-.sj-ftr-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:36px;margin-bottom:40px;}
+.sj-ftr-grid{display:grid;grid-template-columns:1.4fr 1fr 1.15fr 1.2fr;gap:36px;margin-bottom:40px;}
 .sj-ftr h4{font-family:'Bebas Neue',sans-serif;color:var(--gold);font-size:24px;letter-spacing:.05em;margin:0 0 16px;font-weight:400;}
 .sj-ftr-brand img{height:64px;width:auto;margin-bottom:14px;display:block;}
 .sj-ftr p,.sj-ftr li{font-size:14.4px;color:rgba(245,238,220,.78);line-height:1.9;list-style:none;}
 .sj-ftr ul{margin:0;padding:0;}
 .sj-ftr a:hover{color:var(--gold-l);}
+.sj-ftr-addr{margin:0 0 2px;line-height:1.6;}
+.sj-ftr-phone{margin:0 0 14px;line-height:1.4;}
+.sj-ftr-phone a{color:var(--cream2);font-weight:500;}
+.sj-ftr-dir{display:inline-block;font-family:'Bebas Neue',sans-serif;letter-spacing:.06em;font-size:16px;color:var(--gold-l);border:1px solid rgba(221,168,82,.5);border-radius:6px;padding:6px 16px;margin-bottom:18px;transition:.18s;}
+.sj-ftr-dir:hover{background:var(--gold);color:var(--navy2);}
+.sj-ftr-hours{margin:0;padding:0;}
+.sj-ftr-hours li{display:flex;justify-content:space-between;gap:16px;padding:5px 0;font-size:13.6px;line-height:1.4;border-bottom:1px solid rgba(221,168,82,.12);}
+.sj-ftr-hours li:last-child{border-bottom:none;}
+.sj-ftr-hours li span:first-child{color:rgba(245,238,220,.55);}
+.sj-ftr-hours li span:last-child{color:var(--cream2);font-weight:500;white-space:nowrap;}
 .sj-ftr-news input{width:100%;padding:11px 13px;border-radius:6px;border:1px solid var(--border);background:var(--navy);color:var(--cream);font-family:'Roboto',sans-serif;margin-bottom:10px;}
 .sj-ftr-news input::placeholder{color:rgba(245,238,220,.5);}
 .sj-ftr-sub{display:block;width:100%;text-align:center;font-family:'Bebas Neue',sans-serif;letter-spacing:.08em;font-size:18.4px;padding:11px 20px;border-radius:6px;border:none;background:var(--gold);color:var(--navy2);cursor:pointer;transition:.18s;}
@@ -84,17 +107,23 @@
   "name": "SJ Footer",
   "settings": [
     { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Falls back to the bundled logo if empty." },
-    { "type": "textarea", "id": "tagline", "label": "Tagline", "default": "Family-owned cards & collectibles since 1992. Buy, sell, trade, and grade — Lima, Ohio." },
+    { "type": "textarea", "id": "tagline", "label": "Tagline", "default": "Family-owned cards & collectibles since 1992. Buy, sell, trade, and grade — Cincinnati, Ohio." },
     { "type": "header", "content": "Shop column" },
     { "type": "text", "id": "shop_heading", "label": "Heading", "default": "Shop" },
     { "type": "link_list", "id": "shop_menu", "label": "Menu", "default": "footer" },
     { "type": "header", "content": "Visit column" },
     { "type": "text", "id": "visit_heading", "label": "Heading", "default": "Visit" },
-    { "type": "text", "id": "visit_line1", "label": "Line 1", "default": "Lima, Ohio" },
-    { "type": "text", "id": "visit_line2", "label": "Line 2", "default": "Mon–Sat: 11a–7p" },
-    { "type": "text", "id": "visit_line3", "label": "Line 3", "default": "Sun: 12p–5p" },
-    { "type": "text", "id": "directions_label", "label": "Directions label", "default": "Get directions" },
-    { "type": "url", "id": "directions_url", "label": "Directions link" },
+    { "type": "text", "id": "address", "label": "Address", "default": "6123 Bridgetown Rd, Cincinnati, OH 45248" },
+    { "type": "text", "id": "phone", "label": "Phone", "default": "513-574-4997" },
+    { "type": "text", "id": "directions_label", "label": "Directions button label", "default": "Get directions" },
+    { "type": "header", "content": "Hours", "info": "Leave a day blank to hide it." },
+    { "type": "text", "id": "hours_mon", "label": "Monday", "default": "10:00 AM – 6:00 PM" },
+    { "type": "text", "id": "hours_tue", "label": "Tuesday", "default": "10:00 AM – 8:00 PM" },
+    { "type": "text", "id": "hours_wed", "label": "Wednesday", "default": "10:00 AM – 8:00 PM" },
+    { "type": "text", "id": "hours_thu", "label": "Thursday", "default": "10:00 AM – 6:00 PM" },
+    { "type": "text", "id": "hours_fri", "label": "Friday", "default": "10:00 AM – 6:00 PM" },
+    { "type": "text", "id": "hours_sat", "label": "Saturday", "default": "10:00 AM – 4:00 PM" },
+    { "type": "text", "id": "hours_sun", "label": "Sunday", "default": "11:00 AM – 2:00 PM" },
     { "type": "header", "content": "Newsletter" },
     { "type": "text", "id": "news_heading", "label": "Heading", "default": "Stay in the loop" },
     { "type": "text", "id": "news_placeholder", "label": "Placeholder", "default": "Your email" },
