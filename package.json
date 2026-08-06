@@ -1,0 +1,19 @@
+{
+  "name": "shoelessjoes-storefront",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shoeless Joe's Cards & Collectibles — Shopify storefront theme (Ignite base)",
+  "scripts": {
+    "shopify": "shopify",
+    "dev": "shopify theme dev",
+    "check": "shopify theme check",
+    "push": "shopify theme push",
+    "pull": "shopify theme pull"
+  },
+  "devDependencies": {
+    "@shopify/cli": "^4.6.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
