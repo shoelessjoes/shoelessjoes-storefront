@@ -6,6 +6,20 @@ How to ship theme changes and Apps Script changes from this repo to production.
 
 ## Theme deployment
 
+> **⚠ Pull before you push JSON templates.**
+> The `templates/*.json` files in this repo are not all in sync with the live
+> theme. Several are empty scaffolds — they name the right section but carry
+> no `settings`, while the live theme (edited through the Shopify theme
+> editor) holds the actual content. Pushing a scaffold over live silently
+> wipes that content.
+>
+> Known-bad as of 2026-08-22: `templates/index.json` and
+> `templates/page.about.json`. A snapshot of the live versions is kept in
+> `backups/live-theme-148795555905/`.
+>
+> Always `shopify theme push --unpublished` (or push to a staging theme and
+> preview) before using `--allow-live`.
+
 ### Option 1: Manual zip upload (current default, no extra tools)
 
 1. Open PowerShell in the repo root.
