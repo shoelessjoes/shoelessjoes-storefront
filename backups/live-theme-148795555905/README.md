@@ -34,20 +34,29 @@ the repo never held their content.
 2. Layer the intended change on top of the pulled content.
 3. Diff against live and confirm nothing is dropped.
 
-## Known repo drift (as of capture)
+## Repo drift at capture — now resolved
 
-| File | Repo vs live |
-| --- | --- |
-| `sections/sj-about.liquid` | identical (`d1bfa02d…`) |
-| `sections/sj-homepage.liquid` | **differs** — live is newer (`ab639489…` vs repo `74894add…`) |
-| `templates/index.json` | **differs** — repo is an empty scaffold |
-| `templates/page.about.json` | **differs** — repo is an empty scaffold |
+| File | Repo vs live at capture | Now |
+| --- | --- | --- |
+| `sections/sj-about.liquid` | identical (`d1bfa02d…`) | unchanged |
+| `sections/sj-homepage.liquid` | **differed** — live newer | synced from live, md5 `ab639489…` verified |
+| `templates/index.json` | **differed** — empty scaffold | synced from live |
+| `templates/page.about.json` | **differed** — empty scaffold | synced from live |
 
-A full `shopify theme pull` is worth running before trusting the repo as a
-deploy source.
+The single change in `sections/sj-homepage.liquid` was a schema default:
+`"Est. 1992 · Lima, Ohio"` → `"Est. 1992 · Cincinnati, Ohio"`. It is only a
+default (the live template sets `hero_eyebrow` explicitly), so it was not
+visible on the storefront.
+
+## Verifying a sync
+
+`checksumMd5` from the Admin API is a plain md5 for `.liquid` files, so those
+can be verified exactly — `sections/sj-homepage.liquid` was. For JSON
+templates Shopify returns a normalized digest that does not match the md5 of
+the served body, so those were verified by content instead.
 
 ## Fidelity note
 
-`page.about.json` is a byte-for-byte copy of the live file, including the
-Shopify auto-generated header comment. `index.json` is semantically exact
-but reformatted (compact block objects, header comment omitted).
+Both templates here are copies of the body returned by the Admin API,
+including the Shopify auto-generated header comment, and are identical to the
+files now in `templates/`.

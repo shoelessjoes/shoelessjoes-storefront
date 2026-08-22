@@ -1,17 +1,86 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "sj_home": {
       "type": "sj-homepage",
       "blocks": {
-        "p1": { "type": "photo", "settings": { "image": "shopify://shop_images/PXL_20260226_151830711.jpg", "caption": "Display cases", "size": "widetall" } },
-        "p3": { "type": "photo", "settings": { "image": "shopify://shop_images/PXL_20260127_155147061.MP.jpg", "caption": "Wax wall", "size": "normal" } },
-        "p5": { "type": "photo", "settings": { "image": "shopify://shop_images/PXL_20260226_151916854_551cdaff-5dbb-4c61-a7ef-60f354e9b239.jpg", "caption": "Grading desk", "size": "normal" } },
-        "p6": { "type": "photo", "settings": { "image": "shopify://shop_images/PXL_20250911_220545607.jpg", "caption": "Storefront", "size": "wide" } },
-        "v1": { "type": "vend", "settings": { "name": "Stumps / Cinful Eats", "location": "Active mystery list", "status_label": "Live now", "status_style": "live" } },
-        "v2": { "type": "vend", "settings": { "name": "Western Bowl", "location": "Active mystery list", "status_label": "Live now", "status_style": "live" } },
-        "v3": { "type": "vend", "settings": { "name": "West Central Station", "location": "Coming soon", "status_label": "ETA 6/26", "status_style": "soon" } }
+        "p1": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/PXL_20260226_151830711.jpg",
+            "caption": "Display cases",
+            "size": "widetall"
+          }
+        },
+        "p3": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/PXL_20260127_155147061.MP.jpg",
+            "caption": "Wax wall",
+            "size": "normal"
+          }
+        },
+        "p5": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/PXL_20260226_151916854_551cdaff-5dbb-4c61-a7ef-60f354e9b239.jpg",
+            "caption": "Grading desk",
+            "size": "normal"
+          }
+        },
+        "p6": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/PXL_20250911_220545607.jpg",
+            "caption": "Storefront",
+            "size": "wide"
+          }
+        },
+        "v1": {
+          "type": "vend",
+          "settings": {
+            "name": "Stumps / Cinful Eats",
+            "location": "Active mystery list",
+            "status_label": "Live now",
+            "status_style": "live"
+          }
+        },
+        "v2": {
+          "type": "vend",
+          "settings": {
+            "name": "Western Bowl",
+            "location": "Active mystery list",
+            "status_label": "Live now",
+            "status_style": "live"
+          }
+        },
+        "v3": {
+          "type": "vend",
+          "settings": {
+            "name": "West Central Station",
+            "location": "Coming soon",
+            "status_label": "ETA 6/26",
+            "status_style": "soon"
+          }
+        }
       },
-      "block_order": ["p1", "p3", "p5", "p6", "v1", "v2", "v3"],
+      "block_order": [
+        "p1",
+        "p3",
+        "p5",
+        "p6",
+        "v1",
+        "v2",
+        "v3"
+      ],
       "settings": {
         "hero_image": "shopify://shop_images/PXL_20250223_171815608_-_Copy.jpg",
         "hero_eyebrow": "Est. 1997 · Cincinnati, Ohio",
@@ -62,5 +131,8 @@
       }
     }
   },
-  "order": ["sj_home", "17830569683ca1d4d2"]
+  "order": [
+    "sj_home",
+    "17830569683ca1d4d2"
+  ]
 }
